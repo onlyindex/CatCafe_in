@@ -1,19 +1,11 @@
-from flask import Flask,request
-import config
+from flask import Flask, request
+
 
 # 初始化一个flask对象(程序实例),传递一个参数__name__
 app = Flask(__name__)
-# app.config.from_object(config)
-# app_ctx=app.app_context()
-# app_ctx.push()
-# current_app.__name__
-# app.url_map
-#
-# map([<Rule'/'(HEAD,OPTIONS,GET)->index>,
-#  <Rule '/statc/<filename>'(HEAD,OPTIONS,GET)->static>],
-#  <Rule'/user/name>'(HEAD,OPTIONS,GET)->user>)
+
 # # 方便flask框架寻找资源'/'
-# # 方便flask初见比如flask-Sqlalchemy出现错误好定位问题
+# # 方便flask初见比如flask-Sql alchemy出现错误好定位问题
 # # 装饰器url与视图的映射(路由):192.168.1.5000/,请求index函数,结果返回浏览器
 # # index view function 视图函数:字符串 or 复杂表单
 # # Python嵌入字符串导致代码难以维护?
@@ -23,10 +15,9 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     user_agent = request.headers.get('User-Agent')
-    return '<h1>Hello!<h1><br><p>Your brower is %s</p>' % user_agent
+    return '<h1>Hello!<h1><br><p>Your browser is %s</p>' % user_agent
 
 
-# 路由可以是int float path path是字符串动态片段不把斜线当分隔符
 # 动态路由_(:з」∠)_
 @app.route('/user/<name>')
 def show_myself(name):
@@ -44,8 +35,8 @@ def show_user_id(user_id):
 # 路由只匹配动态片段id为整数的URL
 
 @app.route("/wb/<uuid>")
-def show_weibo(uuid):
-    return "wb context from %s" % uuid
+def show_twitter(uuid):
+    return "twitter context from %s" % uuid
 
 
 @app.route('/article/<article_id>')
