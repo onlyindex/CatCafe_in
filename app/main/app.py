@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request
+from flask import Flask, url_for, request, render_template
 
 app = Flask(__name__)
 
@@ -6,7 +6,7 @@ app = Flask(__name__)
 # index
 @app.route('/')
 def index():
-    return 'index page'
+    return render_template('index.html')
 
 
 # article list
@@ -33,6 +33,12 @@ def show_locus(l_id):
     return 'locus %d' % l_id
 
 
+# message
+@app.route('/message')
+def message():
+    return 'message list'
+
+
 # friend list
 @app.route('/friend')
 def show_friend_list():
@@ -46,9 +52,9 @@ def show_tag_list(tag_name):
 
 
 # support catcafe in
-@app.route('/kooru')
+@app.route('/koorukooru')
 def koorukooru():
-    return 'kooru 花点钱要办茶会买猫买猫粮'
+    return 'koorukooru 花点钱要办茶会买猫买猫粮'
 
 
 # resume
@@ -75,7 +81,7 @@ def login():
 # sign up
 @app.route('/signup')
 def sign_up():
-    return 'sign up '
+    return render_template('signup.html')
 
 
 @app.route('/user/<username>')
