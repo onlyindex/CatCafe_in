@@ -14,3 +14,9 @@ from . import errors, views
 @main.app_context_processor
 def inject_permissions():
     return dict(Permission=Permission)
+
+main = Blueprint('main', __name__)
+
+from . import views, errors
+# 模块在末尾导入为了避免循环依赖??不懂
+

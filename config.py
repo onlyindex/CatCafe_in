@@ -10,6 +10,8 @@ class Config:
 
     FLASK_MAIL_SUBJECT_PREFIX = '[Catcafe_in]'
     FLASK_MAIL_SENDER = 'CatMaster<catmaster@gmail.com>'
+    FLASK_MAIL_SUBJECT_PREFIX = '[Catcafe]'
+    FLASK_MAIL_SENDER = 'Catcafe Admin<onlyindex@gmail.com>'
     FLASK_ADMIN = os.environ.get('FLASK_ADMIN')
 
     @staticmethod

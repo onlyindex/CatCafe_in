@@ -2,6 +2,8 @@
 import os
 
 from flask import Flask
+# from flask_bootstrap import Bootstrap
+from .model import db
 
 # from flask_bootstrap import Bootstrap
 from flask_mail import Mail
@@ -19,6 +21,7 @@ from .auth import auth as auth_blueprint
 
 
 # 应用程序工厂
+
 def create_app(test_config=None):
     # 创建 app
     """Create and configure an instance of the Flask application."""
@@ -69,12 +72,27 @@ db = SQLALCHEMY()
 
 def create_app(config_name):
     app = Flask(__name__)
+
+
+# 创建实例
+# bootstrap=Bootstrap()
+mail = Mail()
+moment = Moment()
+db = SQLALCHEMY()
+
+
+# 扩展初始化
+
+def create_app(config_name):
+    app = Flask(__name__)
+
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
 
     # bootstrap.init_app(app)
     mail.init_app(app)
     moment.init_app(app)
+
     # register the database commands
     db.init_app(app)
     login_manager.init_app(app)
@@ -87,6 +105,12 @@ def create_app(config_name):
     # 登录页面使用的模板保存在 auth/login.html 文件中
     app.register_blueprint(auth.bp, url_prefix='/auth')
     app.register_blueprint(article.bp, url_prefix='/article')
+
+    db.init_app(app)
+
+    # 注册蓝本
+    from .main import main as main_blueprint
+    app.register_blueprint(main_blueprint)
 
     app.register_blueprint(admin)
     app.register_blueprint(frontend)

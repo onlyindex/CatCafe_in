@@ -1,7 +1,12 @@
-from flask import Flask, url_for, request, render_template, make_response
+from flask import Flask, url_for, request, render_template, make_response, flash
 from datetime import datetime
 
-from app.main import RegistrationForm
+from werkzeug.utils import redirect
+from flask import Flask, url_for, request, render_template
+
+from app.main.forms import SignupForm
+from app.models import User
+from database import db_session
 
 app = Flask(__name__)
 
@@ -14,6 +19,18 @@ def index():
     response = make_response('this decumnet carries a cookies')
     response.setcookie('answer', '42')
     return render_template('index.html',current_time=datetime.utcnow()), response
+
+
+# article list
+@app.route('/article')
+def show_article_list():
+    return 'article list '
+
+
+# article by id
+@app.route('/article/<int:a_id>')
+def show_article(a_id):
+    return 'artilce %d' % a_id
 
 
 # locus list
@@ -76,7 +93,7 @@ def login():
 # sign up
 @app.route('/signup', methods=['GET', 'POST'])
 def sign_up():
-    form = RegistrationForm(request.form)
+    form = SignupForm(request.form)
     if request.method == 'POST' and form.validate():
         user = User(form.username.data, form.email.data,
                     form.password.data)
@@ -85,7 +102,7 @@ def sign_up():
         return redirect(url_for('login'))
     return render_template('signup.html', form=form)
 
-# user
+
 @app.route('/user/<username>')
 def profile(username):
     return render_template('user.html', name=username)
