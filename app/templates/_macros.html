@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% macro pagination_widget(pagination, endpoint) %}
+
+<ul class="pagination">
+    <!--如果当前页是第一页，为这个链接加上 disabled 类-->
+    <li
+            {% if not pagination.has_prev %} class="disabled" {% endif %}>
+        <a href="{% if pagination.has_prev %}{{ url_for(endpoint,
+page = pagination.page-1, **kwargs) }}{% else %}#{% endif %}">
+            &laquo; </a>
+    </li>
+    <!--分页对象的 iter_pages() 迭代器返回的所有页面链接-->
+    {% for p in pagination.iter_pages() %}
+    {%if p%}
+    {% if p == pagination.page %}
+    <li class="active">
+        <!--不用加入 **kwargs 即可接收关键字参数,
+        分页宏把接收到的所有关键字参数都传给了生成分页链接的 url_for() 方法-->
+        <a href="{{ url_for(endpoint, page = p, **kwargs) }}">{{ p }}</a>
+    </li>
+    {% else %}
+    <li>
+        <a href="{{ url_for(endpoint, page = p, **kwargs) }}">{{ p }}</a>
+    </li>
+    {% endif %}
+    {% else %}
+    <li class="disabled"><a href="#">&hellip;</a></li>
+    {% endif %}
+    {% endfor %}
+    <!--如果当前页是最后一页，禁用这个链接-->
+    <li
+            {% if not pagination.has_next %} class="disabled" {% endif %}><a href="{% if pagination.has_next %}{{ url_for(endpoint,
+page = pagination.page + 1, **kwargs) }}{% else %}#{% endif %}">
+        &raquo; </a>
+    </li>
+</ul>
+
+
+{% endmacro %}
+</body>
+</html>

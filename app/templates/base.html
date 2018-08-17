@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% block head %}
+    <meta charset="UTF-8">
+    <!--移动设备优先 屏幕缩放比例自适应-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Latest Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://unpkg.com/ionicons@4.2.6/dist/css/ionicons.min.css" rel="stylesheet">
+
+    <style>
+
+    </style>
+
+    <!--收藏夹图标-->
+    <link rel="icon" type="image/x-icon" href="{{url_for('static',filename='images/favicon.ico')}}">
+    <!--title-->
+    {% block title %}catcafe_in{% endblock %}
+{% endblock%}
+</head>
+<body>
+{% block body %}
+
+
+<!--navbar-->
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-light  shadow-sm p-1 mb-2 bg-white rounded">
+ <!--navbar brand-->
+  <a class="navbar-brand" >
+      <img src="{{url_for('static',filename='images/logo.png')}}" width="160" height="40" alt="">
+  </a>
+  <!--navbar-collages-->
+  <div class="collapse navbar-collapse" justify-content-center>
+      <!--mr-auto啥意思-->
+      <ul class="navbar-nav mr-auto">
+        <!--kooru-->
+        <li class="nav-item">&nbsp;
+            <p class="font-italic align-bottom text-nowrap bd-highlight " style="width:100%;">
+                <a href="{{url_for('koorukooru')}}" class="text-success">kooru!*o(￣▽￣)ｄ</a></p>
+        </li>
+        <!--work/bug/@-->
+        <li class="nav-item">
+            <a class="nav-link" href="{{url_for('show_article_list')}}">
+                <ion-icon name="code-working" class="align-middle"></ion-icon>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url_for('show_locus_list')}}">
+                <ion-icon name="bug" class="align-middle"></ion-icon>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{url_for('message')}}">
+                <ion-icon name="at" class="align-middle"></ion-icon>
+            </a>
+        </li>
+      </ul>
+  <!--登录注销判断-->
+
+  <div class="nav-item dropdown">
+      {% if current_user.is_authenticated() %}
+       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+         aria-haspopup="true" aria-expanded="false">
+           <!--已登录用户头像的小型缩略图src="{{url_for('static',filename='images/myself.jpg')}}"-->
+          <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=256) }}"
+                width="30" height="30" alt="" class="rounded-circle">
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{url_for('index')}}">退出</a>
+      </div>
+
+      {% else %}
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+         aria-haspopup="true" aria-expanded="false">
+          <img src="{{url_for('static',filename='images/default.jpg')}}" width="30" height="30" alt="" class="rounded-circle">
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{url_for('login')}}">登录</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{url_for('sign_up')}}">注册</a>
+
+      </div>
+      {% endif %}
+
+
+
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{url_for('login')}}">登录</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{url_for('sign_up')}}">注册</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{url_for('index')}}">退出</a>
+      </div>
+</div>
+
+<!--三-->
+<button type="button" class="navbar-toggle"
+        data-toggle="collapse" data-target=".navbar-collapse">
+    <span class="sr-only">toggle navigation</span>
+    <span class="icon-bar">1</span>
+    <span class="icon-bar">2</span>
+    <span class="icon-bar">3</span>
+</button>
+</nav>
+{% endblock %}
+
+
+<!--content  say hello time  2 few seconds age L LL LLL LLLL-->
+{% block content %}
+<div class="container">
+    {% blcok page_content %}
+    <div class="page-header">
+        {% if username %}
+        hello ,{{username}}!
+        {% else %}
+        hello ,Stranger!
+        {% end if %}
+
+        <p>the local date and time is {{moment(current_time).format('LLL')}}</p>
+        <p>that was {{moment(current_time).fromNow(refresh=True))}}</p>
+
+        {% if not known %}
+        Pleased to meet you!
+        {% else %}
+        Happy to see you again!
+        {% endif %}
+
+<!--为已登录用户显示欢迎信息-->
+    Hello,
+{% if current_user.is_authenticated() %}
+{{ current_user.username }}
+{% else %}
+Stranger
+{% endif %}!
+    </div>
+    {% endblock %}
+</div>
+{% endblock%}
+
+  <!--未认证的用户也能看到导航条，但看不到资料页面的链接。-->
+{% if current_user.is_authenticated() %}
+<li>
+<a href="{{ url_for('main.user', username=current_user.username) }}"> Profile
+</a>
+</li>
+{% endif %}
+
+<!--script-->
+{% block scripts%}
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+<!-- Latest Bootstrap4 核心 JavaScript 文件 -->
+<script src="https://unpkg.com/ionicons@4.2.6/dist/ionicons.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+
+<!--引入 moment.js-->
+{{super()}}
+{{moment.include_moment}}
+
+{% endblock %}
+
+{% endblock %}
+</body>
+</html>

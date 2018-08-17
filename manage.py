@@ -14,6 +14,7 @@ manager = Manger(app)
 migrate= Migrate(app.db)
 
 # 为 python shell 定义上下文
+# make_shell_context() 函数注册了程序、数据库实例以及模型
 def make_shell_context():
     return dict(app=app,db=db,User=User,Role=Role)
 manager.add_command('shell',Shell(make_context=make_shell_context))

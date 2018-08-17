@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--app/templates/auth/email/confirm.txt一个电子邮件需要两个模板，分别用于渲染纯文本正文和富文本正文。纯文本模板-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% blcok title %}
+ <title>catcafe_in confirm email</title>
+    {% endblock %}
+</head>
+<body>
+{% block page_content %}
+
+<div class="page-context">
+    Dear {{ user.username }},
+    Welcome to Catcafe.in!
+    To confirm your account please click on the following link:
+    {{ url_for('auth.confirm', token=token, _external=True) }}
+    # _external=True 参数要求程序生成完整的 URL，其中包含协议(http:// 或 https://)、主机名和端口
+    # url_for('auth.confirm', 回的字符串是 '/auth/confirm/abc'
+    Sincerely, The CatCafeIn Team
+    Note: replies to this email address are not monitored.
+</div>
+
+{% endblock %}
+</body>
+</html>
