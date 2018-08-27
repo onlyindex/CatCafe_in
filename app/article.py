@@ -1,22 +1,14 @@
-# 创建博客蓝图
-
-from flask import Blueprint, flash, g, redirect, render_template, request, url_for, abort
+from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 
 from werkzeug.exceptions import abort
 from jinja2 import TemplateNotFound
 
 from app.auth import login_required
-from app.db import get_db
-
-# simple_page=bp=article  url_prefix='蓝图位置' 蓝图挂接位置不同蓝图不同   __name__ 这个参数 指定与蓝图相关的逻辑 Python 模块或包
-bp = Blueprint('article', __name__, url_prefix='/article')
-
-
-# @bp.route('/', defaults={'page': 'index'})
+from db import get_db
 
 
 # article list
-@bp.route('/article')
+@app.route('/article')
 def show_article_list():
     """Show all the posts, most recent first."""
     db = get_db()
@@ -26,6 +18,7 @@ def show_article_list():
         ' ORDER BY created DESC'
     ).fetchall()
     return render_template('article/index.html', posts=posts)
+
 
 # 通过 id 来获取一个 post ，并且 检查作者与登录用户是否一致 打包函数 在每个视图中调用
 def get_post(id, check_author=True):
@@ -54,10 +47,36 @@ def get_post(id, check_author=True):
     return post
 
 
+# 新建文章和文章列表(+分页)路由
+@app.route('/aritcle', methods=['GET', 'POST'])
+def article():
+    form = PostForm()
+    # 在发布新文章之前，要检查当前用户是否有写文章的权限
+    if current_user.can(Permission.WRITE_ARTICLES) and \
+            form.validate_on_submit():
+        # 把表单和完整的博客文章列表传给模板
+        post = Post(body=form.body.data,
+                    author=current_user._get_current_object())
+        db.session.add(post)
+        return redirect(url_for('.index'))
+    # 渲染的页数从请求的查询字符串(request.args)中获取
+    page = request.args.get('page', 1, type=int)
+    # 文章列表按照时间戳进行降序排列
+    # posts = Post.query.order_by(Post.timestamp.desc()).all()
+    # 显示某页中记录， all() -> Flask-SQLAlchemy 提供的 paginate() 方法
+    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
+        page, per_page=current_app.config['FLASKY_POSTS_PER_PAGE'],
+        error_out=False)
+    return render_template('index.html', form=form, posts=posts, pagination=pagination)
+    # 必选参数 page=页数
+    # 可选参数per_page=每页显示的记录数量,默认显示 20 个记录,从程序的环境变量 FLASKY_POSTS_PER_PAGE 中读取
+    # 可选参数为 error_ out=True (默认值)请求页数超出了范围 404 错误;
+    # error_ out=False，页数超出范围时会返回一个空列表
+    # 第2页文章 URL?page=2
 
 
 # creat article
-@bp.route('/article/create', methods=('GET', 'POST'))
+@app.route('/article/create', methods=('GET', 'POST'))
 @login_required
 def create():
     """Create a new post for the current user."""
@@ -85,13 +104,8 @@ def create():
     return render_template('article/create.html')
 
 
-
-
-
-
-
 # update article
-@bp.route('/article/<int:id>/update', methods=('GET', 'POST'))
+@app.route('/article/<int:id>/update', methods=('GET', 'POST'))
 @login_required
 def update(id):
     """Update a post if the current user is the author."""
@@ -123,7 +137,7 @@ def update(id):
 # url_for('article.update', id=post['id']
 # update 视图使用了一个 post 对象和一个 UPDATE 查询代替了一个 INSERT 查询。
 # delete article
-@bp.route('/article/<int:id>/delete', methods=('POST',))
+@app.route('/article/<int:id>/delete', methods=('POST',))
 @login_required
 def delete(id):
     """Delete a post.
@@ -138,16 +152,10 @@ def delete(id):
 
 
 # article by id
-@bp.route('/article/<int:id>')
+@app.route('/article/<int:id>')
 def show_article(id):
     try:
         return render_template('/article/%d.html' % id)
     # return 'artilce %d' % a_id
     except TemplateNotFound:
         abort(404)
-
-
-# article 404
-@bp.errorhandler(404)
-def page_not_found(e):
-    return render_template('/article/404.html')

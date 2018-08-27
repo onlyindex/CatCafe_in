@@ -1,9 +1,8 @@
-import self as self
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from database import Base
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask.ext.login import UserMixin, AnonymousUserMixin
+from flask_login import UserMixin, AnonymousUserMixin
 from . import login_manager
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
@@ -87,6 +86,8 @@ class User(UserMixin, Base):
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     # default 参数可以接受函数作为默认值
 
+    posts = db.relationship('Post', backref='author', lazy='dynamic')
+
     role_id = Column(Integer, ForeignKey('roles.id'))
 
     # 添加到 User 模型中的 role_id 列 被定义为外键  通过db.ForeignKey() 把  roles 表中行的 id 值(roles.id) 传给 user 表中的 role_id。
@@ -127,35 +128,34 @@ class User(UserMixin, Base):
         return '<User %r>' % self.username
 
     # 生成令牌有效期默认为一小时
-
+# index・_・?
+# 会话保护和记忆令牌有啥关系?
     def generate_confirmation_token(self, expiration=3600):
 
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
+        return s.dumps({'confirm': self.id})
 
-    return s.dumps({'confirm': self.id})
-
-    # 检验令牌
+    # 检验令牌(注册用的)
 
     def confirm(self, token):
 
         s = Serializer(current_app.config['SECRET_KEY'])
-
-    try:
-        data = s.loads(token)
+        try:
+            data = s.loads(token)
         # 检验通过新添加的 confirmed 属性设为 True。
-    except:
-        return False
-    # 检查令牌中的 id 是否和存储在 current_user 中的已登录 用户匹配。
-    # 即使恶意用户知道如何生成签名令牌，也无法确认别人的账户
-    if data.get('confirm') != self.id:
-        return False
-    self.confirmed = True
-    db.session.add(self)
-    return True
+        except():
+            return False
+        # 检查令牌中的 id 是否和存储在 current_user 中的已登录 用户匹配。
+        # 即使恶意用户知道如何生成签名令牌，也无法确认别人的账户
+        if data.get('confirm') != self.id:
+            return False
+        self.confirmed = True
+
+        db.session.add(self)
+        return True
 
     # 修改邮箱
     def change_email(self, token):
-        # ...
         self.email = new_email
         self.avatar_hash = hashlib.md5(
             self.email.encode('utf-8')).hexdigest()
@@ -163,10 +163,11 @@ class User(UserMixin, Base):
         return True
 
     # 从会话中存储的用户 ID( unicode ID 作为参数) 重新加载用户对象 user_loader 回调函数 找不到用户返回 none
-
+    # reload the user object from the user ID stored in the session
+    # user_id 指的是 User 模型中的 id 字段么?
     @login_manager.user_loader
-    def load_user(userid):
-        return User.get(userid)
+    def load_user(user_id):
+        return User.get(user_id)
 
     # 刷新用户最后访问时间 last_seen 每次收到用户的请求时都要调用 ping() 方法
     def ping(self):
@@ -179,7 +180,7 @@ class User(UserMixin, Base):
             url = 'https://secure.gravatar.com/avatar'
         else:
             url = 'http://www.gravatar.com/avatar'
-        hash =self.avatar_hash or hashlib.md5(self.email.encode('utf-8')).hexdigest()
+        hash = self.avatar_hash or hashlib.md5(self.email.encode('utf-8')).hexdigest()
         # gravatar() 方法会使用模型中保存的散列值,模型没有就计算
         # 头像URL由URL基、用户电子邮件地址的MD5散列值和参数组成，而且各参数都设定了默认值
         # 若用户更新了电子邮件 地址，则会重新计算散列值
@@ -196,6 +197,75 @@ class AnonymousUser(AnonymousUserMixin):
         return False
 
 
+from ._compat import PY2, text_type
+
+
+class UserMixin(object):
+    '''
+    This provides default implementations for the methods that Flask-Login
+    expects user objects to have.
+    '''
+
+    if not PY2:
+        # pragma: no cover
+        # Python 3 implicitly set __hash__ to None if we override __eq__
+        # We set it back to its default implementation
+        __hash__ = object.__hash__
+
+    @property
+    def is_active(self):
+        return True
+
+    @property
+    def is_authenticated(self):
+        return True
+
+    @property
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        try:
+            return text_type(self.id)
+        except AttributeError:
+            raise NotImplementedError('No `id` attribute - override `get_id`')
+
+    def __eq__(self, other):
+        '''
+        Checks the equality of two `UserMixin` objects using `get_id`.
+        '''
+        if isinstance(other, UserMixin):
+            return self.get_id() == other.get_id()
+        return NotImplemented
+
+    def __ne__(self, other):
+        '''
+        Checks the inequality of two `UserMixin` objects using `get_id`.
+        '''
+        equal = self.__eq__(other)
+        if equal is NotImplemented:
+            return NotImplemented
+        return not equal
+
+
+class AnonymousUserMixin(Base):
+    @property
+    def is_authenticated(self):
+        return False
+
+    @property
+    def is_active(self):
+        return False
+
+    @property
+    def is_anonymous(self):
+        return True
+
+    def get_id(self):
+        return
+
+#  custom requirements for anonymous users
+# provide a callable ( class /factory function) that creates anonymous users to the LoginManager with
 login_manager.anonymous_user = AnonymousUser
 
 
@@ -207,14 +277,12 @@ class permission:
     MODERATE_COMMENT = 0x08
     ANMINSITER = 0x80
 
+
 # 文章模型
-class Post(db.Model):
+class Post(Base):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
     # 字段: 正文/时间戳/作者(id) 1个作者多篇文章
     body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-     class User(UserMixin, db.Model):
-         # ...
-posts = db.relationship('Post', backref='author', lazy='dynamic')

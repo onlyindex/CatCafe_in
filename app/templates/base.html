@@ -60,6 +60,7 @@
   <!--登录注销判断-->
 
   <div class="nav-item dropdown">
+      <!--#判断当前用户是否是匿名用户{% if current_user.is_authenticated() %}-->
       {% if current_user.is_authenticated() %}
        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
          aria-haspopup="true" aria-expanded="false">
@@ -128,14 +129,19 @@
         {% endif %}
 
 <!--为已登录用户显示欢迎信息-->
-    Hello,
-{% if current_user.is_authenticated() %}
-{{ current_user.username }}
-{% else %}
-Stranger
-{% endif %}!
+        Hello,
+        {% if current_user.is_authenticated() %}
+        {{ current_user.username }}
+        {% else %}
+        Stranger
+        {% endif %}!
+<!--当前时间-->
+        today is {{current_time}}
+
     </div>
     {% endblock %}
+
+
 </div>
 {% endblock%}
 

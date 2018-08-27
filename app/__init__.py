@@ -3,26 +3,18 @@ import os
 
 from flask import Flask
 # from flask_bootstrap import Bootstrap
-from .model import db
-
-# from flask_bootstrap import Bootstrap
 from flask_mail import Mail
 from flask_moment import Moment
-from flask_sqlalchemy import SQLALCHEMY
-from flask.ext.login import LoginManager
 from config import config
 # from app.model import db
 from app import db
-from app.views.admin import admin
-from app.views.frontend import frontend
-from .article import article
-from app.main import main as main_blueprint
-from .auth import auth as auth_blueprint
+
 
 
 # 应用程序工厂
 
 def create_app(test_config=None):
+    print("create_app(test_config=None) run")
     # 创建 app
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__, instance_relative_config=True)
@@ -56,6 +48,9 @@ def create_app(test_config=None):
 
 # 创建实例
 # bootstrap=Bootstrap()
+mail = Mail()
+moment = Moment()
+db = SQLALCHEMY()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 # login_manager.login_view = 'auth.login'
@@ -63,27 +58,16 @@ login_manager.login_view = 'login'
 # 会话保护 None、'basic' 或 'strong'，不同的安全等级
 # 'strong' 时，Flask-Login 会记录客户端 IP 地址和浏览器的用户代理信息，
 # login_view 属性设置登录页面 的端点。
-mail = Mail()
-moment = Moment()
-db = SQLALCHEMY()
 
 
-# 扩展初始化
 
-def create_app(config_name):
-    app = Flask(__name__)
-
-
-# 创建实例
-# bootstrap=Bootstrap()
-mail = Mail()
-moment = Moment()
-db = SQLALCHEMY()
 
 
 # 扩展初始化
+# index・_・? 啥时候能把这两个 create_app() 合并一下 Thanks♪(･ω･)ﾉ
 
 def create_app(config_name):
+    print("create_app(config_name) run")
     app = Flask(__name__)
 
     app.config.from_object(config[config_name])
@@ -96,34 +80,5 @@ def create_app(config_name):
     # register the database commands
     db.init_app(app)
     login_manager.init_app(app)
-
-    # 注册蓝图  url_prefix='蓝图位置'  apply the blueprints to the app
-
-    app.register_blueprint(main_blueprint)
-    app.register_blueprint(auth_blueprint, url_prefix='/auth')
-    # /login 路由会注册成 /auth/ login， URL  http://localhost:5000/auth/login
-    # 登录页面使用的模板保存在 auth/login.html 文件中
-    app.register_blueprint(auth.bp, url_prefix='/auth')
-    app.register_blueprint(article.bp, url_prefix='/article')
-
-    db.init_app(app)
-
-    # 注册蓝本
-    from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
-
-    app.register_blueprint(admin)
-    app.register_blueprint(frontend)
-
-    # 附加路由和自定义错误页面
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
-
-    # make url_for('index') == url_for('blog.index')
-    # in another app, you might define a separate main index here with
-    # app.route, while giving the blog blueprint a url_prefix, but for
-    # the tutorial the blog will be the main index
-    app.add_url_rule('/', endpoint='index')
 
     return app
