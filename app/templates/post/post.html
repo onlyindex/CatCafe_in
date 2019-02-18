@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+{% block title %}日志详情{% endblock %}
+{% block page_content %}
+<article class="post">
+    <h1>{{ post['title'] }}</h1>
+    <!--如果浏览别人的文章才会出现作者名+头像+发布时间-->
+    {% if g.user['id'] == post['author_id'] %}
+    <div class="post-author">
+        <div class="post-author">
+            <a href="{{ url_for('.user', username=post.author_id.username) }}">
+            {{ post.author_id.username }}
+            </a>
+            <img href="{{ url_for('.user', username=post.author_id.gravater) }}">
+            {{ post.author_id.gravater }}
+            </img>
+        </div>
+        <div class="post-date">
+                {{ moment(post.timestamp).fromNow() }}
+                {{ post['created'].strftime('%Y-%m-%d') }}
+        </div>
+    </div>
+     {% endif %}
+    <div class="body">{{ post['body'] }}</div>
+</article>
+{% endblock %}

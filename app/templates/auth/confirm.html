@@ -1,15 +1,6 @@
-<!DOCTYPE html>
 <!--app/templates/auth/email/confirm.txt一个电子邮件需要两个模板，分别用于渲染纯文本正文和富文本正文。纯文本模板-->
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% blcok title %}
- <title>catcafe_in confirm email</title>
-    {% endblock %}
-</head>
-<body>
+{% block title %}catcafe_in confirm email{% endblock %}
 {% block page_content %}
-
 <div class="page-context">
     Dear {{ user.username }},
     Welcome to Catcafe.in!
@@ -20,7 +11,11 @@
     Sincerely, The CatCafeIn Team
     Note: replies to this email address are not monitored.
 </div>
-
 {% endblock %}
-</body>
-</html>
+
+<!--分页导航-->
+{% include '_posts.html' %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.index') }}
+</div>
+

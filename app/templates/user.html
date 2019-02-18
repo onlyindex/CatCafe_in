@@ -1,44 +1,51 @@
 {% extends 'base.html' %}
-{% import "_macros.html" as macros %}
-<head>
-    <title>
-        {% block titile %}catcafe_in{% endblock %}
-    </title>
-</head>
-<body>
+{% block title %}about_myself{% endblock %}
+
 {% block page_content %}
 
-<div class="page-header">
-    <h1>{{ user.username }}</h1>
-    <!--用户资料页的头像-->
+<div id="about_user">
+    {% if user.username or user.location %}
+
+    {% if user.username %}
     <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=256) }}">
-    {% if user.name or user.location %}
-    <p>
-        {% if user.name %}{{ user.name }}{% endif %}
-        {% if user.location %}
-        From <a href="http://maps.google.com/?q={{ user.location }}">
-        {{ user.location }}
-    </a>
-        {% endif %} </p>
+    {{ user.username }}
+    {% endif %}
+
+    {% if user.location %}
+    From <a href="http://maps.google.com/?q={{ user.location }}">{{ user.location }}</a>
+    {% endif %}
+
     {% endif %}
 
     {% if current_user.is_administrator() %}
-    <p><a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+    <a href="mailto:{{ user.email }}">{{ user.email }}</a>
     {% endif %}
 
     {% if user.about_me %}
     <p>{{ user.about_me }}</p>
     {% endif %}
+
     <p>
         Member since {{ moment(user.member_since).format('L') }}.
         Last seen {{ moment(user.last_seen).fromNow() }}.
     </p>
+    <!--其他用户对这个用户的弹幕评价-->
+   <ul>
+    {% for comment in comments %}
+    <li>
+        {{ comment }}
+    </li>
+    {% endfor %}
+   </ul>
 </div>
 <!--用户资料编辑链接-->
 {% if user == current_user %}
 <a class="btn btn-default" href="{{ url_for('.edit_profile') }}">
     Edit Profile </a>
 {% endif %}
+
+
+
 <!--管理员使用的资料编辑链接-->
 {% if current_user.is_administrator() %}
 <a class="btn btn-danger"
@@ -46,17 +53,11 @@
     Edit Profile [Admin]
 </a>
 {% endif %}
-<!--用户博客文章_posts.html 下划线前缀独立模板和局部模板-->
-<h3>Posts by {{ user.username }}</h3>
-{% include '_posts.html' %}
-<!--分页导航-->
-<div class="pagination">
-    {{ macros.pagination_widget(pagination, '.index') }}
-</div>
+
 {% endblock %}
 
+<a href="{{ url_for('.user', username=post.author.username) }}">
 
-</body>
 
 
 

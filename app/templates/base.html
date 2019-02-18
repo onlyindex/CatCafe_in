@@ -1,180 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{% block head %}
+    {% block header %}
+    {% block metas %}
     <meta charset="UTF-8">
     <!--移动设备优先 屏幕缩放比例自适应-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Latest Bootstrap4 核心 CSS 文件 -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link href="https://unpkg.com/ionicons@4.2.6/dist/css/ionicons.min.css" rel="stylesheet">
-
-    <style>
-
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no">
+    {% endblock %}
 
     <!--收藏夹图标-->
-    <link rel="icon" type="image/x-icon" href="{{url_for('static',filename='images/favicon.ico')}}">
-    <!--title-->
-    {% block title %}catcafe_in{% endblock %}
-{% endblock%}
+    <link rel="icon" type="image/x-icon" width="40" height="40" href="{{url_for('static',filename='static/images/favicon.png')}}">
+
+
+    <title>{% block title %}catcafe_in{% endblock %}</title>
+
+    {% block styles %}
+    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='styles/phone.css' ) }}" />
+
+    {% endblock %}
+
+    {% endblock %}
 </head>
-<body>
 {% block body %}
-
-
-<!--navbar-->
+<body>
 {% block navbar %}
-<nav class="navbar navbar-expand-lg navbar-light  shadow-sm p-1 mb-2 bg-white rounded">
- <!--navbar brand-->
-  <a class="navbar-brand" >
-      <img src="{{url_for('static',filename='images/logo.png')}}" width="160" height="40" alt="">
-  </a>
-  <!--navbar-collages-->
-  <div class="collapse navbar-collapse" justify-content-center>
-      <!--mr-auto啥意思-->
-      <ul class="navbar-nav mr-auto">
-        <!--kooru-->
-        <li class="nav-item">&nbsp;
-            <p class="font-italic align-bottom text-nowrap bd-highlight " style="width:100%;">
-                <a href="{{url_for('koorukooru')}}" class="text-success">kooru!*o(￣▽￣)ｄ</a></p>
-        </li>
-        <!--work/bug/@-->
-        <li class="nav-item">
-            <a class="nav-link" href="{{url_for('show_article_list')}}">
-                <ion-icon name="code-working" class="align-middle"></ion-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{url_for('show_locus_list')}}">
-                <ion-icon name="bug" class="align-middle"></ion-icon>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{url_for('message')}}">
-                <ion-icon name="at" class="align-middle"></ion-icon>
-            </a>
-        </li>
-      </ul>
-  <!--登录注销判断-->
+<nav id="nav">
+    <div id="nav_box">
+        <div id="nav_logo_box">
+            <div id="nav_logo">
+                <a href="{{url_for('home')}}"><img id="img" src="{{url_for('static',filename='static/images/logo.png')}}"></a>
+            </div>
+        </div>
+        <div id="nav_menu_box" >
+            <div id="nav_menu" onmouseover="show('nav_content,main_content')" onmouseout="hide('nav_content,main_content')">
+                菜单
+            </div>
+        </div>
+        <div id="nav_auth_box" >
+                {% if g.user %}
+                <div id="nav_auth_success">
+                <a  href="{{ g.user['username'] }}"><img id="img" src="{{url_for('static',filename='static/images/myself.jpg')}}"></a>
+                <a id="success_btn" href="{{ url_for('auth.signout') }}">退出</a>
+                </div>
+                {% else %}
+                 <div id="nav_auth">
+                <a id="in_btn" href="{{ url_for('auth.signin') }}">登录</a>
+                <a id="up_btn" href="{{ url_for('auth.signup') }}">注册</a>
+                </div>
 
-  <div class="nav-item dropdown">
-      <!--#判断当前用户是否是匿名用户{% if current_user.is_authenticated() %}-->
-      {% if current_user.is_authenticated() %}
-       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-         aria-haspopup="true" aria-expanded="false">
-           <!--已登录用户头像的小型缩略图src="{{url_for('static',filename='images/myself.jpg')}}"-->
-          <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=256) }}"
-                width="30" height="30" alt="" class="rounded-circle">
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{url_for('index')}}">退出</a>
-      </div>
-
-      {% else %}
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-         aria-haspopup="true" aria-expanded="false">
-          <img src="{{url_for('static',filename='images/default.jpg')}}" width="30" height="30" alt="" class="rounded-circle">
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{url_for('login')}}">登录</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{url_for('sign_up')}}">注册</a>
-
-      </div>
-      {% endif %}
-
-
-
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{url_for('login')}}">登录</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{url_for('sign_up')}}">注册</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{url_for('index')}}">退出</a>
-      </div>
-</div>
-
-<!--三-->
-<button type="button" class="navbar-toggle"
-        data-toggle="collapse" data-target=".navbar-collapse">
-    <span class="sr-only">toggle navigation</span>
-    <span class="icon-bar">1</span>
-    <span class="icon-bar">2</span>
-    <span class="icon-bar">3</span>
-</button>
+                {% endif %}
+        </div>
+    </div>
 </nav>
 {% endblock %}
 
-
-<!--content  say hello time  2 few seconds age L LL LLL LLLL-->
 {% block content %}
-<div class="container">
-    {% blcok page_content %}
-    <div class="page-header">
-        {% if username %}
-        hello ,{{username}}!
-        {% else %}
-        hello ,Stranger!
-        {% end if %}
+<main id="content">
+    <div id="nav_content">
+        <div id="search_box">
+            <form action="#" method="post" id="SearchForm">
+                    <input id="search_text"  type="text" placeholder="你瞅啥(*^__^*) 嘻嘻……"
+                           onkeydown="if (event.keyCode==20) {}"
+                           onblur="if(this.value=='')value='你瞅啥(*^__^*) 嘻嘻……';"
+                           onfocus="if(this.value=='你瞅啥2')value='';" />
+                    <button type="submit" id="searchBtn"><img id="img" src="{{url_for('static',filename='static/images/search.png')}}"></button>
+            </form>
+        </div>
 
-        <p>the local date and time is {{moment(current_time).format('LLL')}}</p>
-        <p>that was {{moment(current_time).fromNow(refresh=True))}}</p>
-
-        {% if not known %}
-        Pleased to meet you!
-        {% else %}
-        Happy to see you again!
-        {% endif %}
-
-<!--为已登录用户显示欢迎信息-->
-        Hello,
-        {% if current_user.is_authenticated() %}
-        {{ current_user.username }}
-        {% else %}
-        Stranger
-        {% endif %}!
-<!--当前时间-->
-        today is {{current_time}}
-
+       <ul id="topic">
+           <li>图work</li>
+            <li>图post</li>
+           <li>图image</li>
+           <li>图message</li>
+       </ul>
+        <ul id="tag_list">
+            <li>tag1</li>
+            <li>tag2</li>
+           <li>tag2</li>
+           <li>tag3</li>
+        </ul>
+</div>
+    {% block page_content %}
+    <div id="main_content">
+        {% for message in get_flashed_messages() %}
+        <div class="flash close alert">{{ message }} &times;</div>
+        {% endfor %}
     </div>
     {% endblock %}
-
-
-</div>
-{% endblock%}
-
-  <!--未认证的用户也能看到导航条，但看不到资料页面的链接。-->
-{% if current_user.is_authenticated() %}
-<li>
-<a href="{{ url_for('main.user', username=current_user.username) }}"> Profile
-</a>
-</li>
-{% endif %}
-
-<!--script-->
-{% block scripts%}
-<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-        crossorigin="anonymous"></script>
-<!-- Latest Bootstrap4 核心 JavaScript 文件 -->
-<script src="https://unpkg.com/ionicons@4.2.6/dist/ionicons.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-        crossorigin="anonymous"></script>
-
-<!--引入 moment.js-->
-{{super()}}
-{{moment.include_moment}}
-
+</main>
 {% endblock %}
 
+
+{% block footer %}
+<footer id="footer">© 2019 Design ❤ Code by
+    <a href="http://catcafe.in" title="Powered by onlyindex"> Only Index</a> /
+    <a href="https://github.com/onlyindex" title="Fork me on GitHub">GitHub</a> /
+    <a href="http://weibo.cn/531990906" title="Follow me on Weibo">Weibo</a><br>
+    仰望星空脚踏实地 js 动画从左到右控制
+</footer>>
+
+</footer>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+
+    function show(obj,main_content){
+                if obj != main_content:
+				var div = document.getElementById(obj);
+				div.style.display="block";
+				main_content=document.getElementById(main_content);
+				main_content.style.display="none";
+
+/*当鼠标移上去判断 obj,隐藏main_content,展示 nav_content */
+			}
+	function hide(obj,main_content){
+	            if obj != main_content:
+				var div = document.getElementById(obj);
+				div.style.display="none";
+				main_content=document.getElementById(main_content);
+				main_content.style.display="block";
+
+/*当鼠标移走判断 obj,展示main_content,隐藏 nav_content */
+
+			}
+
+</script>
 {% endblock %}
 </body>
+{% endblock %}
 </html>

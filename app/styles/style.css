@@ -1,0 +1,248 @@
+html {
+  font-size: 62.5%;/*1rem=10px*/
+  font-family: Helvetica,sans-serif;
+  word-break: break-word;
+}
+body {
+  font-size: 1.2rem;/*12px*/
+  line-height: 1.618rem;
+  background-color: #fff;
+  overflow-y: scroll;
+  min-width:980px;
+}
+*{
+   margin: 0 auto;/*网页居中*/
+   padding: 0;/*网页边距*/
+   }
+/*导航栏背景样式*/
+nav {
+    height: 5rem;
+    box-shadow: 0rem 0 0rem 0,1rem rgba(250,250,250,0.8);
+    background: #FCFCFC;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#FCFCFC), to(#FAFAF9));
+    border-bottom: 0.1rem solid #DDD;
+   }
+
+/*导航栏整体*/
+ #nav_box{
+         height: 100%;
+         max-width:980px;
+         text-align:center;
+         position: relative;
+
+         }
+ /*导航栏被分成四份确定其位置*/
+ #nav_logo_box{
+         margin-left:20px;/*距离左边20px*/
+         float: left;
+             }
+ #nav_menu_box{
+         padding: 5px 15px;
+         float:left;
+         position: relative;
+             }
+ #nav_auth_box{
+        margin-right: 20px;/*距离右边20px*/
+         padding: 20px;/*距离右边20px*/
+         float:right;
+    }
+
+/*导航栏每部分内容精确定位*/
+#nav_logo  a{
+    margin: 0 20px 0 0;/*距离左边20px*/
+    height: 50px;/*????*/
+    text-align:center;
+    align-items: center;
+
+}
+ #nav_menu{
+    font-weight: bold;
+    margin: 0.8rem 0 0 0;
+    padding: 0.5rem 1.5rem;
+    background: #F1F1F1;
+    -webkit-border-radius: 10rem;
+    border-radius: 10rem;
+    text-align:center;
+    align-items: center;
+
+    transition: all 500ms ease;
+    transition-property: all;
+    transition-duration: 500ms;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    }
+ #nav_auth{
+    background: #F09199;
+    color: #FAFAFA;
+    -webkit-border-radius: 10rem;
+    border-radius: 10rem;
+    text-align:center;
+ }
+
+
+/*导航栏auth_btn*/
+#in_btn{
+    padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+    color: #FFF;
+    display: inline-block;
+
+  }
+#up_btn{
+    padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+     color: #FFF;
+    display: inline-block;
+
+  }
+/*导航栏头像*/
+#nav_auth a #img{
+         width:2.5rem;
+         height:2.5rem;
+         border-radius:2.5rem;
+         -webkit-border-radius:2.5rem;
+         }
+
+/*全站链接样式?*/
+a{ text-decoration: none;}
+a:link,a:active, a:visited{
+    color:#F09199
+      /*锚链接颜色 #42ABB3;*/
+}
+
+
+/*main_content*/
+
+#main_content{
+    width: auto;
+    padding: 0;
+    text-align:center;/*面板居中*/
+
+
+}
+
+
+/*flash 样式*/
+.flash {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #cae6f6;
+  border: 0.25rem solid #377ba8;
+}
+
+/*登录面板样式*/
+#SigninPanel,#SignupPanel{
+    border-radius: 0.5rem;
+    border: 0.1rem solid #DFDFDF;
+    box-shadow: 0 0 0 0.2rem rgba(0,0,0,0.04);
+    margin: 3rem auto;
+    max-width:24%;
+    min-width: 24rem;
+    }
+#SignupForm,#SigninForm,#other_link{
+    margin: auto 1rem;
+    padding: 0.5rem 0.5rem;
+}
+
+
+/*登录面板_登录注册输入框样式*/
+ input{
+      /* border:0;*/
+      border-width: 0.1rem;
+      border-style: solid;
+      border-color: #d9d9d9;
+      border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+
+      font-size:1.5rem;
+      margin-top: 0.5rem;        /*相对于字体大小 */
+      margin-bottom: 0.5rem;
+      padding:0.5rem;
+      background-color:white;
+      vertical-align: baseline;/*设置对齐方式*/
+      max-width: -webkit-fill-available;
+      width:98%;
+      line-height: 2.5rem;
+
+  }
+/*登录面板_登录注册按钮*/
+    button{
+    padding:0.5rem 0.7rem;
+    background: #F09199;
+    color: #FFF;
+    cursor:pointer;
+    border:0;
+    margin: 0.5rem 0;
+    font-size: 1.4rem;
+    border-radius: 0.5rem;
+    line-height: 250%;
+    display: inline-block;
+    width:98%
+          }
+/*底部样式*/
+footer{
+      font-size:0.3rem;
+      text-align:center;
+        flex: 1;
+
+}
+
+
+
+
+/*日志样式*/
+.post > header {
+  display: flex;
+  align-items: flex-end;
+  font-size: 0.85rem;
+}
+
+.post > header > div:first-of-type {
+  flex: auto;
+}
+
+.post > header h1 {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+.post .about {
+  color: slategray;
+  font-style: italic;
+}
+
+.post .body {
+  white-space: pre-line;
+}
+
+.content:last-child {
+  margin-bottom: 0;
+}
+
+.content form {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.content label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.content input, .content textarea {
+  margin-bottom: 1rem;
+}
+
+.content textarea {
+  min-height: 12rem;
+  resize: vertical;
+}
+
+input.danger {
+  color: #cc2f2e;
+}
+
+input[type=submit] {
+  align-self: start;
+  min-width: 10rem;
+}
