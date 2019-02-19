@@ -140,9 +140,7 @@ a:link,a:active, a:visited{
            text-align:center;/*面板居中*/
            display:flex;
            flex-direction: column;
-
             }
-
 
 #page_content{
             flex: 1;

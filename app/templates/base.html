@@ -1,29 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% block header %}
-    {% block metas %}
     <meta charset="UTF-8">
     <!--移动设备优先 屏幕缩放比例自适应-->
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no">
-    {% endblock %}
-
     <!--收藏夹图标-->
     <link rel="icon" type="image/x-icon" width="40" height="40" href="{{url_for('static',filename='static/images/favicon.png')}}">
 
 
     <title>{% block title %}catcafe_in{% endblock %}</title>
 
-    {% block styles %}
     <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='styles/phone.css' ) }}" />
-
-    {% endblock %}
-
-    {% endblock %}
 </head>
-{% block body %}
+
+
 <body>
-{% block navbar %}
 <nav id="nav">
     <div id="nav_box">
         <div id="nav_logo_box">
@@ -32,7 +23,7 @@
             </div>
         </div>
         <div id="nav_menu_box" >
-            <div id="nav_menu" onmouseover="show('nav_content,main_content')" onmouseout="hide('nav_content,main_content')">
+            <div id="nav_menu" onmouseover="show('nav_content,page_content')" onmouseout="hide('nav_content,page_content')">
                 菜单
             </div>
         </div>
@@ -47,14 +38,11 @@
                 <a id="in_btn" href="{{ url_for('auth.signin') }}">登录</a>
                 <a id="up_btn" href="{{ url_for('auth.signup') }}">注册</a>
                 </div>
-
                 {% endif %}
         </div>
     </div>
 </nav>
-{% endblock %}
 
-{% block content %}
 <main id="content">
     <div id="nav_content">
         <div id="search_box">
@@ -81,17 +69,15 @@
         </ul>
 </div>
     {% block page_content %}
-    <div id="main_content">
+    <div id="page_content">
         {% for message in get_flashed_messages() %}
         <div class="flash close alert">{{ message }} &times;</div>
         {% endfor %}
     </div>
     {% endblock %}
 </main>
-{% endblock %}
 
 
-{% block footer %}
 <footer id="footer">© 2019 Design ❤ Code by
     <a href="http://catcafe.in" title="Powered by onlyindex"> Only Index</a> /
     <a href="https://github.com/onlyindex" title="Fork me on GitHub">GitHub</a> /
@@ -99,34 +85,30 @@
     仰望星空脚踏实地 js 动画从左到右控制
 </footer>>
 
-</footer>
-{% endblock %}
 
-{% block scripts %}
+
 <script type="text/javascript">
 
     function show(obj,main_content){
-                if obj != main_content:
+                if obj != page_content:
 				var div = document.getElementById(obj);
 				div.style.display="block";
-				main_content=document.getElementById(main_content);
-				main_content.style.display="none";
+				page_content=document.getElementById(page_content);
+				page_content.style.display="none";
 
-/*当鼠标移上去判断 obj,隐藏main_content,展示 nav_content */
+/*当鼠标移上去判断 obj,隐藏page_content,展示 nav_content */
 			}
-	function hide(obj,main_content){
-	            if obj != main_content:
+	function hide(obj,page_content){
+	            if obj != page_content:
 				var div = document.getElementById(obj);
 				div.style.display="none";
-				main_content=document.getElementById(main_content);
-				main_content.style.display="block";
+				page_content=document.getElementById(page_content);
+				page_content.style.display="block";
 
-/*当鼠标移走判断 obj,展示main_content,隐藏 nav_content */
+/*当鼠标移走判断 obj,展示page_content,隐藏 nav_content */
 
 			}
 
 </script>
-{% endblock %}
 </body>
-{% endblock %}
 </html>

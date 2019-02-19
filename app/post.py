@@ -12,9 +12,10 @@ def index():
     if request.method == 'GET':
         error = None
         db = get_db()
-        posts = db.execute('select p.id,p.title,p.body,p.created,p.author_id,u.username'
-                           'from post as p join user as u on p.author_id = u.id'
-                           ' order by p.created desc').fetchall()
+        posts = db.execute('select p.id,p.title,p.body,p.created,p.author_id,u.username '
+                           'from post as p '
+                           'join user as u '
+                           'on p.author_id = u.id order by p.created desc').fetchall()
         if posts is None:
             error = "喵喵喵啥日志也没有(￣o￣) . z Z"
             flash(error)

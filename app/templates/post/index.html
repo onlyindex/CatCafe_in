@@ -1,28 +1,25 @@
 {% extends "base.html" %}
-{% import "_macros.html" as macros %}
 {% block title %}日志索引{% endblock %}
 
 {% block page_content %}
 
+{% for post in posts %}
+
 {% if g.user['id'] == post['author_id'] %}
 <a class="action" href="{{ url_for('post.create') }}">添加日志</a>
-<a class="action" href="{{ url_for('post.update', id=post['id']) }}">编辑</a>
-<a class="action" href="{{ url_for('post.delete', id=post['id']) }}">删除</a>
-{% endif %}
-
-{% for post in posts %}
 <ul class="posts">
     <li class="post">
         {{ post['title'] }}
         {{ post['created'].strftime('%Y-%m-%d') }}
         Posts by {{ post.author_id.username }}
+        <a class="action" href="{{ url_for('post.update', id=post['id']) }}">编辑</a>
+        <a class="action" href="{{ url_for('post.delete', id=post['id']) }}">删除</a>
     </li>
 </ul>
-{% endfor %}
-<!--分割线循环-->
-{% if not loop.last %}
-<hr>
 {% endif %}
+
+{% endfor %}
+
 
 {% endblock %}
 
