@@ -2,9 +2,13 @@
 {% block title %}New Post{% endblock %}
 
 {% block page_content %}
-  <form method="post">
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <textarea name="body" id="body" required>{{ request.form['body'] }}</textarea>
-    <button type="submit" value="Save"></button>
+<div id="PostPanel">
+<div id="PostForm">
+  <form  method="post" action="{{ url_for('post.create') }}">
+    <input name="title" id="title" placeholder="搞个大新闻" required>
+    <textarea name="body" id="body" placeholder="有什么要分享的" required></textarea>
+    <button type="submit">发布日志</button>
   </form>
+</div>
+</div>
 {% endblock %}

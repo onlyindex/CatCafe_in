@@ -198,16 +198,14 @@ a:link,a:active, a:visited{
   border: 0.25rem solid #377ba8;
 }
 
-/*登录面板样式*/
-#SigninPanel,#SignupPanel{
-    border-radius: 0.5rem;
-    border: 0.1rem solid #DFDFDF;
-    box-shadow: 0 0 0 0.2rem rgba(0,0,0,0.04);
+
+#SigninPanel,#SignupPanel,#PostPanel{
+    border:none;
     margin: 3rem auto;
     max-width:24%;
     min-width: 24rem;
     }
-#SignupForm,#SigninForm,#other_link{
+#SignupForm,#SigninForm,#PostForm,#other_link{
     margin: auto 1rem;
     padding: 0.5rem 0.5rem;
 }
@@ -217,9 +215,10 @@ h4{
   font-weight: bold;
   font-size:25px;
   text-align:center;
+  line-height:2.5rem;
 }
 /*登录面板_登录注册输入框样式*/
-#SignupPanel input,#SigninPanel input{
+#SignupPanel input,#SigninPanel input,#PostPanel input,#PostPanel textarea{
       /* border:0;*/
       border-width: 0.1rem;
       border-style: solid;
@@ -227,7 +226,6 @@ h4{
       border-radius: 0.5rem;
     -moz-border-radius: 0.5rem;
     -webkit-border-radius: 0.5rem;
-
       font-size:1.5rem;
       margin-top: 0.5rem;        /*相对于字体大小 */
       margin-bottom: 0.5rem;
@@ -237,21 +235,20 @@ h4{
       max-width: -webkit-fill-available;
       width:98%;
       line-height: 2.5rem;
-
   }
 /*登录面板_登录注册按钮*/
-#SignupPanel button,#SigninPanel button{
-    padding:0.5rem 0.7rem;
+#SignupPanel button,#SigninPanel button,#PostPanel button{
+
+    border-radius: 0.5rem;
+    border: 0.1rem solid #F09199;
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+    padding:0.5rem;
     background: #F09199;
     color: #FFF;
     cursor:pointer;
-    border:0;
-    margin: 0.5rem 0;
-    font-size: 1.4rem;
-    border-radius: 0.5rem;
-    line-height: 250%;
-    display: inline-block;
-    width:98%
+    width:98%;
+    line-height:2.5rem;
           }
 /*底部样式*/
 
