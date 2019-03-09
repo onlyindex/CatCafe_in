@@ -29,6 +29,7 @@ def create_app():
     from app.auth import auth_bp
     from app.admin import admin_bp
     from app.post import post_bp
+    from app.admin import admin_bp
     # 注册蓝本
     app.register_blueprint(auth_bp)
     app.register_blueprint(admin_bp, url_prefix='/a')
@@ -36,4 +37,5 @@ def create_app():
     # admin.admin   GET        /a/admin
     # url_for('admin')
     app.register_blueprint(post_bp)
+    app.register_blueprint(admin_bp)
     return app

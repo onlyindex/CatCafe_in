@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
-{% block title %}edit"{{post['title']}}"{% endblock %}
+{% block title %}update"{{post['title']}}"{% endblock %}
 
 {% block page_content %}
-  <form method="post">
-    <input name="title" id="title" value="{{ request.form['title'] or post['title'] }}" required>
-    <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
-    <input type="submit" value="Save">
+<div id="PostPanel">
+<div id="PostForm">
+  <form  method="post" action="{{ url_for('post.update',id=post.id) }}">
+    <input name="title" id="title" value="{{ post.title }}" >
+    <textarea name="body" id="body" >{{ post.body }}</textarea>
+    <button type="submit">更新日志</button>
   </form>
-<form method="post">
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <textarea name="body" id="body" required>{{ request.form['body'] }}</textarea>
-    <button type="submit">发布</button>
-  </form>
-  <hr>
-  <form action="{{ url_for('post.delete', id=post['id']) }}" method="post">
+</div>
+    <hr>
+    <form method="post" action="{{ url_for('post.delete', id=post['id']) }}" >
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-  </form>
+    </form>
+</div>
 {% endblock %}

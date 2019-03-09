@@ -2,6 +2,7 @@
 {% block title %}New Post{% endblock %}
 
 {% block page_content %}
+<div id="page_content">
 <div id="PostPanel">
 <div id="PostForm">
   <form  method="post" action="{{ url_for('post.create') }}">
@@ -9,6 +10,7 @@
     <textarea name="body" id="body" placeholder="有什么要分享的" required></textarea>
     <button type="submit">发布日志</button>
   </form>
+</div>
 </div>
 </div>
 {% endblock %}

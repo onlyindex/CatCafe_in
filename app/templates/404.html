@@ -1,19 +1,11 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% block title %}404 - Page not found{% endblock %}
-</head>
-<body>
+{% block title %}404 - Page not found{% endblock %}
+
 
 {% block page_content %}
 <div class ='page-header'>
     page not found
-
     You can  back to <a href="url_for('home')">home</a> enter catcafe again...
 </div>
 {% endblock %}
 
-</body>
-</html>

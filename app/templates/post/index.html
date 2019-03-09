@@ -1,26 +1,66 @@
 {% extends "base.html" %}
 {% block title %}日志索引{% endblock %}
+{% block styles %}
+{{super()}}
+<style>
+#page_content{
+    background: linear-gradient(#e9ffed,#fff) repeat-x top left;
+    background-size: 100% 300px;
+    min-height: 600px;
+     }
+</style>
+{% endblock %}
+
 
 {% block page_content %}
+<div id="page_content">
+{%if posts %}
+    <!--某个用户下某个标签下的日志列表-->
+    <section>
+        <div>{{ post.author_id.username }}</div>
+        <div id="tag_switch">{{post.tag_id.name}}</div>
+    </section>
+    <section>
+        <div class="date" title="2019年2月26日变化的">
+            <span class="cal">
+                <i class="month">Feb</i>
+                <i class="day">26</i>
+            </span>
+            <small>2月26日</small>
+        </div>
+        <ul class="posts">
+            {% for post in posts %}
+            <li class="post-item">
+                <h2><a href="{{url_for('post.index',id=post.id)}}">{{ post['title'] }}</a>></h2>
+                <div id="post-meta">
+                    <time>{{ post['created'] }}</time>
+                    <span>{{post.tag_id.name}}</span>
+                    <span>{{post.comments}}</span>
+                    <a class="action" href="{{ url_for('post.update', id=post['id']) }}">编辑</a>
+                    <a class="action" href="{{ url_for('post.delete', id=post['id']) }}">删除</a>
+                </div>
+            </li>
+            {% if not loop.last %}<hr>{% endif %}
 
-{% for post in posts %}
+            {% endfor %}
 
-{% if g.user['id'] == post['author_id'] %}
-<a class="action" href="{{ url_for('post.create') }}">添加日志</a>
-<ul class="posts">
-    <li class="post">
-        {{ post['title'] }}
-        {{ post['created'].strftime('%Y-%m-%d') }}
-        Posts by {{ post.author_id.username }}
-        <a class="action" href="{{ url_for('post.update', id=post['id']) }}">编辑</a>
-        <a class="action" href="{{ url_for('post.delete', id=post['id']) }}">删除</a>
-    </li>
-</ul>
+        </ul>
+    </section>
+    {% else %}
+    没有日志
+         {% if g.user['id'] == post['author_id'] %}<a class="action" href="{{ url_for('post.create') }}"><i id="icon_plus"></i>添加日志</a>{% endif %}
 {% endif %}
 
-{% endfor %}
 
 
+
+
+
+
+
+
+
+</>>
 {% endblock %}
 
 

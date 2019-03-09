@@ -1,18 +1,50 @@
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS post;
+drop table if exists user;
+drop table if exists post;
+drop table if exists tag;
+drop table if exists comment;
 
-CREATE TABLE user (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  username TEXT UNIQUE NOT NULL,
-  email TEXT UNIQUE NOT NULL,
-  password TEXT NOT NULL
+
+--清除所有表格重新新建表格
+
+
+create table user (
+  id integer  primary key autoincrement,
+  username varchar(20) unique not null,
+  email varchar (254) unique not null,
+  password varchar(128) not null,
+  location varchar(50) ,
+  about_me text
 );
 
-CREATE TABLE post (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  author_id INTEGER NOT NULL,
-  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  title TEXT NOT NULL,
-  body TEXT NOT NULL,
-  FOREIGN KEY (author_id) REFERENCES user (id)
+create table post (
+  id integer  primary key autoincrement ,
+  title varchar(60) not null,
+  body text  not null,
+  author_id integer  not null,
+  topic_id integer  not null,
+  created datetime default datetime.utcnow,
+  foreign key (author_id) references  user (id),
+  foreign key (topic_id) references  tag (id)
 );
+
+create table tag  (
+id integer primary key autoincrement ,
+tagname varchar(30) unique not null
+);
+
+--令人纠结的评论
+
+create table comment(
+id integer primary key autoincrement ,
+post_id integer not null ,
+username integer  not null,
+replied_id integer not null,
+
+foreign key (replied_id) references  comment (id)
+foreign key (replied_id) references  replied (id)
+
+);
+
+
+
+

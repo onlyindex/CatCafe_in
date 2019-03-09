@@ -6,9 +6,31 @@ html {
 body {
   font-size: 1.2rem;/*12px*/
   line-height: 1.618rem;
-  background-color: #fff;
+  /*background-color: #fff;*/
   overflow-y: scroll;
+  -webkit-font-smoothing: antialiased;/*移动端抗锯齿渲染*/
+  text-rendering: optimizeLegibility /*侧重文本可读性*/
+
 }
+body::before {
+    content: " ";
+    background: url(/static/images/bg1.jpg)  center 0 no-repeat;
+    background-size: cover;/*背景图片全部展开，但是会在底部留下白屏*/
+    opacity: 0.3;
+    position: fixed;
+    z-index: -1;/*背景图置于body最底层*/
+    top: 5rem;
+    right: 5rem;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-attachment:fixed/*图像不会随着页面滚动*/
+
+
+    }
+
 *{
    margin: 0 auto;/*网页居中*/
    padding: 0;/*网页边距*/
@@ -190,14 +212,31 @@ a:link,a:active, a:visited{
 
 
 
-/*flash 样式*/
-.flash {
+/*flash 多种样式*/
+.alert-info {
   margin: 1rem 0;
   padding: 1rem;
-  background: #cae6f6;
-  border: 0.25rem solid #377ba8;
+  color: #fff;
+  background-color: #17a2b8;
+  border-color: 0.25rem solid #0084B4;
+  border-radius:0.25rem;
 }
-
+.alert-success {
+  margin: 1rem 0;
+  padding: 1rem;
+  color:#fff;
+  background-color:#28a745;
+  border-color: 0.25rem solid #91B876;
+  border-radius:0.25rem;
+}
+.alert-warning {
+  margin: 1rem 0;
+  padding: 1rem;
+  color:#fff;
+  background-color:#ffc107;
+  border-color: 0.25rem solid #ffc107;
+  border-radius:0.25rem;
+}
 
 #SigninPanel,#SignupPanel,#PostPanel{
     border:none;
@@ -257,3 +296,63 @@ footer{
       text-align:center;
 
 }
+
+/*日志样式*/
+cal {
+    display: inline-block;
+    padding: 2px 0;
+    width: 34px;
+    height: 44px;
+    background: #948CF1;
+    color: #fff;
+    text-align: center;
+    box-sizing: border-box;
+    }
+    .cal i {
+    position: relative;
+    font-style: normal;
+    display: block;
+    box-sizing: border-box;
+    }
+    .month {
+    text-transform: uppercase;
+    font-size: 0.625rem;
+    top: 2px;
+    box-sizing: border-box;
+    }
+
+.day {
+    font-weight: 600;
+    font-size: 1.125rem;
+    box-sizing: border-box;}
+
+    .date small {
+    display: inline-block;
+    position: relative;
+    top: -5px;
+    margin-bottom: 10px;
+    margin-left: 16px;
+    line-height: 30px;
+    font-size: 1.125rem;
+    font-weight: 600;}
+
+    #icon_plus{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+    vertical-align: middle;
+    margin-top: -3px;
+    background: url(地址) no-repeat left top;
+    }
+
+    h2 {
+    font-size: 3em;
+    font-weight: 200;
+    line-height: 1.1;
+    color: #4fa949;
+    }

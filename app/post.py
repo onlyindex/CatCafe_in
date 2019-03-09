@@ -12,7 +12,7 @@ def index():
     if request.method == 'GET':
         error = None
         db = get_db()
-        posts = db.execute('select p.id,p.title,p.body,p.created,p.author_id,u.username '
+        posts = db.execute('select p.id,p.title,p.body,datetime(p.created) as created,p.author_id,u.username '
                            'from post as p '
                            'join user as u '
                            'on p.author_id = u.id order by p.created desc').fetchall()
@@ -46,11 +46,13 @@ def create():
 
 # 修改or删除日志 先定义 get_post(id)操作
 def get_post(id, check_author=True):
-    post = get_db().execute('select p.id,title,body,created,author_id,username'
-                            'from post p join user u on p.author_id=u.id'
-                            'where p.id=?', (id,)).fetchone()
+    post = get_db().execute('select p.id,p.title,p.body,datetime(p.created),p.author_id,u.username '
+                            'from post as p '
+                            'join user as u '
+                            'on p.author_id = u.id where p.id=?',
+                            (id, )).fetchone()
     if post is None:
-        abort(404, 'Post id{0} 不存在'.format(id))
+        abort(404, 'Post p.id{0} 不存在'.format(id))
     if check_author and post['author_id'] != g.user['id']:
         abort(403)
     return post
@@ -91,7 +93,7 @@ def update(id):
 
 
 # 删除日志
-@post_bp.route('<int:id>/delete', methods=['POST', ])
+@post_bp.route('<int:id>/delete', methods=['POST'])
 @login_required
 def delete(id):
     get_post(id)

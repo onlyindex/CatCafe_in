@@ -1,30 +1,22 @@
 {% extends 'base.html' %}
-{% block title %}登录{% endblock %}
+{% block title %}管理员登录{% endblock %}
 
 {% block page_content %}
 <div id="page_content">
 
 <div id="SigninPanel">
 <div id="SigninForm">
-          <h4>登录至喵茶会</h4>
-  <form method="post" action="{{ url_for('auth.signin') }}">
+          <h4>管理员入口</h4>
+  <form method="post" action="{{ url_for('admin.signin') }}">
 
           <input name="username" type="username" id="username" placeholder="Enter username" required><br>
 
           <input name="password" type="password" id="password" placeholder="Enter Password" required><br>
 
-        <!--  <input type="checkbox"><label>保存登录状态</label><br>-->
           <button type="submit">登录(ノ≧∇≦)ノ</button><br>
 </form>
-</div>
-<div id="other_link">
-         <a href="{{ url_for('auth.signup') }}">加入我们</a> <a href="#修改密码">修改密码</a><br>
-            微博账号登录
-
-
 </div>
 </div>
 </div>
 
 {% endblock %}
-

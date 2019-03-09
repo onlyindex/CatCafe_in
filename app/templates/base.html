@@ -9,8 +9,35 @@
 
 
     <title>{% block title %}catcafe_in{% endblock %}</title>
-
+    {% block styles %}
     <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='styles/phone.css' ) }}" />
+    {% endblock %}
+    <script type="text/javascript">
+
+    function show(obj){
+				var div = document.getElementById(obj);
+				div.style.display="block";
+				page_content=document.getElementById('page_content');
+				page_content.style.display="none";
+
+/*当鼠标移上去判断 obj,隐藏page_content,展示 nav_content */
+			}
+	function hide(obj){
+				var div = document.getElementById(obj);
+				div.style.display="none";
+				page_content=document.getElementById('page_content');
+				page_content.style.display="block";
+
+/*当鼠标移走判断 obj,展示page_content,隐藏 nav_content */
+
+			}
+function turnoff(obj){
+	          document.getElementById(obj).style.display="none";
+	          /*关闭 flash 提示消息*/
+		}
+
+
+</script>
 </head>
 
 
@@ -23,7 +50,7 @@
             </div>
         </div>
         <div id="nav_menu_box" >
-            <div id="nav_menu" onmouseover="show('nav_content,page_content')" onmouseout="hide('nav_content,page_content')">
+            <div id="nav_menu" onmouseover="show('nav_content')" onmouseout="hide('nav_content')">
                 菜单
             </div>
         </div>
@@ -57,7 +84,7 @@
 
        <ul id="topic">
            <li>图work</li>
-            <li>图post</li>
+            <li>图<a href="{{url_for('post.index')}}">post</a></li>
            <li>图image</li>
            <li>图message</li>
        </ul>
@@ -70,8 +97,11 @@
 </div>
     {% block page_content %}
     <div id="page_content">
-        {% for message in get_flashed_messages() %}
-        <div class="flash close alert">{{ message }} &times;</div>
+        {% for message in get_flashed_messages(with_categories=True) %}
+        <div class="flash alert alert-{{message[0]}}" id="close" role="alert">
+            <button class="close" onclick="turnoff('close')" >&times;</button>
+            {{ message[1] }}
+        </div>
         {% endfor %}
     </div>
     {% endblock %}
@@ -87,28 +117,6 @@
 
 
 
-<script type="text/javascript">
 
-    function show(obj,page_content){
-                if obj != page_content:
-				var div = document.getElementById(obj);
-				div.style.display="block";
-				page_content=document.getElementById(page_content);
-				page_content.style.display="none";
-
-/*当鼠标移上去判断 obj,隐藏page_content,展示 nav_content */
-			}
-	function hide(obj,page_content){
-	            if obj != page_content:
-				var div = document.getElementById(obj);
-				div.style.display="none";
-				page_content=document.getElementById(page_content);
-				page_content.style.display="block";
-
-/*当鼠标移走判断 obj,展示page_content,隐藏 nav_content */
-
-			}
-
-</script>
 </body>
 </html>

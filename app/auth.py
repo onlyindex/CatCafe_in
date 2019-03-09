@@ -2,7 +2,7 @@ import functools
 
 from flask import Blueprint, g
 from flask import render_template, redirect, url_for, flash, request, session
-from werkzeug.security import generate_password_hash ,check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from db import get_db
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -51,9 +51,9 @@ def signup():
             db.execute('insert into user(username,email,password) values(?, ?, ?)',
                        (username, email, generate_password_hash(password)))
             db.commit()
-            flash('注册成功')
+            flash('注册成功', 'success')
             return redirect(url_for('auth.signin'))
-        flash(error)
+        flash(error, 'warning')
     return render_template('auth/signup.html')
 
 
@@ -73,13 +73,14 @@ def signin():
             session.clear()
             session['user_id'] = user['id']
             return redirect(url_for('home'))
-        flash(error)
+        flash(error, 'warning')
     return render_template('auth/signin.html')
 
 
 @auth_bp.route('/signout')
 def signout():
     session.clear()
+    flash('成功退出','success')
     return redirect(url_for('home'))
 
 
