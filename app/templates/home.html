@@ -1,6 +1,32 @@
 {% extends 'base.html' %}
 
 {% block page_content %}
+
+   <h4> # 假装很忙的日常</h4>
+    <div class="card">
+        <div class="card_content">
+            <div class="author_face">
+            <a  href="{{ url_for('user.my_profile',_external=True) }}">
+                <img id="img" src="{{url_for('static',filename='static/images/myself.jpg')}}"></a>
+            </div>
+            <div class="author_detail">
+                <div class="post_author"><a href="{{ url_for('user.my_profile')}}">{{ post.username }}</a></div>添加日志
+                <div class="post_info" id="post_info">{{ post['post_title'] }}</div>
+                <div class="post_date">{{ post['post_timestamp'] }}</div>
+            </div>
+        </div>
+        <div class="card_handle">喜欢、评论、分享、阅读数</div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div>
 {% endblock %}
 
 

@@ -5,7 +5,7 @@
     <!--移动设备优先 屏幕缩放比例自适应-->
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no">
     <!--收藏夹图标-->
-    <link rel="icon" type="image/x-icon" width="40" height="40" href="{{url_for('static',filename='static/images/favicon.png')}}">
+    <link rel="icon" type="image/x-icon" href="{{url_for('static',filename='static/images/favicon.png')}}">
 
 
     <title>{% block title %}catcafe_in{% endblock %}</title>
@@ -46,7 +46,7 @@ function turnoff(obj){
     <div id="nav_box">
         <div id="nav_logo_box">
             <div id="nav_logo">
-                <a href="{{url_for('home')}}"><img id="img" src="{{url_for('static',filename='static/images/logo.png')}}"></a>
+                <a href="{{url_for('post.index')}}"><img id="img" src="{{url_for('static',filename='static/images/logo_ex.png')}}"></a>
             </div>
         </div>
         <div id="nav_menu_box" >
@@ -57,7 +57,7 @@ function turnoff(obj){
         <div id="nav_auth_box" >
                 {% if g.user %}
                 <div id="nav_auth_success">
-                <a  href="{{ g.user['username'] }}"><img id="img" src="{{url_for('static',filename='static/images/myself.jpg')}}"></a>
+                <a  href="{{ url_for('user.my_profile',_external=True) }}"><img id="img" src="{{url_for('static',filename='static/images/myself.jpg')}}"></a>
                 <a id="success_btn" href="{{ url_for('auth.signout') }}">退出</a>
                 </div>
                 {% else %}

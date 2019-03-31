@@ -6,11 +6,17 @@
 <div id="PostPanel">
 <div id="PostForm">
   <form  method="post" action="{{ url_for('post.create') }}">
-    <input name="title" id="title" placeholder="搞个大新闻" required>
-    <textarea name="body" id="body" placeholder="有什么要分享的" required></textarea>
+    <input name="title" id="title" placeholder="标题" required>
+    <textarea name="body" id="body" placeholder="内容" required></textarea>
+      <input type="text"  name="tags" placeholder="输入标签空格分隔" required>
     <button type="submit">发布日志</button>
   </form>
+
+
+
+
 </div>
 </div>
 </div>
 {% endblock %}
+

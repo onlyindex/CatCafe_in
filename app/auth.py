@@ -23,7 +23,8 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute('select * from user where id =?', (user_id,)).fetchone()
+       g.user = get_db().cursor().execute("select * from user where user_id = s%"
+                                          %(user_id)).fetchone()
 
 
 @auth_bp.route('/signup', methods=['GET', 'POST'])
@@ -43,12 +44,15 @@ def signup():
             error = '密码不为空.'
         elif not email:
             error = '邮箱不为空'
-        elif db.execute('select id from user where username = ?', (username,)).fetchone() is not None:
+            # 确认用户名是否已在数据库存在
+        elif db.cursor().execute("select user_id from user where username = 's%'"
+                                 % (username,)).fetchone() is not None:
             error = 'user{0} is already signup.'.format(username)
-        elif db.execute('select id from user where email = ?', (email,)).fetchone() is not None:
+            # 确认邮箱是否已在数据库存在
+        elif db.cursor().execute('select user_id from user where email = s%' % (email,)).fetchone() is not None:
             error = 'email{0} is already signup'.format(email)
         if error is None:
-            db.execute('insert into user(username,email,password) values(?, ?, ?)',
+            db.cursor().execute('insert into user(username,email,password) values(?, ?, ?)',
                        (username, email, generate_password_hash(password)))
             db.commit()
             flash('注册成功', 'success')
@@ -64,14 +68,15 @@ def signin():
         password = request.form['password']
         db = get_db()
         error = None
-        user = db.execute('select * from user where username=?', (username,)).fetchone()
+        user = db.cursor().execute('select * from user where username=%s'
+                                   % (username,)).fetchone()
         if user is None:
             error = '错误用户名'
         elif not check_password_hash(user['password'], password):
             error = '错误密码'
         if error is None:
             session.clear()
-            session['user_id'] = user['id']
+            session['user_id'] = user['user_id']
             return redirect(url_for('home'))
         flash(error, 'warning')
     return render_template('auth/signin.html')
@@ -80,7 +85,7 @@ def signin():
 @auth_bp.route('/signout')
 def signout():
     session.clear()
-    flash('成功退出','success')
+    flash('成功退出', 'success')
     return redirect(url_for('home'))
 
 

@@ -1,5 +1,6 @@
 from flask import Blueprint, request, session, redirect, flash, render_template, url_for
 from werkzeug.security import check_password_hash
+from db import get_db
 
 
 admin_bp = Blueprint('admin', __name__, url_prefix='admin')
@@ -53,7 +54,7 @@ def edit_page():
 
 @admin_bp.route('/page/delete')
 def delete_page():
-    pass435768
+    pass
 
 
 

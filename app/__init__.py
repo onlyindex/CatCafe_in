@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 import os
 import db
 from datetime import timedelta
@@ -10,9 +10,11 @@ def create_app():
     app = Flask(__name__, static_folder='', static_url_path='', instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='hard to guess',
-        DATABASE=os.path.join(app.instance_path, 'cat.db'),
+        # DATABASE=os.path.join(app.instance_path, 'cat.db'),
         SEND_FILE_MAX_AGE_DEFAULT=timedelta(seconds=1)
+
     )
+    print(app.config.get('DATABASE'))
     # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
@@ -22,13 +24,11 @@ def create_app():
     # 初始化数据库
     db.init_app(app)
 
-    # the minimal flask application
-    @app.route('/')
-    def home():
-        return render_template('home.html')
     from app.auth import auth_bp
     from app.admin import admin_bp
     from app.post import post_bp
+    from app.user import user_bp
+    from app.message import msg_bp
     from app.admin import admin_bp
     # 注册蓝本
     app.register_blueprint(auth_bp)
@@ -37,5 +37,10 @@ def create_app():
     # admin.admin   GET        /a/admin
     # url_for('admin')
     app.register_blueprint(post_bp)
-    app.register_blueprint(admin_bp)
+    app.register_blueprint(user_bp)
+
+    # the minimal flask application
+    @app.route('/')
+    def home():
+        return redirect(url_for('post.index'))
     return app

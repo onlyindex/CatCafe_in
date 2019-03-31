@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}个人资料{% endblock %}
+
+{% block page_content %}
+
+<div id="page_content">
+<div id="ProfilePanel">
+<div id="Profile">
+        <!--href='超链接' src='访问服务器资源'-->
+    <div id="user_avaster">
+        <img id="profile_img" src="{{ url_for('static',filename='static/images/myself.jpg') }}">
+    </div>
+    <div id="user_name">
+       <h2>
+           {{ user.username }}
+               <a class="edit"
+                  src="{{ url_for('static',filename='static/images/edit.png') }}"
+                  href="{{ url_for('user.edit_my_profile') }}">编辑资料</a>
+       </h2>
+    </div>
+    <div id="user_info">
+    {{ user.about_me }}
+    </div>
+</div>
+</div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

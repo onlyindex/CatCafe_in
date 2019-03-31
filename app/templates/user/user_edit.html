@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}个人资料编辑{% endblock %}
+
+{% block page_content %}
+<div id="page_content">
+<div id="ProfilePanel">
+<div id="ProfileForm">
+    <h4>更新资料</h4>
+    <form method="post" action="{{ url_for('user.edit_my_profile') }}" >
+        <textarea name="about_me" id="about_me" placeholder="介绍一下自己" required></textarea><br>
+          <button type="submit" id="submit">提交资料(>^ω^<) </button><br>
+</form>
+</div>
+</div>
+</div>
+{% endblock %}

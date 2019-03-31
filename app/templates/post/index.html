@@ -15,11 +15,7 @@
 {% block page_content %}
 <div id="page_content">
 {%if posts %}
-    <!--某个用户下某个标签下的日志列表-->
-    <section>
-        <div>{{ post.author_id.username }}</div>
-        <div id="tag_switch">{{post.tag_id.name}}</div>
-    </section>
+
     <section>
         <div class="date" title="2019年2月26日变化的">
             <span class="cal">
@@ -31,13 +27,17 @@
         <ul class="posts">
             {% for post in posts %}
             <li class="post-item">
-                <h2><a href="{{url_for('post.index',id=post.id)}}">{{ post['title'] }}</a>></h2>
+                <h2><a href="{{url_for('post.post',post_id=post.post_id)}}">{{ post['post_title'] }}</a></h2>
                 <div id="post-meta">
-                    <time>{{ post['created'] }}</time>
-                    <span>{{post.tag_id.name}}</span>
-                    <span>{{post.comments}}</span>
-                    <a class="action" href="{{ url_for('post.update', id=post['id']) }}">编辑</a>
-                    <a class="action" href="{{ url_for('post.delete', id=post['id']) }}">删除</a>
+                    <time>{{ post['post_timestamps'] }}</time>
+                    <span>{{post.tag_name}}</span>
+                    <span>
+                        {{ post.count }}
+                    </span>
+                    <p>
+                        {{ post.post_body }}
+                    </p>
+
                 </div>
             </li>
             {% if not loop.last %}<hr>{% endif %}
@@ -46,10 +46,7 @@
 
         </ul>
     </section>
-    {% else %}
-    没有日志
-         {% if g.user['id'] == post['author_id'] %}<a class="action" href="{{ url_for('post.create') }}"><i id="icon_plus"></i>添加日志</a>{% endif %}
-{% endif %}
+  <a class="action" href="{{ url_for('post.create') }}"><img src="{{url_for('static',filename='static/images/edit.png')}}"></a>
 
 
 
@@ -60,7 +57,6 @@
 
 
 
-</>>
 {% endblock %}
 
 
