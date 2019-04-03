@@ -23,8 +23,8 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-       g.user = get_db().cursor().execute("select * from user where user_id = s%"
-                                          %(user_id)).fetchone()
+       g.user = get_db().cursor().execute("select * from user where user_id = s% "
+                                          % (user_id,)).fetchone()
 
 
 @auth_bp.route('/signup', methods=['GET', 'POST'])
@@ -36,6 +36,7 @@ def signup():
         password = request.form['password']
         # 连接数据库
         db = get_db()
+        cursor = db.cursor()
         error = None
 
         if not username:
@@ -45,15 +46,13 @@ def signup():
         elif not email:
             error = '邮箱不为空'
             # 确认用户名是否已在数据库存在
-        elif db.cursor().execute("select user_id from user where username = 's%'"
-                                 % (username,)).fetchone() is not None:
+        elif cursor.execute("select user_id from user where username = s% " % username).__format__() is not None:
             error = 'user{0} is already signup.'.format(username)
             # 确认邮箱是否已在数据库存在
-        elif db.cursor().execute('select user_id from user where email = s%' % (email,)).fetchone() is not None:
+        elif cursor.execute('select user_id from user where email = s% ' % email).fetchone() is not None:
             error = 'email{0} is already signup'.format(email)
         if error is None:
-            db.cursor().execute('insert into user(username,email,password) values(?, ?, ?)',
-                       (username, email, generate_password_hash(password)))
+            cursor.execute('insert into user(username,email,password) values(s%, s%, s%) ' % (username, email, generate_password_hash(password)))
             db.commit()
             flash('注册成功', 'success')
             return redirect(url_for('auth.signin'))
@@ -68,8 +67,8 @@ def signin():
         password = request.form['password']
         db = get_db()
         error = None
-        user = db.cursor().execute('select * from user where username=%s'
-                                   % (username,)).fetchone()
+        user = db.cursor().execute('select * from user where username= %s '
+                                   , (username,)).fetchone()
         if user is None:
             error = '错误用户名'
         elif not check_password_hash(user['password'], password):

@@ -17,7 +17,7 @@ def signin():
         password = request.form['password']
         db = get_db()
         error = None
-        user = db.execute('select * from user where username=?', (username,)).fetchone()
+        user = db.execute('select * from user where username= %s ' % (username,)).fetchone()
         if user is None:
             error = '错误用户名'
         elif not check_password_hash(user['password'], password):

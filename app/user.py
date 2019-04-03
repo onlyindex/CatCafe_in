@@ -11,7 +11,7 @@ user_bp = Blueprint('user', __name__, url_prefix='/user')
 def user_profile(user_id):
         db = get_db()
         user = db.execute('select username,about_me from user '
-                          'where user_id = ? ', (user_id,)).fetchall()
+                          'where user_id = %s ' % (user_id,)).fetchall()
         return render_template('user/user.html', user=user)
 
 
@@ -22,7 +22,7 @@ def my_profile():
     user_id = session['user_id']
     db = get_db()
     user = db.execute('select username,about_me from user '
-                      'where user_id = ? ', (user_id,)).fetchone()
+                      'where user_id = s% ' % (user_id,)).fetchone()
     return render_template('user/user.html', user=user)
 
 
@@ -39,7 +39,7 @@ def edit_my_profile():
         else:
             db = get_db()
             db.execute('update user set about_me =?'
-                       ' where user_id =? ', (about_me, user_id))
+                       ' where user_id = s% ' % (about_me, user_id))
             db.commit()
             flash('更新个人资料成功', 'info')
             return redirect(url_for('user.my_profile'))

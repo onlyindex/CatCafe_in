@@ -14,7 +14,7 @@ body {
 body::before {
     content: " ";
     background: center no-repeat url("/static/images/bg1.jpg");
-    background-attachment:fixed /*图像不会随着页面滚动*/
+    background-attachment:fixed; /*图像不会随着页面滚动*/
     z-index: -1;/*背景图置于body最底层*/
     background-size: cover;/*背景图片全部展开，但是会在底部留下白屏*/
     opacity: 0.3;

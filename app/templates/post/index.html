@@ -1,66 +1,51 @@
 {% extends "base.html" %}
 {% block title %}日志索引{% endblock %}
 {% block styles %}
-{{super()}}
-<style>
-#page_content{
-    background: linear-gradient(#e9ffed,#fff) repeat-x top left;
-    background-size: 100% 300px;
-    min-height: 600px;
-     }
-</style>
+    {{ super() }}
+    <style>
+        #page_content {
+            background: linear-gradient(#e9ffed, #fff) repeat-x top left;
+            background-size: 100% 300px;
+            min-height: 600px;
+        }
+    </style>
 {% endblock %}
 
-
 {% block page_content %}
-<div id="page_content">
-{%if posts %}
-
-    <section>
-        <div class="date" title="2019年2月26日变化的">
+    {% if posts %}
+        <div id="page_content">
+        <section>
+            <div class="date" title="2019年2月26日变化的">
             <span class="cal">
                 <i class="month">Feb</i>
                 <i class="day">26</i>
             </span>
-            <small>2月26日</small>
-        </div>
-        <ul class="posts">
-            {% for post in posts %}
-            <li class="post-item">
-                <h2><a href="{{url_for('post.post',post_id=post.post_id)}}">{{ post['post_title'] }}</a></h2>
-                <div id="post-meta">
-                    <time>{{ post['post_timestamps'] }}</time>
-                    <span>{{post.tag_name}}</span>
-                    <span>
+                <small>2月26日</small>
+            </div>
+            <ul class="posts">
+                {% for post in posts %}
+                    <li class="post-item">
+                        <h2><a href="{{ url_for('post.post',post_id=post.post_id) }}">{{ post['post_title'] }}</a></h2>
+                        <div id="post-meta">
+                            <time>{{ post['post_timestamps'] }}</time>
+                            <span>{{ post.tag_name }}</span>
+                            <span>
                         {{ post.count }}
                     </span>
-                    <p>
-                        {{ post.post_body }}
-                    </p>
+                            <p>
+                                {{ post.post_body }}
+                            </p>
 
-                </div>
-            </li>
-            {% if not loop.last %}<hr>{% endif %}
+                        </div>
+                    </li>
+                    {% if not loop.last %}
+                        <hr>{% endif %}
 
-            {% endfor %}
+                {% endfor %}
 
-        </ul>
-    </section>
-  <a class="action" href="{{ url_for('post.create') }}"><img src="{{url_for('static',filename='static/images/edit.png')}}"></a>
-
-
-
-
-
-
-
-
-
-
+            </ul>
+        </section>
+        <a class="action" href="{{ url_for('post.create') }}"><img
+                src="{{ url_for('static',filename='static/images/edit.png') }}"></a>
+    {% endif %}
 {% endblock %}
-
-
-
-
-
-

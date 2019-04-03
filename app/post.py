@@ -6,15 +6,23 @@ from app.auth import login_required
 post_bp = Blueprint('post', __name__, url_prefix='/post')
 
 
-# 动态日志页
+# 首页动态 从post和user获得post_title,post_timestamps,username,order by timestamps
 @post_bp.route('/', methods=['GET'])
-def home():pass
-
-
-
-
-
-
+def home():
+    if request.method == 'GET':
+        error = None
+        db = get_db()
+        cursor = db.cursor()
+        sql = 'select p.post_title, timestamp(p.post_timestamp) as post_timestamp,u.user_alias '\
+              'from post as p join user as u '\
+              'on p.author_id = u.user_id ' \
+              'order by p.post_timestamp desc '
+        row = cursor.execute(sql)
+        posts = cursor.fetchall()
+    if posts is None:
+        error = "喵喵喵啥日志也没有(￣o￣) . z Z"
+        flash(error, 'warning')
+        redirect(url_for('post.home'))
 
 
 # 日志列表
@@ -23,13 +31,20 @@ def index():
     if request.method == 'GET':
         error = None
         db = get_db()
-        posts = db.execute('select p.post_id, p.post_title, p.post_body, datetime(p.post_timestamp) as post_timestamp,u.username '
-                           'from post as p '
-                           'join user as u '
-                           'on p.author_id = u.user_id order by p.post_timestamp desc').fetchall()
+        # get游标 sqlite3封装了get游标的过程
+        cursor = db.cursor()
+        sql = 'select p.post_id, p.post_title, p.post_body, timestamp(p.post_timestamp) as post_timestamp,u.username '\
+            'from post as p join user as u '\
+            'on p.author_id = u.user_id '\
+            'order by p.post_timestamp desc '
+        row = cursor.execute(sql)
+        # 这里execute返回的是执行结果行数
+        posts = cursor.fetchall()
+        # 这样才能获取最终想要的集合
         if posts is None:
             error = "喵喵喵啥日志也没有(￣o￣) . z Z"
             flash(error, 'warning')
+            return redirect(url_for('post.index'))
     return render_template('post/index.html', posts=posts)
 
 
@@ -50,12 +65,10 @@ def create():
         else:
             db = get_db()
             for tag in tag_name:
-                if db.execute('select tag_id from tag where tag_name = ?', (tag,)).fetchone() is None:
+                if db.execute('select tag_id from tag where tag_name = s% ' % (tag,)).fetchone() is None:
                     db.execute('insert into tag(tag_name) values(?)', (tag,))
 
-            db.execute('insert into post (post_title,post_body,author_id) values(?,?,?)', (title, body, g.user['user_id']))
-
-
+            db.execute('insert into post (post_title,post_body,author_id) values(s%,s%,s%)' % (title, body, g.user['user_id']))
             db.commit()
             return redirect(url_for('post.index'))
         flash(error)
@@ -64,10 +77,9 @@ def create():
 
 # 修改or删除日志 先定义 get_post(post_id)操作
 def get_post(post_id, check_author=True):
-    post = get_db().execute('select * '
-                            'from post as p '
+    post = get_db().execute('select * from post as p '
                             'join user as u '
-                            'on p.author_id = u.user_id where p.post_id=?', (post_id, )
+                            'on p.author_id = u.user_id where p.post_id= s% ' % (post_id, )
                             ).fetchone()
     if post is None:
         abort(404, 'Post p.post_id{0} 不存在'.format(id))
@@ -101,9 +113,8 @@ def update(post_id):
             error = '内容不为空'
         else:
             db = get_db()
-            db.execute('update post set post_title=?,post_body=?'
-                       'where post_id = ?',
-                       (title, body, post_id))
+            db.cursor().execute('update post set post_title= %s ,post_body= s% '
+                                'where post_id = s% ' % (title, body, post_id))
             db.commit()
             return redirect(url_for('post.index'))
         flash(error)
@@ -116,7 +127,7 @@ def update(post_id):
 def delete(post_id):
     get_post(post_id)
     db = get_db()
-    db.execute('delete from post where post_id=?', (post_id,))
+    db.cursor().execute('delete from post where post_id= s%' % (post_id,))
     db.commit()
     return redirect(url_for('post.index'))
 # url_for('post.update', post_id=post['post_id'])
@@ -128,14 +139,14 @@ def post_comment_index(post_id):
     db = get_db()
     count = db.execute('select count(*) '
                        'from comment as c '
-                       'where c.post_id = ?', (post_id,)).fetchone()
-    comments = db.execute(
+                       'where c.post_id = %s' % (post_id,)).fetchone()
+    comments = db.cursor().execute(
         'select c.comment_body, datetime(c.comment_timestamp) as comment_timestamp,u.username '
         'from comment as c '
-        'where c.post_id = ?',
+        'where c.post_id = s% ',
         'join user as u '
         'on c.reader_id = u.user_id '
-        'order by comment.comment_timestamp desc', (post_id,)).fetchall()
+        'order by comment.comment_timestamp desc' % (post_id,)).fetchall()
     return render_template('post/post.html', comments=comments, count=count)
 
 
@@ -150,8 +161,8 @@ def post_comment_add(post_id):
             error='评论不能为空'
         else:
             db = get_db()
-            db.execute('insert into comment (comment_body,reader_id,post_id)'
-                       'values(?,?,?)', (body, g.user['user_id'], post_id))
+            db.cursor().execute('insert into comment (comment_body,reader_id,post_id)'
+                       'values(s%, s%, s%)' % (body, g.user['user_id'], post_id))
             db.commit()
             return redirect(url_for('post.post_comment_index', post_id=post_id))
         flash(error)

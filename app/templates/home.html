@@ -3,6 +3,7 @@
 {% block page_content %}
 
    <h4> # 假装很忙的日常</h4>
+    {% if posts %}
     <div class="card">
         <div class="card_content">
             <div class="author_face">
@@ -17,6 +18,7 @@
         </div>
         <div class="card_handle">喜欢、评论、分享、阅读数</div>
     </div>
+    {% endif %}
 
 
 
@@ -26,7 +28,6 @@
 
 
 
-    <div>
 {% endblock %}
 
 
