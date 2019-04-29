@@ -17,11 +17,17 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.signin'))
+
+
+# 判断是否是管理员登录
+def admin_login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
         if g.user is not None:
             if g.user[0] == 1:
                 return redirect(url_for('admin.dashboard'))
-            else:
-                return redirect(url_for('post.home'))
         else:
             return redirect(url_for('auth.signin'))
 
@@ -105,4 +111,4 @@ def signin():
 def signout():
     session.clear()
     flash('成功退出', 'success')
-    return redirect(url_for('home'))
+    return redirect(url_for('auth.signin'))

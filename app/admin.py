@@ -1,7 +1,7 @@
-from flask import Blueprint, request, render_template, redirect, url_for, flash
+from flask import Blueprint, request, session, render_template, redirect, url_for, flash
 from db import get_db
 from app.post import get_post, get_post_tag
-from app.auth import login_required
+from app.auth import admin_login_required
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 # 项目超级大多人协作不同模块每个模块下都包含/static/ 比如/admin/static_admin/
@@ -11,13 +11,13 @@ admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 
 @admin_bp.route('/', methods=['GET'])
-@login_required
+@admin_login_required
 def dashboard():
     return render_template('admin/dashboard.html')
 
 
 @admin_bp.route('/post/manage', methods=['GET'])
-@login_required
+@admin_login_required
 def manage_post():
     # 查询所有文章、进行分页处理?、传入模板
     db = get_db()
@@ -31,7 +31,7 @@ def manage_post():
 # 增加Tags 和 Comments 两个属性
 # 新建日志
 @admin_bp.route('/create', methods=['GET', 'POST'])
-@login_required
+@admin_login_required
 def create():
     if request.method == 'POST':
         title = request.form['title']
@@ -93,7 +93,7 @@ def create():
 # 修改 vs 新建  修改使用日志对象 update->insert
 # 修改日志
 @admin_bp.route('/<int:post_id>/update', methods=['GET', 'POST'])
-@login_required
+@admin_login_required
 def update(post_id):
     post = get_post(post_id)
     if request.method == 'POST':
@@ -116,7 +116,7 @@ def update(post_id):
 
 # 删除日志
 @admin_bp.route('<int:post_id>/delete', methods=['POST'])
-@login_required
+@admin_login_required
 def delete(post_id):
     get_post(post_id)
     db = get_db()
@@ -134,7 +134,7 @@ def delete(post_id):
 
 # 标签管理
 # @admin_bp.route('/tag/<int:tag_id>/delete')
-# @login_required
+# @admin_login_required
 
 
 # 评论管理、批准评论、关闭评论
