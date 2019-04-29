@@ -46,7 +46,7 @@ function turnoff(obj){
     <div id="nav_box">
         <div id="nav_logo_box">
             <div id="nav_logo">
-                <a href="{{url_for('post.index')}}"><img id="img" src="{{url_for('static',filename='static/images/logo_ex.png')}}"></a>
+                <a href="{{url_for('post.home')}}"><img id="img" src="{{url_for('static',filename='static/images/logo_ex.png')}}"></a>
             </div>
         </div>
         <div id="nav_menu_box" >
@@ -95,16 +95,17 @@ function turnoff(obj){
            <li>tag3</li>
         </ul>
 </div>
-    {% block page_content %}
     <div id="page_content">
+        {% block page_content %}
         {% for message in get_flashed_messages(with_categories=True) %}
         <div class="flash alert alert-{{message[0]}}" id="close" role="alert">
             <button class="close" onclick="turnoff('close')" >&times;</button>
             {{ message[1] }}
         </div>
         {% endfor %}
+        {% endblock %}
+
     </div>
-    {% endblock %}
 </main>
 
 

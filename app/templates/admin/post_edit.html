@@ -5,14 +5,14 @@
 <div id="PostPanel">
 <div id="PostForm">
   <form  method="post" action="{{ url_for('post.update',id=post.id) }}">
-    <input name="title" id="title" value="{{ post.title }}" >
-    <textarea name="body" id="body" >{{ post.body }}</textarea>
-    <button type="submit">更新日志</button>
+    <input class="input" name="title" id="title" value="{{ post.title }}" >
+    <textarea class="textarea" name="body" id="body" >{{ post.body }}</textarea>
+    <button class="button" type="submit">更新日志</button>
   </form>
 </div>
     <hr>
     <form method="post" action="{{ url_for('post.delete', id=post['id']) }}" >
-    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+    <input class="input" class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
     </form>
 </div>
 {% endblock %}

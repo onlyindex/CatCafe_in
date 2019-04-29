@@ -1,0 +1,32 @@
+{% extends "admin/ad_base.html" %}
+{% block title %}dashboard{% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+    </style>
+{% endblock %}
+
+{% block page_content %}
+    <section id="ad_count">
+            <div class="ad_count_widgets">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+                <h4>1500</h4>
+                <span>Posts</span>
+            </div>
+            <div class="ad_count_widgets">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+                <h4>314</h4>
+                <span>Tags</span>
+            </div>
+            <div class="ad_count_widgets">
+                <i class="fa fa-hourglass-end" aria-hidden="true"></i>
+                <h4>394</h4>
+                <span>Reader</span>
+            </div>
+            <div class="ad_count_widgets">
+                <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                <h4>109</h4>
+                <span>Comments</span>
+            </div>
+        </section>
+{% endblock %}

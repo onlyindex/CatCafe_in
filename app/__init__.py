@@ -25,14 +25,15 @@ def create_app():
     db.init_app(app)
 
     from app.auth import auth_bp
-    from app.admin import admin_bp
     from app.post import post_bp
     from app.user import user_bp
     from app.message import msg_bp
     from app.admin import admin_bp
     # 注册蓝本
     app.register_blueprint(auth_bp)
-    app.register_blueprint(admin_bp, url_prefix='/a')
+    app.register_blueprint(admin_bp)
+
+    # app.register_blueprint(admin_bp, url_prefix='/a')
     # 注册时候指定的路由前缀优先级高
     # admin.admin   GET        /a/admin
     # url_for('admin')
@@ -42,5 +43,5 @@ def create_app():
     # the minimal flask application
     @app.route('/')
     def home():
-        return redirect(url_for('post.index'))
+        return redirect(url_for('post.home'))
     return app

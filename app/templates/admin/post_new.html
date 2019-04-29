@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}New Post{% endblock %}
+
+{% block page_content %}
+    {{ super() }}
+<div id="PostPanel">
+<div id="PostForm">
+  <form  method="post" action="{{ url_for('post.create') }}">
+    <input class="input" name="title" id="title" placeholder="标题" required><br>
+    <textarea class="textarea" name="body" id="body" placeholder="内容" required></textarea><br>
+      <input class="input" type="text"  name="tags" placeholder="输入标签空格分隔" required><br>
+      <input class="input" type="text"  name="alias" placeholder="输入别名" required><br>
+
+    <button class="button" type="submit">发布日志</button>
+  </form>
+
+
+
+
+</div>
+</div>
+{% endblock %}
+

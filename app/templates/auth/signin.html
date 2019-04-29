@@ -2,19 +2,19 @@
 {% block title %}登录{% endblock %}
 
 {% block page_content %}
-<div id="page_content">
+    {{ super() }}
 
 <div id="SigninPanel">
 <div id="SigninForm">
           <h4>登录至喵茶会</h4>
   <form method="post" action="{{ url_for('auth.signin') }}">
 
-          <input name="username" type="username" id="username" placeholder="Enter username" required><br>
+          <input class="input" name="username" type="username" id="username" placeholder="Enter username" required><br>
 
-          <input name="password" type="password" id="password" placeholder="Enter Password" required><br>
+          <input class="input" name="password" type="password" id="password" placeholder="Enter Password" required><br>
 
         <!--  <input type="checkbox"><label>保存登录状态</label><br>-->
-          <button type="submit">登录(ノ≧∇≦)ノ</button><br>
+          <button class="button"type="submit">登录(ノ≧∇≦)ノ</button><br>
 </form>
 </div>
 <div id="other_link">
@@ -22,7 +22,6 @@
             微博账号登录
 
 
-</div>
 </div>
 </div>
 

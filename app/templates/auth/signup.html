@@ -2,19 +2,18 @@
 {% block title %}注册{% endblock %}
 
 {% block page_content %}
-<div id="page_content">
+        {{ super() }}
 <div id="SignupPanel">
 <div id="SignupForm">
     <h4>注册喵茶会</h4>
     <form method="post" action="{{ url_for('auth.signup') }}" >
-          <input name="username" type="username" id="username" placeholder="Enter username" required ><br>
-          <input name="email" type="email"  placeholder="Enter email" required><br>
-          <input name="password"  type="password" id="password" placeholder="Enter Password" required ><br>
-          <input name="check_pwd" type="password" id="check_pwd" placeholder="Check Password" required><br>
-          <button type="submit" id="submit">加入我们(>^ω^<) </button><br>
+          <input class="input" name="username" type="username" id="username" placeholder="Enter username" required ><br>
+          <input class="input" name="email" type="email"  placeholder="Enter email" required><br>
+          <input class="input" name="password"  type="password" id="password" placeholder="Enter Password" required ><br>
+          <input class="input" name="check_pwd" type="password" id="check_pwd" placeholder="Check Password" required><br>
+          <button class="button" type="submit" id="submit">加入我们(>^ω^<) </button><br>
 </form>
 
-</div>
 </div>
 </div>
 {% endblock %}

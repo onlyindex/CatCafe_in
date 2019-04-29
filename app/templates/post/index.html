@@ -4,9 +4,10 @@
     {{ super() }}
     <style>
         #page_content {
-            background: linear-gradient(#e9ffed, #fff) repeat-x top left;
+            background: linear-gradient(#e9ffed, #ffffff00) repeat-x top left;
             background-size: 100% 300px;
             min-height: 600px;
+            width: 100%;
         }
     </style>
 {% endblock %}
@@ -14,38 +15,30 @@
 {% block page_content %}
     {% if posts %}
         <div id="page_content">
-        <section>
+        {% for post in posts %}
+        <section class="post">
             <div class="date" title="2019年2月26日变化的">
             <span class="cal">
-                <i class="month">Feb</i>
-                <i class="day">26</i>
-            </span>
-                <small>2月26日</small>
+                <i class="month">白羊月</i>
+                <i class="day">Jau</i>
+            </span><br>
+            <small>{{ post[2] }}</small><br>
             </div>
-            <ul class="posts">
-                {% for post in posts %}
-                    <li class="post-item">
-                        <h2><a href="{{ url_for('post.post',post_id=post.post_id) }}">{{ post['post_title'] }}</a></h2>
-                        <div id="post-meta">
-                            <time>{{ post['post_timestamps'] }}</time>
-                            <span>{{ post.tag_name }}</span>
-                            <span>
-                        {{ post.count }}
-                    </span>
-                            <p>
-                                {{ post.post_body }}
-                            </p>
-
-                        </div>
+            <ul class="post_group">
+                    <li class="post_item">
+                    <div class="post_info">
+                        <h2><a href="{{ url_for('post.post',post_id=post[0]) }}">{{ post[1] }}</a></h2><br>
+                        <span>评论数233</span><span>喜欢233</span>
+                    </div>
+                    <div class="post_meta">
+                        <a><img id="post_author" src="{{url_for('static',filename='static/images/myself.jpg')}}"></a><br>
+                        {{ post[3] }}<br>
+                    </div>
                     </li>
                     {% if not loop.last %}
                         <hr>{% endif %}
-
                 {% endfor %}
-
             </ul>
         </section>
-        <a class="action" href="{{ url_for('post.create') }}"><img
-                src="{{ url_for('static',filename='static/images/edit.png') }}"></a>
     {% endif %}
 {% endblock %}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--移动设备优先 屏幕缩放比例自适应-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no">
+    <!--收藏夹图标-->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='static/images/favicon.png') }}">
+    <title>{% block title %}dashboard{% endblock %}</title>
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/admin.css' ) }}"/>
+    {% endblock %}
+    <script type="text/javascript">
+    </script>
+</head>
+
+
+<body>
+<div class="wrap">
+    <div class="app">
+        <header>
+            <div id="ad_header">
+                <a href="{{ url_for('user.my_profile',_external=True) }}">
+                    <img id="img" src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>
+                <a id="success_btn" href="{{ url_for('auth.signout') }}">退出</a>
+            </div>
+        </header>
+
+             {% block page_content %}
+            {% for message in get_flashed_messages(with_categories=True) %}
+                <div class="flash alert alert-{{ message[0] }}" id="close" role="alert">
+                    <button class="close" onclick="turnoff('close')">&times;</button>
+                    {{ message[1] }}
+                </div>
+            {% endfor %}
+        {% endblock %}
+
+</div>
+    <div class="tabs">
+            <div class="tab">
+                <a href="{{ url_for('admin.dashboard' ) }}">
+                    <img src="https://res.cloudinary.com/prvnbist/image/upload/v1512744912/feed_fmytit.svg"/>dashboard
+                </a>
+            </div>
+            <div class="tab">
+                <a href="{{ url_for('admin.manage_post' ) }}">
+                    <img src="https://res.cloudinary.com/prvnbist/image/upload/v1512744911/cal_cexot2.svg"/>日志管理
+                </a>
+            </div>
+{#            <div class="tab">#}
+{#                <a href="#{{ url_for('admin.manage_tag' ) }}">#}
+{#                    <img href="#"#}
+{#                         src="https://res.cloudinary.com/prvnbist/image/upload/v1512744913/msg_owdthq.svg"/>标签管理</a>#}
+{#            </div>#}
+{#            <div class="tab"><a href="#{{ url_for('admin.manage_comment' ) }}">#}
+{#                <img href="#"#}
+{#                     src="https://res.cloudinary.com/prvnbist/image/upload/v1512744914/user_xszplu.svg"/>评论管理</a>#}
+{#            </div>#}
+{#            <div class="tab"><a href="#{{ url_for('admin.manage_user' ) }}">#}
+{#                <img href="#"#}
+{#                     src="https://res.cloudinary.com/prvnbist/image/upload/v1512744914/user_xszplu.svg"/>用户管理</a>#}
+{#            </div>#}
+{#            <div class="tab"><a href="#{{ url_for('admin.new' ) }}">#}
+{#                <img href="#"#}
+{#                     src="https://res.cloudinary.com/prvnbist/image/upload/v1512744914/user_xszplu.svg"/>新建</a>#}
+{#            </div>#}
+        </div>
+
+</div>
+</body>
+</html>

@@ -1,33 +1,73 @@
 {% extends 'base.html' %}
 
+{% block styles %}
+    {{ super() }}
+<style>
+    .card {
+    background-color: #f0919914;
+    padding: 12px 12px;
+    margin: 12px auto;
+        max-width: 680px;
+    }
+.card_content {
+    display: flex;
+}
+.author_face {
+    margin: 0 12px 0 0px;
+    flex: 1;
+}
+.author_detail {
+    flex: 9;
+}
+.author_post {
+    display: inline-block;
+}
+.author_post_date {
+    text-align: left;
+}
+.author_post_info {
+    display: inline-block;
+}
+.type_post {
+    display: inline-block;
+    background-color: #5eba7d;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0 8px;
+    margin: 0 2px;
+}
+.author_date {
+    display: flex;
+}
+.card_handle {
+    display: flex;
+    justify-content: space-between;
+}
+</style>
+{% endblock %}
 {% block page_content %}
-
+{{ super() }}
    <h4> # 假装很忙的日常</h4>
-    {% if posts %}
+    {% for post in posts %}
     <div class="card">
         <div class="card_content">
             <div class="author_face">
-            <a  href="{{ url_for('user.my_profile',_external=True) }}">
-                <img id="img" src="{{url_for('static',filename='static/images/myself.jpg')}}"></a>
+            <a  href="{{ url_for('user.user_profile',user_id=1) }}">
+                <img id="post_author" src="{{url_for('static',filename='static/images/myself.jpg')}}"></a>
             </div>
             <div class="author_detail">
-                <div class="post_author"><a href="{{ url_for('user.my_profile')}}">{{ post.username }}</a></div>添加日志
-                <div class="post_info" id="post_info">{{ post['post_title'] }}</div>
-                <div class="post_date">{{ post['post_timestamp'] }}</div>
+                <div class="author_post_date">
+                    <div class="author_post"><a href="{{ url_for('user.my_profile')}}">{{ post[3] }}</a></div>
+                    添加
+                    <div class="type_post">日志</div>
+                    <div class="author_post_info" id="author_post_info"><a href="{{ url_for('post.post',post_id = post[0])}}">{{ post[1] }}</a></div>
+                </div>
+                <div class="author_date">{{ post[2] }}</div>
             </div>
         </div>
-        <div class="card_handle">喜欢、评论、分享、阅读数</div>
-    </div>
-    {% endif %}
-
-
-
-
-
-
-
-
-
+        <div class="card_handle"><div>阅读数233</div><div></div><div>喜欢</div><div>评论</div><div>分享</div></div></div>
+    {% endfor %}
 {% endblock %}
 
 

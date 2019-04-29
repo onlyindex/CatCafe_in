@@ -1,39 +1,67 @@
 {% extends "base.html" %}
 {% block title %}日志详情{% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        #post_header_info {
+            font-size: .75rem;
+            line-height: 1.25rem;
+            color: #939393;
+            text-align: left;
+            margin-left: 12px;
+        }
+
+        #post_header_info a {
+            color: #4fa949
+        }
+
+        .post_content {
+            font-size: 18px;
+            line-height: 28px;
+        }
+div#share_weibo {
+    display: inline-block;
+}
+    div#share_wechat {
+    display: inline-block;
+}
+    div#share {
+    float: right;
+    margin-right: 12px;
+}
+    .tag_list {
+    text-align: left;
+        margin-left: 12px;
+}
+/*评论面板样式*/
+    div#CommentPanel {
+    margin-left: 12px;
+        border: none;
+}
+
+    </style>
+{% endblock %}
 {% block page_content %}
 <article class="post">
 <div class="post_header">
-    <h1>{{ post['post_title'] }}</h1>
-    <div class="post_info" id="post_info">
+    <h1>{{ post[1] }}</h1>
+    <div class="post_header_info" id="post_header_info">
         <div class="post_author">
             <a href="{{ url_for('user.my_profile')}}">
-            {{ post.username }}
+            {{ post[4] }}
             </a>
         </div>
         <div class="post_date">
               {#{{ moment(post.post_timestamp).fromNow() }}#}
               {# {{ post['post_timestamp'].strftime('%Y-%m-%d') }} #}
-                            {{ post['post_timestamp'] }}
+                            {{ post[3] }}
 
         </div>
-            <div>
-            <a style="color: #5a84b3" class="action" href="{{ url_for('post.update', post_id=post['post_id']) }}">编辑</a>
-            <a style="color: #5a84b3" class="action" href="{{ url_for('post.delete', post_id=post['post_id']) }}">删除</a>
-            </div>
-    </div>
-</div>
-
-<div class="body">{{ post['post_body'] }}</div>
-<div class="like">
-    <div class="author">
-            小头像
-    </div>
-    <button>like</button>
-    </div>
-    <div class="tag"><a>ta1</a> tag2 ta3</div>
-<div class="post_bottom">
-    <div class="comment_count"></div>
-    <div id="share">
+{#            <div>#}
+{#            <a style="color: #5a84b3" class="action" href="{{ url_for('post.update', post_id=post['post_id']) }}">编辑</a>#}
+{#            <a style="color: #5a84b3" class="action" href="{{ url_for('post.delete', post_id=post['post_id']) }}">删除</a>#}
+{#            </div>#}
+            <div id="share">
             分享到
             <div id="share_weibo">
                 <a title="扫码分享到微信" href="#">
@@ -50,15 +78,39 @@
 
         </div>
     </div>
+</div>
 
+<div class="post_content">{{ post[2] }}</div>
+<div class="like">
+    <div class="author">
+        <a><img id="post_author" src="{{url_for('static',filename='static/images/myself.jpg')}}"></a>
+    </div>
+    <button>like</button>
+</div>
+
+
+<div class="post_bottom">
+        <div class="tag_list">
+    {% for tag in tags %}
+    <a class="tag">{{ tag[0] }}</a>
+    {% endfor %}
+    </div>
 </div>
 </article>
-<div id="message">
+<div id="CommentPanel">
+    <div class="comment_count">评论233</div>
     <div id="CommentForm">
-        <form  method="post" action="{{ url_for('post.post_comment_add',post_id=post.post_id) }}">
-            <input name="username" id="username" placeholder="用户名" required>
-            <textarea name="body" id="body" placeholder="吐了个草" required></textarea>
-            <button type="submit">评论</button>
+        <form  method="post" action="{{ url_for('post.post_comment_add',post_id=post[0]) }}">
+         {% if g.user %}
+              <a href="{{ url_for('user.my_profile')}}">
+            {{currenet_user[1]}}
+            </a>
+         {% else %}
+             <a href="{{ url_for('auth.signin') }}">登录</a><br>
+
+         {% endif %}
+            <textarea class="textarea" name="body" id="body" placeholder="我要吐槽" required></textarea><br>
+            <button class="button" type="submit">评论</button><br>
         </form>
     </div>
     <p id="Comments">
