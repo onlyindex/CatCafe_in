@@ -3,18 +3,37 @@
 {% block styles %}
     {{ super() }}
     <style>
-        .table_list {
-            border-style: none;
 
+        .card {
+            max-width: 800px;
+            margin: 20px auto;
+            position: relative;
+            z-index: 0;
+        }
+
+        .card h2 {
+            display: inline-block;
+        }
+
+        #add_post {
+            padding: 3px;
+            border: 1px solid #f09191;
+            border-radius: 2px;
+            margin-left: 0.5rem;
+        }
+
+        .table_list {
+            background-color: white;
+            border: 1px solid #eceeef;
+            font-size: 0.8rem;
             border-spacing: 0;
             border-collapse: collapse;
             empty-cells: show;
-
             width: 100%;
 
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 720px) {
             .table_list {
             }
 
@@ -29,21 +48,9 @@
 
         }
 
-        #table_list_container {
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #ffffff;
-            border: 1px solid #d2d2d2;
-            position: relative;
-            z-index: 0;
-            font-size: 13px;
-        }
-
 
         th {
-            border-top: 1px solid #eceeef;
-            border-bottom: 1px solid #d2d2d2;
-            text-align: left;
+        {#border-top: 1px solid #eceeef;#}{#border-bottom: 1px solid #d2d2d2;#} text-align: left;
         }
 
         th, td {
@@ -51,153 +58,139 @@
         }
 
         td {
-            width: 6%;
+        {#width: 6%;#}
         }
 
 
-
-        .fa {
-            font: normal normal normal 14px/1 FontAwesome;
+        p {
+            padding: 8px;
+            float: left;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 6px 12px;
-            /* margin-bottom: 0; */
-            /* font-size: 14px; */
-            /* font-weight: 400; */
-            line-height: 1.42857143;
-            /* text-align: center; */
-            /* white-space: nowrap; */
+        .pagination {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .pagination a {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background-color: transparent;
+            color: #222;
+        {#border: 1px solid white;#} display: inline-block;
             vertical-align: middle;
-            -ms-touch-action: manipulation;
-            /* touch-action: manipulation; */
-            /* cursor: pointer; */
-            /* -webkit-user-select: none; */
-            -moz-user-select: none;
-            -ms-user-select: none;
-            /* user-select: none; */
-            /* background-image: none; */
-            border: 1px solid transparent;
-            /* border-radius: 4px; */
+            text-decoration: none;
+            font-weight: 200;
+            margin: 4px;
+            transition: all 0.2s linear;
         }
 
-        .fa-pencil:before {
-            content: "\f040";
-        }
-
-        .btn-default {
-            /* color: #333; */
-            background-color: #fff;
-            border-color: #ccc;
-        }
-
-        .btn-danger {
+        .pagination a:hover, .pagination a.selected {
             color: #fff;
-            background-color: #d9534f;
-            border-color: #d43f3a;
-        }
-
-        .fa-trash:before {
-            content: "\f1f8";
+            background-color: #f09191;
+            border-color: #f09191;
         }
 
 
-        #add_post {
-
-            padding:8px;
-                float: right;
+        #tag {
+            color: #f09191;
+            display: inline-block;
+            border: 1px solid #f09191;
+            border-radius: 4px;
+            padding: 1px;
+            margin-right: 2px;
         }
-    p{padding: 8px;
-        float: left;}
 
-    .pagination{
-  text-align: center;
-  padding: 20px 0;}
-    .pagination a {
-    font-family: "Open Sans";
-    font-size: 1.08em;
-    width: 50px;
-    height: 50px;
-    /* background-color: transparent; */
-    color: #222;
-    border: 2px solid #ddd;
-    display: inline-block;
-    /* vertical-align: middle; */
-    line-height: 45px;
-    text-decoration: none;
-    border-radius: 50%;
-    font-weight: 700;
-    margin: 4px;
-    /* transition: all 0.2s linear; */
-}
-    .pagination a.selected {
-    color: #fff;
-    background-color: #3498db;
-    border-color: #3498db;
-}
+        .post_status li {
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+
     </style>
 {% endblock %}
 
 {% block page_content %}
 
-    <div id="table_panel">
-        {% if posts %}
-            <div id="table_list_container">
-            <table class="table_list">
-                <caption>
-                    <p>日志管理</p>
-                    <a id="add_post" class="action" href="{{ url_for('post.create') }}">添加日志</a>
-                </caption>
-                <thead>
-                <tr>
-                    <th scope="col">No.</th>
-                    <th scope="col"><a href="#">Title</a></th>
-                    <th scope="col">Date</th>
-                    <th scope="col">alias</th>
-                    <th scope="col">Tags</th>
-                    <th scope="col">Comments</th>
-                    <th scope="col">Words</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
+    <div id="post_list" class="card">
+        <h2>日志</h2><a id="add_post" class="action" href="{{ url_for('admin.new_post') }}">添加日志</a>
+
+        <ul class="post_status">
+            <li class="all_posts">
+                <a href="#">全部</a>(<span>18,367</span>) |
+            </li>
+            <li class="show_posts">
+                <a href="#">已发布</a>(<span>1353</span>) |
+            </li>
+            <li class="draft_posts">
+                <a href="#">草稿箱</a>(<span>1353</span>) |
+            </li>
+            <li class="hide_posts">
+                <a href="#">垃圾箱</a>(<span>233</span>)</a>
+            </li>
+        </ul>
+
+        <table class="table_list">
+
+            <thead>
+            <tr>
+                <th scope="col"><a href="#">Title</a></th>
+                <th scope="col">Date</th>
+                <th scope="col">Categories</th>
+                <th scope="col">Tags</th>
+                <th scope="col">Comments</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if posts %}
+
                 {% for post in posts %}
 
                     <tr>
-                        <td scope="row">post——id</td>
                         <td scope="row">post——title</td>
                         <td scope="row">post——timestamp</td>
-                        <td scope="row">author——alias</td>
-                        <td scope="row">tags</td>
-                        <td scope="row">comments</td>
-                        <td scope="row">11111</td>
+                        <td scope="row">分类1</td>
                         <td scope="row">
-                            <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                            <p id="tag">tag1</p>
+                            <p id="tag">tag1</p>
+                            <p id="tag">tag1</p>
+                        </td>
+                        <td scope="row">comments</td>
+                        <td scope="row">display</td>
+
+                        <td scope="row">
+                            <a id="edit_post" class="btn btn-default"
+                               href="#">编辑</a>
+                            <a id="del_post" class="btn btn-danger"
+                               href="#">删除</a>
+                            <a id="publish_post" class="btn"
+                               href="#">发布</a>
+
+
                         </td>
                     </tr>
                 {% endfor %}
 
                 </tbody>
-            </table>
-            <table class="table_footer">
-                <div class="pagination">
-                    <a href="#">«</a>
-                    <a href="#">‹</a>
-                    <a href="#" class="selected">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">›</a>
-                    <a href="#">»</a>
-                </div>
-
-            </table>
-        {% else %}
-            No posts
-        {% endif %}
-        </div>
+                </table>
+                <table class="table_footer">
+                    <div class="pagination">
+                        <a href="#">«</a>
+                        <a href="#">‹</a>
+                        <a href="#" class="selected">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">›</a>
+                        <a href="#">»</a>
+                    </div>
+                </table>
+            {% else %}
+                No posts
+            {% endif %}
     </div>
 {% endblock %}

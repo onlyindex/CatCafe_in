@@ -3,69 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <!--移动设备优先 屏幕缩放比例自适应-->
-    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no">
     <!--收藏夹图标-->
-    <link rel="icon" type="image/x-icon" href="{{url_for('static',filename='static/images/favicon.png')}}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='static/images/favicon.png') }}">
 
 
     <title>{% block title %}catcafe_in{% endblock %}</title>
     {% block styles %}
-    <link rel="stylesheet" type="text/css"  href="{{ url_for('static', filename='styles/phone.css' ) }}" />
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/phone.css' ) }}"/>
     {% endblock %}
-    <script type="text/javascript">
+    {% block scripts %}
+        <script type="text/javascript">
 
-    function show(obj){
-				var div = document.getElementById(obj);
-				div.style.display="block";
-				page_content=document.getElementById('page_content');
-				page_content.style.display="none";
+            function show(obj) {
+                var div = document.getElementById(obj);
+                div.style.display = "block";
+                page_content = document.getElementById('page_content');
+                page_content.style.display = "none";
 
-/*当鼠标移上去判断 obj,隐藏page_content,展示 nav_content */
-			}
-	function hide(obj){
-				var div = document.getElementById(obj);
-				div.style.display="none";
-				page_content=document.getElementById('page_content');
-				page_content.style.display="block";
+                /*当鼠标移上去判断 obj,隐藏page_content,展示 nav_content */
+            }
 
-/*当鼠标移走判断 obj,展示page_content,隐藏 nav_content */
+            function hide(obj) {
+                var div = document.getElementById(obj);
+                div.style.display = "none";
+                page_content = document.getElementById('page_content');
+                page_content.style.display = "block";
 
-			}
-function turnoff(obj){
-	          document.getElementById(obj).style.display="none";
-	          /*关闭 flash 提示消息*/
-		}
+                /*当鼠标移走判断 obj,展示page_content,隐藏 nav_content */
 
+            }
 
-</script>
+            function turnoff(obj) {
+                document.getElementById(obj).style.display = "none";
+                /*关闭 flash 提示消息*/
+            }
+        </script>
+    {% endblock %}
+
 </head>
 
 
 <body>
 <nav id="nav">
     <div id="nav_box">
+        <div id="nav_menu_box" onmouseover="show('nav_content')" onmouseout="hide('nav_content')">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon">
+                <path fill="currentColor"
+                      d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path>
+            </svg>
+        </div>
         <div id="nav_logo_box">
             <div id="nav_logo">
-                <a href="{{url_for('post.home')}}"><img id="img" src="{{url_for('static',filename='static/images/logo_ex.png')}}"></a>
+                <a href="{{ url_for('home') }}"><img id="logo_img"
+                                                     src="{{ url_for('static',filename='static/images/logo_ex.png') }}"></a>
             </div>
         </div>
-        <div id="nav_menu_box" >
-            <div id="nav_menu" onmouseover="show('nav_content')" onmouseout="hide('nav_content')">
-                菜单
-            </div>
-        </div>
-        <div id="nav_auth_box" >
-                {% if g.user %}
+
+        <div id="nav_auth_box">
+            {% if g.user %}
                 <div id="nav_auth_success">
-                <a  href="{{ url_for('user.my_profile',_external=True) }}"><img id="img" src="{{url_for('static',filename='static/images/myself.jpg')}}"></a>
-                <a id="success_btn" href="{{ url_for('auth.signout') }}">退出</a>
+                    <a href="{{ url_for('user.my_profile',_external=True) }}"><img id="nav_img"
+                                                                                   src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>
+                    <a id="success_btn" href="{{ url_for('auth.signout') }}">退出</a>
                 </div>
-                {% else %}
-                 <div id="nav_auth">
-                <a id="in_btn" href="{{ url_for('auth.signin') }}">登录</a>
-                <a id="up_btn" href="{{ url_for('auth.signup') }}">注册</a>
+            {% else %}
+                <div id="nav_auth">
+                    <a id="in_btn" href="{{ url_for('auth.signin') }}">登录</a>
+                    <a id="up_btn" href="{{ url_for('auth.signup') }}">注册</a>
                 </div>
-                {% endif %}
+            {% endif %}
         </div>
     </div>
 </nav>
@@ -74,50 +82,55 @@ function turnoff(obj){
     <div id="nav_content">
         <div id="search_box">
             <form action="#" method="post" id="SearchForm">
-                    <input id="search_text"  type="text" placeholder="你瞅啥(*^__^*) 嘻嘻……"
-                           onkeydown="if (event.keyCode==20) {}"
-                           onblur="if(this.value=='')value='你瞅啥(*^__^*) 嘻嘻……';"
-                           onfocus="if(this.value=='你瞅啥2')value='';" />
-                    <button type="submit" id="searchBtn"><img id="img" src="{{url_for('static',filename='static/images/search.png')}}"></button>
+                <input id="search_text" type="text" placeholder="你瞅啥(*^__^*) 嘻嘻……"
+                       onkeydown="if (event.keyCode==20) {}"
+                       onblur="if(this.value=='')value='你瞅啥(*^__^*) 嘻嘻……';"
+                       onfocus="if(this.value=='你瞅啥2')value='';"/>
+                <button type="submit" id="searchBtn"><img id="img"
+                                                          src="{{ url_for('static',filename='static/images/search.png') }}">
+                </button>
             </form>
         </div>
 
-       <ul id="topic">
-           <li>图work</li>
-            <li>图<a href="{{url_for('post.index')}}">post</a></li>
-           <li>图image</li>
-           <li>图message</li>
-       </ul>
+        <div id="topic">
+            <a href="/work/" class="">work</a>
+            <a href="/image/" class="">写真</a>
+            <a href="/post/" href="{{ url_for('post.index') }}" class="">日志</a>
+            <a href="/friend_t/" class="">挚友</a>
+
+        </div>
+
+
         <ul id="tag_list">
-            <li>tag1</li>
-            <li>tag2</li>
-           <li>tag2</li>
-           <li>tag3</li>
+            <li><p><a># 我的swift不可能这么萌</a><span>111111</span></p></li>
+            <li><p><a># 我的swift不可能这么萌</a><span>111111</span></p></li>
+            <li># pm第一本python魔法书 12222</li>
+            <li># 占星占星占星占星 333</li>
+            <li># tag3 66</li>
         </ul>
-</div>
+        <footer id="footer">
+
+            仰望星空脚踏实地（缺js）<br>
+            喵茶会已经在宇宙运行了<a>1</a>天<br>
+            已遇见<a>3000</a>只喵星人<br>
+            收到<a>500</a>只土豪喵的包养<br>
+            © 2019 Design ❤ Code by<a href="http://catcafe.in" title="Powered by onlyindex"> Only Index</a><br>
+
+        </footer>
+
+    </div>
     <div id="page_content">
         {% block page_content %}
-        {% for message in get_flashed_messages(with_categories=True) %}
-        <div class="flash alert alert-{{message[0]}}" id="close" role="alert">
-            <button class="close" onclick="turnoff('close')" >&times;</button>
-            {{ message[1] }}
-        </div>
-        {% endfor %}
+            {% for message in get_flashed_messages(with_categories=True) %}
+                <div class="flash alert alert-{{ message[0] }}" id="close" role="alert">
+                    <button class="close" onclick="turnoff('close')">&times;</button>
+                    {{ message[1] }}
+                </div>
+            {% endfor %}
+
         {% endblock %}
 
     </div>
 </main>
-
-
-<footer id="footer">© 2019 Design ❤ Code by
-    <a href="http://catcafe.in" title="Powered by onlyindex"> Only Index</a> /
-    <a href="https://github.com/onlyindex" title="Fork me on GitHub">GitHub</a> /
-    <a href="http://weibo.cn/531990906" title="Follow me on Weibo">Weibo</a><br>
-    仰望星空脚踏实地 js 动画从左到右控制
-</footer>
-
-
-
-
 </body>
 </html>

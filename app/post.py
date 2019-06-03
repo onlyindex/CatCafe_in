@@ -6,47 +6,32 @@ from app.auth import login_required
 post_bp = Blueprint('post', __name__, url_prefix='/post')
 
 
-# 展示首页动态 从post和user获得post_title,post_timestamps,username,order by timestamps
-@post_bp.route('/', methods=['GET'])
-def home():
-    if request.method == 'GET':
-        error = None
-        db = get_db()
-        cursor = db.cursor()
-        cursor.execute(
-            'select p.post_id, p.post_title, date(p.post_timestamp) as post_timestamp,p.author_alias,p.author_id '
-            'from post as p  '
-            'order by p.post_timestamp desc ')
-        posts = cursor.fetchall()
-    return render_template('home.html', posts=posts)
-
-
 # 展示日志列表  先分页再分组再按照日期排序
 @post_bp.route('/index', methods=['GET'])
 def index():
     if request.method == 'GET':
         error = None
-        db = get_db()
-        # get游标 sqlite3封装了get游标的过程 mysql木有
-        cursor = db.cursor()
-        cursor.execute(
-            'select p.post_id, p.post_title, timestamp(p.post_timestamp) as post_timestamp,p.author_alias '
-            'from post as p '
-            'order by post_timestamp desc '
-        )
-        # execute返回的是执行结果行数
-        posts = cursor.fetchall()
+        posts = get_post_index()
         # 获取最终想要的集合
         if posts is None:
             error = "喵喵喵啥日志也没有(￣o￣) . z Z"
             flash(error, 'warning')
             return redirect(url_for('post.index'))
-    return render_template('post/index.html', posts=posts)
+    return render_template('post/locus.html', posts=posts)
 
 
-# 获得日志详细信息
-# 修改or删除日志 先定义 get_post(post_id)操作
-def get_post(post_id):
+# 展示日志
+@post_bp.route('/<int:post_id>', methods=['GET'])
+def post(post_id):
+    if request.method == 'GET':
+        post = get_post_basic(post_id)
+        tags = get_post_tags(post_id)
+        count = post_comment_count(post_id)
+        return render_template('post/post.html', post=post, tags=tags, count=count)
+
+
+# 获得日志 标题+内容+发布时间+作者
+def get_post_basic(post_id):
     db = get_db()
     cursor = db.cursor()
     # join alisa as a  on p.alias = a.alias
@@ -62,13 +47,13 @@ def get_post(post_id):
         # check_author=True
     # if check_author and post['user_id'] != g.user['user_id']:
     #    abort(403)
+    # 403 权限不当禁止访问
+    # 401 Unauthorized redirect(login)
     return post
 
 
-# 403 权限不当禁止访问
-# 401 Unauthorized redirect(login)
 # 获得日志标签
-def get_post_tag(post_id):
+def get_post_tags(post_id):
     db = get_db()
     cursor = db.cursor()
     cursor.execute('select t.tag_name from (tag as t '
@@ -80,23 +65,37 @@ def get_post_tag(post_id):
     return tags
 
 
-# 展示日志详情
-@post_bp.route('/<int:post_id>', methods=['GET'])
-def post(post_id):
-    post = get_post(post_id)
-    tags = get_post_tag(post_id)
-    return render_template('post/post.html', post=post, tags=tags)
-
-
-# get请求展示某日志评论总数  按照时间倒叙排列的评论列表
-@post_bp.route('/<int:post_id>', methods=['GET'])
-def post_comment_index(post_id):
+# 获得 日志评论总数
+def post_comment_count(post_id):
     db = get_db()
     cursor = db.cursor()
     cursor.execute('select count(*) '
                    'from comment as c '
                    'where c.post_id = %s' % (post_id,))
     count = cursor.fetchone()
+    return count
+
+
+# 获得日志列表
+def get_post_index():
+    db = get_db()
+    # get游标 sqlite3封装了get游标的过程 mysql木有
+    cursor = db.cursor()
+    cursor.execute(
+        'select p.post_id, p.post_title, timestamp(p.post_timestamp) as post_timestamp,p.author_alias '
+        'from post as p '
+        'order by post_timestamp desc '
+    )
+    # execute返回的是执行结果行数
+    posts = cursor.fetchall()
+    return posts
+
+
+# get请求 按照时间倒叙排列的评论列表
+@post_bp.route('/<int:post_id>', methods=['GET'])
+def post_comment_index(post_id):
+    db = get_db()
+    cursor = db.cursor()
     cursor.execute(
         'select c.comment_body, datetime(c.comment_timestamp) as comment_timestamp,u.username '
         'from comment as c '
@@ -105,12 +104,12 @@ def post_comment_index(post_id):
         'on c.reader_id = u.user_id '
         'order by comment.comment_timestamp desc' % (post_id,))
     comments = cursor.fetchall()
-    return render_template('post/post.html', comments=comments, count=count)
+    return render_template('post/post.html', comments=comments)
 
 
 # post请求  提交日志 评论评论
-@post_bp.route('/<int:post_id>', methods=['POST'])
 @login_required
+@post_bp.route('/<int:post_id>', methods=['POST'])
 def post_comment_add(post_id):
     if request.method == 'POST':
         body = request.form['body']
@@ -126,3 +125,5 @@ def post_comment_add(post_id):
             return redirect(url_for('post.post_comment_index', post_id=post_id))
         flash(error)
     return render_template('post/post.html')
+
+# 前台回复评论 管理员回复

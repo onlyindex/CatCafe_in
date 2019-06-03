@@ -17,16 +17,60 @@
 
 
 <body>
-<div class="wrap">
-    <div class="app">
-        <header>
-            <div id="ad_header">
-                <a href="{{ url_for('user.my_profile',_external=True) }}">
-                    <img id="img" src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>
-                <a id="success_btn" href="{{ url_for('auth.signout') }}">退出</a>
-            </div>
-        </header>
+<nav id="nav">
 
+    <div id="nav_box">
+    <div id="nav_menu_box" onmouseover="show('nav_content')" onmouseout="hide('nav_content')">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon">
+                <path fill="currentColor"
+                      d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path>
+            </svg>
+        </div>
+        <div id="nav_logo_box">
+            <div id="nav_logo">
+                <a href="{{ url_for('home') }}">
+                    <img id="logo_img" src="{{ url_for('static',filename='static/images/logo_ex.png') }}"></a>
+            </div>
+        </div>
+
+
+        <div id="nav_auth_box">
+            {% if g.user %}
+                <div id="nav_auth_success">
+                    <a href="{{ url_for('user.my_profile',_external=True) }}"><img id="nav_img"
+                                                                                   src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>
+                    <a id="success_btn" href="{{ url_for('auth.signout') }}">退出</a>
+                </div>
+            {% else %}
+                <div id="nav_auth">
+                    <a id="in_btn" href="{{ url_for('auth.signin') }}">登录</a>
+                    <a id="up_btn" href="{{ url_for('auth.signup') }}">注册</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+<main id="content">
+    <div class="sidebar">
+        <ul class="nav_links">
+            <li class="nav_item">
+                <a  href="{{ url_for('admin.dashboard') }}" class="nav-link">仪表盘</a>
+            </li>
+            <li class="nav_item">
+                <a  href="{{ url_for('admin.manage_post' ) }}" class="nav-link router-link-exact-active router-link-active">日志</a>
+            </li>
+            <li class="nav_item">
+                <a href="{{ url_for('admin.manage_comment' ) }}" class="nav-link">评论</a>
+            </li>
+            <li class="nav_item">
+                <a href="#" class="nav-link">标签</a>
+            </li>
+            <li class="nav_item">
+                <a href="#" class="nav-link">用户</a></li>
+        </ul>
+
+    </div>
+    <div id="page_content">
              {% block page_content %}
             {% for message in get_flashed_messages(with_categories=True) %}
                 <div class="flash alert alert-{{ message[0] }}" id="close" role="alert">
@@ -37,36 +81,7 @@
         {% endblock %}
 
 </div>
-    <div class="tabs">
-            <div class="tab">
-                <a href="{{ url_for('admin.dashboard' ) }}">
-                    <img src="https://res.cloudinary.com/prvnbist/image/upload/v1512744912/feed_fmytit.svg"/>dashboard
-                </a>
-            </div>
-            <div class="tab">
-                <a href="{{ url_for('admin.manage_post' ) }}">
-                    <img src="https://res.cloudinary.com/prvnbist/image/upload/v1512744911/cal_cexot2.svg"/>日志管理
-                </a>
-            </div>
-{#            <div class="tab">#}
-{#                <a href="#{{ url_for('admin.manage_tag' ) }}">#}
-{#                    <img href="#"#}
-{#                         src="https://res.cloudinary.com/prvnbist/image/upload/v1512744913/msg_owdthq.svg"/>标签管理</a>#}
-{#            </div>#}
-{#            <div class="tab"><a href="#{{ url_for('admin.manage_comment' ) }}">#}
-{#                <img href="#"#}
-{#                     src="https://res.cloudinary.com/prvnbist/image/upload/v1512744914/user_xszplu.svg"/>评论管理</a>#}
-{#            </div>#}
-{#            <div class="tab"><a href="#{{ url_for('admin.manage_user' ) }}">#}
-{#                <img href="#"#}
-{#                     src="https://res.cloudinary.com/prvnbist/image/upload/v1512744914/user_xszplu.svg"/>用户管理</a>#}
-{#            </div>#}
-{#            <div class="tab"><a href="#{{ url_for('admin.new' ) }}">#}
-{#                <img href="#"#}
-{#                     src="https://res.cloudinary.com/prvnbist/image/upload/v1512744914/user_xszplu.svg"/>新建</a>#}
-{#            </div>#}
-        </div>
-
+</main>
 </div>
 </body>
 </html>

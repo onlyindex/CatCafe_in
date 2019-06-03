@@ -1,0 +1,358 @@
+{% extends "base.html" %}
+{% block title %}存档{% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        #page_content {
+        {#background: linear-gradient(#e9ffed, #ffffff00) repeat-x top left;#} background-size: 100% 300px;
+            min-height: 600px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 720px;
+        }
+
+
+        /*卡片样式*/
+
+
+        :root {
+            --square-size: 15px;
+            --square-gap: 5px;
+            --week-width: calc(var(--square-size) + var(--square-gap));
+        }
+
+        ul {
+            list-style: none;
+            margin: 0px;
+
+        }
+
+        li {
+            margin: 0px;
+            list-style-type: none;
+            border-radius: 4px;
+        }
+
+        .graph {
+            display: inline-grid;
+            grid-template-areas: "empty months" "days squares";
+            grid-template-columns: auto 1fr;
+            grid-gap: 10px;
+            padding: 12px;
+            border: 1px #e1e4e8 solid;
+            margin: 12px 0px 14px 0px;
+            font-size: 12px;
+            line-height: 1;
+        }
+
+        .months {
+            grid-area: months;
+        }
+
+        .months {
+            /*jan-dec*/
+            display: grid;
+            grid-template-columns: calc(var(--week-width) * 4) calc(var(--week-width) * 4) calc(var(--week-width) * 4) calc(var(--week-width) * 5) calc(var(--week-width) * 4) calc(var(--week-width) * 4) calc(var(--week-width) * 5) calc(var(--week-width) * 4) calc(var(--week-width) * 4) calc(var(--week-width) * 5) calc(var(--week-width) * 4) calc(var(--week-width) * 5);
+        }
+
+        .days, .squares {
+            display: grid;
+            grid-gap: var(--square-gap);
+            grid-template-rows: repeat(7, var(--square-size));
+        }
+
+        .days {
+            grid-area: days;
+        }
+
+        .squares {
+            grid-area: squares;
+        }
+
+        .squares {
+            grid-auto-flow: column;
+            grid-auto-columns: var(--square-size);
+        }
+
+        .days li:nth-child(odd) {
+            visibility: hidden;
+        }
+
+        .squares li {
+            background-color: #ebedf0;
+        }
+
+        .squares li[data-level="1"] {
+        {#
+                    background-color: #c6e48b;
+        #} background-color: #f09199a1;
+        }
+
+        .squares li[data-level="2"] {
+        {#
+                    background-color: #7bc96f;
+        #} background-color: #f09199;
+        }
+
+        .squares li[data-level="3"] {
+        {#
+                    background-color: #196127;
+        #} background-color: #f09199;
+        }
+
+
+        /*日志存档*/
+
+        .post_item {
+
+            position: relative;
+            cursor: default;
+
+        }
+        .post_group_item{
+            border-right: 4px solid #F09199;
+            margin-left: 0px;
+            margin-top: 30px;
+}
+
+
+
+        a.post_item_title {
+            color: #666;
+            font-weight: 200;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 200;
+            line-height: 1.1;
+        }
+
+        .post_item_tag {
+            color: #666;
+            font-size: 12px;
+            font-weight: 200;
+            opacity: 5;
+            margin-right: 1em;
+
+        }
+
+        /*最新加入效果*/
+        h1.post_item_time {
+            font-size: 64px;
+            text-align: right;
+            font-size: 3em;
+            opacity: 0.1;
+            text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+
+        }
+
+        h2 {
+            {#font-size: 32px;#}
+            {#font-weight: 200;#}
+            {#line-height: 1.1;#}
+            {#color: #d87075;#}
+            {#transform: translateX(0%) translateY(-50%);#}
+            {#white-space: nowrap;#}
+            text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+        }
+
+
+        .dot {
+            background-color: #F09199;
+            border-radius: 100px;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+        {#content: "";#} height: 8px;
+            width: 8px;
+            position: absolute;
+            top: 30px;
+            transform: translateX(-50%);
+            transition: all 0.5s;
+            animation: bounceIn 1s ease-in-out;
+            margin-left: 18px;
+
+        }
+
+        .bar {
+            transform: translateX(0%) translateY(-50%) scale(1, 1);
+            position: absolute;
+            transition: all 0.5s;
+            width: 100px;
+            margin-left: 40px;
+        }
+
+        .dot-1 {
+            left: 0px;
+        }
+
+        .dot-2 {
+            left: 20%;
+        }
+
+        .dot-3 {
+            left: 40%;
+        }
+
+        .ring {
+            border: 2px solid #4fc3f7;
+            border-radius: 100px;
+            height: 30px;
+            width: 30px;
+        }
+
+        .ring {
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.25s;
+        }
+
+        .post_item_content {
+            margin-top: -60px;
+            margin-left: 120px;
+        }
+
+        #fizz-buzz-timeline-bar {
+            background: #F09199;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+            font-size: 0px;
+            height: 100%;
+            position: absolute;
+            width: 2px;
+            border-radius: 2px;
+            -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+            transition: height 0.2s ease;
+            margin-left: 18px;
+        }
+
+
+        @media screen and (max-width: 720px) {
+            /*移动端时间线整体效果调整*/
+            a.post_item_title {
+                font-size: 1.5rem;
+            }
+
+            .post_item_tag {
+                font-size: 0.6rem;
+            }
+
+            .post_group_item {
+                margin-top: 20px;
+            }
+
+            .bar {
+{#
+                transform: translateX(0%) translateY(-40%) scale(0.5, 0.5);
+#}
+            }
+             .ring {
+            left: -2%;
+            position: absolute;
+            top: -25%;
+            transform: translate(-40%, -40%);
+            transition: all 0.25s;
+        }
+
+        .dot {
+            height: 6px;
+            width: 6px;
+            transform: translateX(-25%);
+            margin-left: 16px;
+        }
+
+        }
+
+
+
+
+    </style>
+{% endblock %}
+
+{% block page_content %}
+        <div class="graph">
+        <ul class="months">
+            <li>Jan</li>
+            <li>Feb</li>
+            <li>Mar</li>
+            <li>Apr</li>
+            <li>May</li>
+            <li>Jun</li>
+            <li>Jul</li>
+            <li>Aug</li>
+            <li>Sep</li>
+            <li>Oct</li>
+            <li>Nov</li>
+            <li>Dec</li>
+        </ul>
+        <ul class="days">
+            <li>Sun</li>
+            <li>Mon</li>
+            <li>Tue</li>
+            <li>Wed</li>
+            <li>Thu</li>
+            <li>Fri</li>
+            <li>Sat</li>
+        </ul>
+        <ul class="squares">
+            <!-- added via javascript -->
+            <script>
+                // Add squares
+                const squares = document.querySelector('.squares');
+                for (let i = 1; i < 365; i++) {
+                    const level = Math.floor(Math.random() * 3);
+                    squares.insertAdjacentHTML('beforeend', `<li data-level="${level}"></li>`);
+                }
+            </script>
+        </ul>
+    </div>
+    <section class="post">
+        <div class="date" title="2019年2月26日变化的">
+            <span class="cal">
+                <i class="month">白羊月</i>
+                <i class="day">Jau</i>
+            </span><br>
+            <small>2019-1</small>
+            <br>
+        </div>
+        <div id="fizz-buzz-timeline-bar"></div>
+        <div class="post_group">
+            {% if posts %}
+                {% for post in posts %}
+
+                    <div class="post_group_item">
+                        <div class="post_item">
+                            <div class="dot">
+                                <div class="center" style="background-color:#F09199;"></div>
+                                <div class="ring" style="border-color:#F09199"></div>
+                            </div>
+                            <div class="bar">
+                                    <div class="dot dot-1" style="background-color: #F09199;"></div>
+                                    <div class="dot dot-2" style="background-color: #F09199;"></div>
+                                    <div class="dot dot-3" style="background-color: #F09199;"></div>
+                            </div>
+                            <h1 class="post_item_time" style="color:#f07d94;">3-12</h1>
+                            <div class="post_item_content">
+                                <p>
+                                    <span class="post_item_tag">代码</span>
+                                </p>
+                                <h2>
+                                    <a class="post_item_title"
+                                       href="{{ url_for('post.post',post_id=post[0]) }}">{{ post[1] }}</a>
+                                </h2>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+        </div>
+    </section>
+
+
+
+{% endblock %}

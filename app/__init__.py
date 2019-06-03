@@ -1,6 +1,7 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, request
 import os
 import db
+from db import get_db
 from datetime import timedelta
 
 
@@ -11,8 +12,9 @@ def create_app():
     app.config.from_mapping(
         SECRET_KEY='hard to guess',
         # DATABASE=os.path.join(app.instance_path, 'cat.db'),
-        SEND_FILE_MAX_AGE_DEFAULT=timedelta(seconds=1)
-
+        SEND_FILE_MAX_AGE_DEFAULT=timedelta(seconds=1),
+        # 设置会话过期时间
+        PERMANENT_SESSION_LIFETIME=timedelta(minutes=30)
     )
     print(app.config.get('DATABASE'))
     # ensure the instance folder exists
@@ -41,7 +43,22 @@ def create_app():
     app.register_blueprint(user_bp)
 
     # the minimal flask application
-    @app.route('/')
+    # @app.route('/')
+    # def home():
+    #     return redirect(url_for('home'))
+    # 展示首页
+    # _(:зゝ∠)_最新日志取最近七条记录
+    # _(:зゝ∠)_评论最多的、最喜欢的、分享最多的7条日志记录
+    @app.route('/', methods=['GET'])
     def home():
-        return redirect(url_for('post.home'))
+        if request.method == 'GET':
+            error = None
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute(
+                'select p.post_id, p.post_title, date(p.post_timestamp) as post_timestamp,p.author_alias,p.author_id '
+                'from post as p  '
+                'order by p.post_timestamp desc ')
+            posts = cursor.fetchall()
+        return render_template('home.html', posts=posts)
     return app

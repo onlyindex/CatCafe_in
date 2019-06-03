@@ -21,8 +21,8 @@ def user_profile(user_id):
 
 
 # 个人资料
-@user_bp.route('/profile', methods=['GET'])
 @login_required
+@user_bp.route('/profile', methods=['GET'])
 def my_profile():
     user_id = session['user_id']
     db = get_db()
@@ -34,8 +34,8 @@ def my_profile():
 
 
 # 更新个人资料
-@user_bp.route('/profile_edit', methods=['GET', 'POST'])
 @login_required
+@user_bp.route('/profile_edit', methods=['GET', 'POST'])
 def edit_my_profile():
     user_id = session['user_id']
     if request.method == 'POST':

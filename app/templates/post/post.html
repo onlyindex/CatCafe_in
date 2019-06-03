@@ -39,6 +39,62 @@ div#share_weibo {
         border: none;
 }
 
+
+    /*引导目录*/
+    #directory {
+    position: fixed;
+    z-index: 0;
+    {#top: 100px;#}
+    display: inline-block;
+    text-align: left;
+        font-size: 14px;
+}
+    #directory>ul {
+    position: relative;
+    border-left: 1px solid #ddd;
+    }
+    #directory li, #directory ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+    ul {
+    margin: 20px 0;
+    vertical-align: baseline;}
+    ul::selection {
+    color: #fff;
+    background-color: #eb5055;
+}
+
+    #directory li, #directory ul {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+}
+    #directory>ul>li::before {
+    position: relative;
+    top: 0;
+    left: -4px;
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    content: '';
+    border-radius: 50%;
+    background-color: #eb5055;
+}
+    #directory ul li a {
+    display: inline-table;
+    margin-left: 5px;
+    white-space: nowrap;
+}
+    ol li ol:first-of-type, ol li ul:first-of-type, ol li>:first-child, ul li ol:first-of-type, ul li ul:first-of-type, ul li>:first-child {
+    margin-top: 0;
+}
+    a {
+    text-decoration: none;
+    color: #313131;
+    outline: 0;
+}
     </style>
 {% endblock %}
 {% block page_content %}
@@ -80,7 +136,34 @@ div#share_weibo {
     </div>
 </div>
 
-<div class="post_content">{{ post[2] }}</div>
+<div class="post_content">
+    <div id="directory">
+        <ul>
+            <li><a href="#directory047580388043868461">1 前言</a></li>
+            <li><a href="#directory047580388043868462">2 语言环境</a></li>
+            <li><a href="#directory047580388043868463">3 步骤</a></li>
+            <li><a href="#directory047580388043868464">4 最后</a></li>
+            <li><a href="#directory047580388043868465">5 注意</a></li>
+            <li><a href="#directory047580388043868466">6 发现</a></li>
+            <li><a href="#directory047580388043868467">7 不妨一起搭个机器人玩玩吧</a></li>
+            <li><a href="#directory047580388043868468">8 微信已被禁止网页端登录，大白··已经用不了</a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        {{ post[2] }}
+        <h1 id="directory0400571130604497671">前言</h1>
+        <p>因为班群里总是挺静的，所以想着要不放个机器人试试能不能活跃活跃气氛，然后就begin网上查阅资料试着建立个机器人。
+            <br></p>
+        <h1 id="directory0400571130604497672">语言环境</h1>
+        <blockquote>开发环境：Ubuntu16.04<br>
+            编程语言：Python2.7</blockquote>
+        <h1 id="directory0400571130604497673">步骤</h1>
+        <ul><li>第一步：首先安装python2.7语言</li>
+        </ul><p><code>sudo apt-get install python2.7</code><br>
+    </div>
+
+</div>
 <div class="like">
     <div class="author">
         <a><img id="post_author" src="{{url_for('static',filename='static/images/myself.jpg')}}"></a>

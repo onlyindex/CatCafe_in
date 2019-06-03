@@ -3,30 +3,208 @@
 {% block styles %}
     {{ super() }}
     <style>
+        @media screen and (max-width: 720px) {
+            /*移动端二级导航栏*/
+
+        }
+
+        /*管理员数据统计*/
+
+        #dashboard_widgets {
+            margin: 0.5em;
+        }
+
+        .postbox {
+            min-width: 255px;
+            border: 1px solid #e5e5e5;
+            background: #fff;
+            margin: 1em;
+
+        }
+
+        .topic {
+            border-bottom: 1px solid #eee;
+        }
+
+        .inside_content {
+            padding: 0 12px 12px;
+        }
+
+        .drafts {
+            border-top: 1px solid #eee;
+            padding: 12px 0 0;
+        }
+
+        .drafts p {
+            float: right;
+            margin-right: 20px;
+        }
+
+        h2, h3, ul {
+            margin-left: 12px;
+        }
+
+    .more_comment li{
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+
     </style>
 {% endblock %}
 
 {% block page_content %}
-    <section id="ad_count">
-            <div class="ad_count_widgets">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-                <h4>1500</h4>
-                <span>Posts</span>
+    <div id="dashboard_widgets">
+    <h2>仪表盘</h2>
+        <div id="dashboard_right_now" class="postbox ">
+            <h2 class="topic">概览</h2>
+            <div class="inside">
+                <div class="inside_content">
+                    <ul>
+                        <li class="post_count count">
+                            <a href="#">87</a>篇日志
+                        </li>
+                        <li class="tag_count count">
+                            <a href="#">12</a>个标签
+                        </li>
+                        <li class="reader_count count">
+                            <a href="#">1000</a>个读者
+                        </li>
+                        <li class="comment_count count">
+                            <a href="#">14</a>条评论
+                        </li>
+                        <li class="comment_mod_count count">
+                            <a href="#">18,353</a>条待审核评论
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="ad_count_widgets">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-                <h4>314</h4>
-                <span>Tags</span>
+        </div>
+        <div id="dashboard_quick_press" class="postbox">
+            <h2 class="topic">快速草稿</h2>
+            <div class="inside">
+                <form class="inside_content" method="post" action="{{ url_for('admin.new_post') }}">
+                    <input class="input" name="title" id="title" placeholder="标题" required><br>
+                    <textarea class="textarea" name="body" id="body" placeholder="内容" required></textarea><br>
+                    <button class="button" type="submit">保存草稿</button>
+                </form>
             </div>
-            <div class="ad_count_widgets">
-                <i class="fa fa-hourglass-end" aria-hidden="true"></i>
-                <h4>394</h4>
-                <span>Reader</span>
+            <div class="drafts">
+                <p><a href="#">233</a>篇草稿</p>
+                <h2>最近的草稿</h2>
+                <ul>
+                    <li>
+                        <div class="draft_title">
+                            <a href="#">草稿1</a>
+                            <time>2019年5月30日</time>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="draft_title">
+                            <a href="#">草稿2</a>
+                            <time>2019年5月29日</time>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="draft_title">
+                            <a href="#">草稿最多显示3个</a>
+                            <time>2019年5月13日</time>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div class="ad_count_widgets">
-                <i class="fa fa-handshake-o" aria-hidden="true"></i>
-                <h4>109</h4>
-                <span>Comments</span>
+        </div>
+        <div id="dashboard_activity" class="postbox ">
+            <h2 class="topic">最新动态</h2>
+            <div class="inside">
+                <div id="inside_content">
+                    <div id="latest_posts" class="activity_block">
+                        <h3>近期日志</h3>
+                        <ul>
+                            <li>
+                                <div class="post_title">
+                                    <a href="#">最新日志1</a>
+                                    <time>2019年5月30日</time>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="post_title">
+                                    <a href="#">最新日志2</a>
+                                    <time>2019年5月29日</time>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="post_title">
+                                    <a href="#">最新日志最多显示6个</a>
+                                    <time>2019年5月13日</time>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="latest_comments" class="activity-block">
+                        <h3>近期评论</h3>
+                        <ul>
+                            <li class="comment-item hide">
+                                <div class="dashboard-comment-wrap has-row-actions">
+                                    <p>
+                                        <a href="#" class="reader">用户1</a>
+                                        评论<a href="#">日志1</a>
+                                        <span class="hide">[显示]</span>
+                                    </p>
+                                    <blockquote><p>评论内容1</p></blockquote>
+                                </div>
+                            </li>
+
+                            <li class="comment-item hide">
+                                <div class="dashboard-comment-wrap has-row-actions">
+                                    <p>
+                                        <a href="#" class="reader">用户1</a>
+                                        评论<a href="#">日志1</a>
+                                        <span class="hide">[显示]</span>
+                                    </p>
+                                    <blockquote><p>评论内容2</p></blockquote>
+                                </div>
+                            </li>
+
+                            <li class="comment-item hide">
+                                <div class="dashboard-comment-wrap has-row-actions">
+                                    <p>
+                                        <a href="#" class="reader">用户1</a>
+                                        评论<a href="#">日志2</a>
+                                        <span class="hide">[显示]</span>
+                                    </p>
+                                    <blockquote><p>评论内容3</p></blockquote>
+                                </div>
+                            </li>
+
+                            <li class="comment-item hide">
+                                <div class="dashboard-comment-wrap has-row-actions">
+                                    <p>
+                                        <a href="#" class="reader">用户1</a>
+                                        评论<a href="#">日志2</a>
+                                        <span class="hide">[显示]</span>
+                                    </p>
+                                    <blockquote><p>评论内容2</p></blockquote>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                            <h3>更多评论</h3>
+                            <ul class="more_comment">
+                                <li class="all_comment" >
+                                    <a href="#">全部评论</a>(<span>18,367</span>) |
+                                </li>
+                                <li class="hide_comment">
+                                    <a href="#">隐藏评论</a>(<span>1353</span>) |
+                                </li>
+                                <li class="show_comment">
+                                    <a href="#">已批准</a>(<span>233</span>)</a>
+                                </li>
+                            </ul>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
+    </div>
 {% endblock %}

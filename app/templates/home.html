@@ -1,75 +1,569 @@
 {% extends 'base.html' %}
+{% block title %}CatCafe{% endblock %}
 
 {% block styles %}
     {{ super() }}
-<style>
-    .card {
-    background-color: #f0919914;
-    padding: 12px 12px;
-    margin: 12px auto;
-        max-width: 680px;
-    }
-.card_content {
-    display: flex;
-}
-.author_face {
-    margin: 0 12px 0 0px;
-    flex: 1;
-}
-.author_detail {
-    flex: 9;
-}
-.author_post {
-    display: inline-block;
-}
-.author_post_date {
-    text-align: left;
-}
-.author_post_info {
-    display: inline-block;
-}
-.type_post {
-    display: inline-block;
-    background-color: #5eba7d;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 0 8px;
-    margin: 0 2px;
-}
-.author_date {
-    display: flex;
-}
-.card_handle {
-    display: flex;
-    justify-content: space-between;
-}
-</style>
+    <style>
+
+
+        /*我自己*/
+        .me_info {
+            text-align: center;
+            padding: 6em 0;
+        }
+
+        .me_info h1 {
+            font-size: 32px;
+            font-weight: 200;
+            padding: 5px 0;
+        }
+
+        .me_info p {
+            font-weight: 200;
+            opacity: .5;
+        }
+
+        img#me_img {
+            display: block;
+            box-shadow: 0 7px 28px #eee;
+            border-radius: 1368px;
+            height: 120px;
+        }
+
+        .me_summary {
+            line-height: 1.4;
+            font-weight: 200;
+            padding: 28px 0 14px;
+        }
+
+        .layout {
+
+        }
+
+        .me_summary p {
+            padding: 16px;
+            color: #666;
+
+        }
+
+        .me_summary strong {
+            font-weight: 400;
+            color: #333;
+        }
+
+        .me_summary b {
+            font-weight: 300;
+            color: #333;
+        }
+
+        .me_summary del {
+            font-size: 14px;
+            opacity: .3;
+            margin: 12px 0 0 -14px;
+            position: absolute;
+        }
+
+        .ui-spy {
+            display: inline-block;
+            cursor: pointer;
+            transition: color .3s ease;
+        }
+
+        .ui-spy:before {
+            position: absolute;
+            content: attr(data-real);
+            opacity: 0;
+            color: white;
+            background: #F09199;
+            padding: 0 .2em;
+            margin: 0 -.2em;
+            transition: opacity .3s ease;
+        }
+
+        sup {
+            font-size: 12px;
+            background: #f09199;
+            line-height: 30px;
+            padding: 4px;
+            border-radius: 8px;
+            color: #FFF;
+            text-shadow: rgba(0, 0, 0, .7) 0 0 -1px;
+            top: -100px;
+            left: 50px;
+            position: relative;
+        }
+
+
+        /*最新日志样式*/
+
+        .card {
+            overflow: hidden;
+            margin-top: 8px;
+            padding-bottom: 8px;
+            border: #f09199 1px;
+        }
+
+        .author_face {
+            float: left;
+            display: inline;
+            padding:0px 12px 0px 12px;
+        }
+
+        .author_detail {
+            padding-bottom: 5px;
+            margin-left: 45px;
+            {#border-bottom: 1px solid #E0E0E0;#}
+            color: #666;
+        }
+
+        .author_detail:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+        .author_post {
+            display: inline-block;
+        }
+        .author_post{
+            color: #222;
+        }
+
+        .author_post_date {
+            text-align: left;
+        }
+
+        .author_post_info {
+            display: inline-block;
+        }
+
+        .type_post {
+            display: inline-block;
+            {#background-color:  #8acfbd;#}
+            background-color: #17a2b8;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 0 8px;
+            margin: 0 2px;
+            font-size: 12px;
+        }
+
+        .author_date {
+            display: flex;
+            font-size: 12px;
+
+        }
+
+        h2.subtitle {
+            font-size: 16px;
+            margin: 0;
+            padding: 0 0 5px 10px;
+            {#border: none;#}
+            {#border-bottom: 1px solid #EEE;#}
+            font-weight: 300;
+            color: #555;
+            /* font-size: 18px; */
+            /* padding: 0 5px 0 0; */
+            line-height: 140%;
+        }
+
+        #post_author {
+            width: 46px;
+            height: 46px;
+            border-radius: 46px;
+            -webkit-border-radius: 46px;
+            box-shadow: inset 0px 0px 2px #BBB;
+            padding: 1px;
+            /* transition: border linear 0.2s,box-shadow linear 0.2s; */
+        }
+
+        .new_post {
+
+        }
+
+        /*top榜单*/
+        .hot_post {
+
+        }
+
+
+        .tab-head h2 {
+            font-size: 16px;
+            height: 25px;
+            float: left;
+            margin: 20px;
+            border: none;
+            {#border-bottom: 1px solid #EEE;#}
+            font-weight: 300;
+            color: #555;
+            line-height: 140%;
+        }
+
+        .tab-content {
+            margin-top: 60px;
+        }
+
+        .tab-content div {
+            display: none;
+
+        }
+
+        .tab-head .selected {
+            color: hotpink;
+            color: #f09199;
+            {#border-bottom: 2px solid #f09199;#}
+            /*选中状态*/
+        }
+
+        .tab-content .show {
+            display: block;
+            margin-left: 12px;
+        }
+
+        ul,li{list-style: none;
+       }
+
+        .show li {
+            padding: .5em 0;
+            {#border-bottom: 1px solid #E0E0E0;#}
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .show span{
+            font-size: 12px;
+        }
+
+
+        /*尝试加入弹幕*/
+        /*  .video-wrapper {
+              position: relative;
+              width: 640px;
+              margin: auto;
+          }
+
+          #canvasBarrage {
+              position: absolute;
+              width: 640px;
+              height: 360px;
+          }
+
+          .video-placeholder {
+              height: 360px;
+              animation: bgColor 10s infinite alternate;
+          }
+
+          @keyframes bgColor {
+              25% {
+                  background-color: darkred;
+              }
+              50% {
+                  background-color: darkgreen;
+              }
+
+              100% {
+                  background-color: darkblue;
+              }
+          }
+  */
+
+    </style>
 {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <!--script>
+        //定义一个方法，传入canvas上下文和弹幕数据
+        var canvasBarrage = function (canvas, data) {
+            if (!canvas || !data || !data.length) {
+                return;
+            }
+            if (typeof canvas == 'string') {
+                canvas = document.querySelector(canvas);
+                canvasBarrage(canvas, data);
+                return;
+            }
+            var context = canvas.getContext('2d');
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+        }
+
+        var data = [
+            '使用的是静态数据',
+            '随机循环播放',
+            '可以控制区域和垂直分布范围',
+            '字体大小和速度在方法内设置',
+        ]
+
+        canvasBarrage('#canvasBarrage', data);
+
+        function Barrage(text, index) {
+            //弹幕对象有坐标x，y，移动速度，透明度，文本，颜色，字号这些属性
+            // 随机x坐标也就是横坐标，对于y纵坐标，以及变化量speed
+            this.x = canvas.width;
+            this.y = canvas.height * Math.random();
+            this.speed = 2;
+
+            this.opacity = 0.8;
+            this.text = text;
+            this.color = 'red';
+            this.fontSize = 28;
+        };
+
+        Barrage.prototype.draw = function () {
+            //将弹幕绘制到画布上
+            var text = this.text;
+            // 根据此时x位置绘制文本
+            context.strokeStyle = this.color;
+            context.font = `bold  ${this.fontSize}px "microsoft yahei", sans-serif`;
+            context.fillStyle = `rgba(255,255,255, ${this.opacity})`;
+            context.fillText(text, this.x, this.y);
+            context.strokeText(text, this.x, this.y);
+        }
+
+        //将弹幕实例化，存储到store，然后遍历store，调用改变弹幕的位移，并调用其draw方法绘制，使其移动：
+        var store = {};
+        data.forEach((item, i) => {
+            store[i] = new Barrage(item, i);
+        });
+
+        // 绘制弹幕文本
+        var drawAll = function () {
+            for (var i in store) {
+                var barrage = store[i];
+                // 位置变化
+                barrage.x -= barrage.speed;
+                store[i].draw();
+            }
+        };
+        var render = function () {
+            // 清除画布
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            drawAll();
+            requestAnimationFrame(render);
+        };
+
+        render();
+    </script-->
+
+    <!--script type="text/javascript">
+        var tabs = document.getElementsByClassName('tab-head')[0].getElementsByTagName('h2'),
+            contents = document.getElementsByClassName('tab-content')[0].getElementsByTagName('div');
+
+        (function changeTab(tab) {
+            for (var i = 0, len = tabs.length; i < len; i++) {
+                tabs[i].onmouseover = showTab;
+            }
+        })();
+
+        function showTab() {
+            for (var i = 0, len = tabs.length; i < len; i++) {
+                if (tabs[i] == this) {
+                    tabs[i].className = 'selected';
+                    contents[i].className = 'show';
+                } else {
+                    tabs[i].className = '';
+                    contents[i].className = '';
+                }
+            }
+        }
+    </script-->
+{% endblock %}
+
+
+
 {% block page_content %}
-{{ super() }}
-   <h4> # 假装很忙的日常</h4>
-    {% for post in posts %}
-    <div class="card">
-        <div class="card_content">
-            <div class="author_face">
-            <a  href="{{ url_for('user.user_profile',user_id=1) }}">
-                <img id="post_author" src="{{url_for('static',filename='static/images/myself.jpg')}}"></a>
+    {{ super() }}
+    <div class="card_list">
+        {#        <div class="video-wrapper">#}
+        {#            <canvas id="canvasBarrage"></canvas>#}
+        {#            <div class="video-placeholder"></div>#}
+        {#        </div>#}
+        <div class="me card">
+            <div class="me_info">
+                <a><img id="me_img"
+                        src="{{ url_for('static',filename='static/images/myself.jpg') }}"><sup>野生喵</sup></a>
+                <h1>onlyindex</h1>
+                <p>不会写代码&设计の产品喵不是好的占星师ฅTㅅTฅ</p>
+                <a href="https://github.com/onlyindex" title="Fork me on GitHub">GitHub</a> /
+                <a href="http://weibo.cn/531990906" title="Follow me on Weibo">Weibo</a><br>
             </div>
-            <div class="author_detail">
-                <div class="author_post_date">
-                    <div class="author_post"><a href="{{ url_for('user.my_profile')}}">{{ post[3] }}</a></div>
-                    添加
-                    <div class="type_post">日志</div>
-                    <div class="author_post_info" id="author_post_info"><a href="{{ url_for('post.post',post_id = post[0])}}">{{ post[1] }}</a></div>
+            <div class="me_summary">
+                <div class="layout">
+                    <p>🐣</p>
+                    <p>1989 <strong>b</strong>型♋巨蟹座
+                        ,<strong>堵</strong>
+                        <del>_(:зゝ∠)_</del>
+                        在<strong>科技</strong>&<strong>人文</strong>の下水道口
+                        <del>_(:зゝ∠)_</del>
+                        ，暂居珠海
+                        <del>四海为家</del>
+                        。
+                    </p>
+                    <p>2011 从事<strong>SEO优化</strong>
+                        <del>哄度娘</del>
+                        工作。从此打开<b>互联网新世界</b>
+                        <del> (♥ω♥)~♪ </del>
+                        🐟🐠🐡<br>
+                    </p>
+                    <p>2012 从事<strong>运营</strong>
+                        <del>产品打杂</del>
+                        工作，熟悉<b>谷歌百度统计</b>，
+                        擅长和<b>用户交流</b>
+                        <del>吹水聊天</del>
+                        。
+                    </p>
+                    <p>2013 从事<strong>产品喵</strong>
+                        <del>扯皮</del>
+                        工作
+                        <del>2015引退</del>
+                        ，花样折腾
+                        <del>瞎抄</del>
+                        过<b>很多</b>产品、
+                        接触<b>心理学</b>，钻研
+                        <del>偷窥</del>
+                        <b>用户都在想什么</b>，熟练使用<b>EXCEL</b>分析数据。
+                    </p>
+                    <p>2014 开始<strong>撸UI</strong>，点出<b>sketch&AI技能</b>，进行<b>产品</b>
+                        <del>界面</del>
+                        设计 ，擅长<b>开脑洞</b>
+                        <del>只差一个程序员👩‍💻</del>
+                        。
+
+                    <p>2015 接触
+                        <del>剁手</del>
+                        <strong>代码开发</strong>，开始在作死的边缘反复试探。
+                    </p>
+
+                    <p>2016 正式成为 <strong>家庭主妇</strong>
+                        <del>2019有望复出</del>
+                        ，点出在家<b>带娃</b>
+                        <del>玩娃</del>
+                        技能。
+                    </p>
+                    <p>2018 接触<strong>python编程</strong>，开始<b>造产品轮子</b>
+                        <del>写bug🐛</del>
+                        日常开发</strong>。
+                        希望能写出<a href="/work">有趣
+                            <del>bigger</del>
+                            の项目
+                            <del>拖延</del>
+                        </a>~<br>
+                        <small>代码开源在 <a href="https://github.com/onlyindex">GitHub</a></small>
+                        .
+                    </p>
+
+
+                    <p>🎯</p>
+                    <p>
+                        <span class="ui-spy" data-real="用❤️发电、野生无证">专注</span>在
+                        <span class="ui-spy" data-real="用❤️发电、野生无证">互联网产品</span>、
+                        <span class="ui-spy" data-real="卖货">运营</span>、
+                        <span class="ui-spy" data-real="开脑洞">UI设计</span>、
+                        <span class="ui-spy" data-real="(￣o￣) . z Z">数据分析挖掘</span>、
+                        <span class="ui-spy" data-real="曾风口">心理学</span>、
+                        <span class="ui-spy" data-real="蹭风口">占星学</span>、
+                        <span class="ui-spy" data-real="常服"><a href="/image?type=lolita">lolita</a></span>、
+                        <span class="ui-spy" data-real="尚未开始">画画、做👗</span>、
+
+                        这几个兴趣领域…
+                    </p>
+                    <p>📒</p>
+                    <p>擅长<strong>搜集整理</strong>Evernote知识管理
+                        <del>剪贴✂️</del>
+                        ，学习笔记开源在 <a href="https://lib.catcafe.in">喵咪图书馆</a></p>
+
+                    <p>☕️</p>
+                    <p>follow my heart 💓做喜欢的事情，交有趣的人。if吸引力法则==True：希望世界给我渴望的圆满。</p>
+                    <p><a href="/work/" class="">项目、图work</a>：自己code的项目。</p>
+            <p><a href="/image/" class="">写真</a> 自己的照片和涂鸦：</p>
+           <p><a href="/post/"  href="{{url_for('post.index')}}" class="">日志</a>：原创文章，记录开发过程的构思，bug的处理，关于产品，设计，运营，技术，市场商业化等文章，整理成册的小册子</p>
+           <p><a href="/friend_t/" class="">和朋友的互动状态</a>：信用背书。</p>
                 </div>
-                <div class="author_date">{{ post[2] }}</div>
             </div>
         </div>
-        <div class="card_handle"><div>阅读数233</div><div></div><div>喜欢</div><div>评论</div><div>分享</div></div></div>
-    {% endfor %}
+
+        <div class="new_post card">
+            <h2 class="subtitle"># Initiate some change each day
+                <small><a href="/post/index">...locus</a></small>
+            </h2>
+            <div>
+                {% for post in posts %}
+                    <div class="card">
+                        <div class="author_face">
+                            <a href="{{ url_for('user.user_profile',user_id=1) }}">
+                                <img id="post_author" src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>
+                        </div>
+                        <div class="author_detail">
+                            <div class="author_post_date">
+                                <div class="author_post"><a href="{{ url_for('user.my_profile') }}">{{ post[3] }}</a>
+                                </div>
+                                init
+                                <div class="type_post">日志</div>
+                                <div class="author_post_info" id="author_post_info"><a
+                                        href="{{ url_for('post.post',post_id = post[0]) }}">{{ post[1] }}</a></div>
+                            </div>
+                            <div class="author_date">{{ post[2] }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="hot_post card">
+            <div class="tab-head">
+                <h2 class="selected">like</h2>
+                <h2>comment</h2>
+                <h2>share</h2>
+            </div>
+            <div class="tab-content">
+                <div class="show">
+                    <ul>
+                        <li>
+                            <a href="http://www.anandalue.com/?p=7205">喜欢最多文章排行榜</a><br>
+                            <span class="post-date">2019-05-17</span><br>
+                        <li/>
+                        <li>
+                            <a href="http://www.anandalue.com/?p=7205">评论最多文章排行榜</a><br>
+                            <span class="post-date">2019-05-17</span><br>
+                        </li>
+                        <li>
+                            <a href="http://www.anandalue.com/?p=7181">分享最多文章排行榜</a><br>
+                            <span class="post-date">2019-05-16</span><br>
+                        </li>
+                        <li>
+                            <a href="http://www.anandalue.com/?p=7190">LR和PR缓存清理</a><br>
+                            <span class="post-date">2019-05-16</span><br>
+                        </li>
+                        <li>
+                            <a href="http://www.anandalue.com/?p=7179">NOON BREAK SHUFFLE 3</a><br>
+                            <span class="post-date">2019-05-15</span><br>
+                        </li>
+                        <li>
+                            <a href="http://www.anandalue.com/?p=7172">奔驰4S店日子开始难过了</a><br>
+                            <span class="post-date">2019-05-14</span><br>
+                        </li>
+                        <li>
+                            <a href="http://www.anandalue.com/?p=7166">再聚首——江浙沪蹦迪种子选手</a><br>
+                            <span class="post-date">2019-05-09</span><br>
+                        </li>
+                        <li>
+                            <a href="http://www.anandalue.com/?p=7159">小伙伴的篮球立夏夜</a><br>
+                            <span class="post-date">2019-05-07</span><br>
+                        </li>
+                        <li>
+                            <a href="http://www.anandalue.com/?p=7136">当下几件让我感到快乐的事情</a><br>
+                            <span class="post-date">2019-05-03</span><br>
+                        </li>
+                    </ul>
+                </div>
+                <div>content2</div>
+                <div>content3</div>
+            </div>
+
+
+        </div>
+    </div>
 {% endblock %}
-
-
-
-

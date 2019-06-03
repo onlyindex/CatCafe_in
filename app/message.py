@@ -6,8 +6,8 @@ msg_bp = Blueprint('post', __name__, url_prefix='/msg')
 
 
 # [message页面] get方法获得所有日志相应用户的所有评论
-@msg_bp.route('/message', methods=['GET'])
 @login_required
+@msg_bp.route('/message', methods=['GET'])
 def message():
     if request.method == 'GET':
         db = get_db()
