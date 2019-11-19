@@ -68,10 +68,10 @@ def signup():
         elif not email:
             error = '邮箱不为空'
             # 确认用户名是否已在数据库存在
-        elif cursor.execute("select user_id from user where username = '%s' " % username) >= 1:
+        elif len(cursor.execute("select user_id from user where username = '%s' " % username).fetchall())>=1:
             error = 'user{0} is already signup.'.format(username)
             # 确认邮箱是否已在数据库存在
-        elif cursor.execute("select user_id from user where email = '%s' " % email) >= 1:
+        elif len(cursor.execute("select user_id from user where email = '%s' " % email).fetchall())>=1:
             error = 'email{0} is already signup'.format(email)
         if error is None:
             cursor.execute("insert into user(username,email,password) values('%s','%s','%s') " % (
@@ -101,6 +101,7 @@ def signin():
         if error is None:
             session.clear()
             session['user_id'] = user[0]
+            print(session)
             return redirect(url_for('home'))
         flash(error, 'warning')
     return render_template('auth/signin.html')

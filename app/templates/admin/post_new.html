@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'admin/ad_base.html' %}
 {% block title %}New Post{% endblock %}
 
 {% block page_content %}
@@ -8,10 +8,12 @@
   <form  method="post" action="{{ url_for('admin.new_post') }}">
     <input class="input" name="title" id="title" placeholder="标题" required><br>
     <textarea class="textarea" name="body" id="body" placeholder="内容" required></textarea><br>
-      <input class="input" type="text"  name="tags" placeholder="输入标签空格分隔" required><br>
-      <input class="input" type="text"  name="alias" placeholder="输入别名" required><br>
-
-    <button class="button" type="submit">发布日志</button>
+      <input class="input" type="text"  name="tags" placeholder="输入标签空格分隔"><br>
+      <select name="status" id="status">
+          <option value="draft">draft</option>
+          <option value="show">show</option>
+      </select>
+    <button class="button" type="submit">发布</button>
   </form>
 
 

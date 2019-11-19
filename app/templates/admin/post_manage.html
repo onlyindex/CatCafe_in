@@ -135,7 +135,7 @@
 
             <thead>
             <tr>
-                <th scope="col"><a href="#">Title</a></th>
+                <th scope="col">Title</th>
                 <th scope="col">Date</th>
                 <th scope="col">Categories</th>
                 <th scope="col">Tags</th>
@@ -150,8 +150,8 @@
                 {% for post in posts %}
 
                     <tr>
-                        <td scope="row">post——title</td>
-                        <td scope="row">post——timestamp</td>
+                        <td scope="row">{{ post.post_title }}</td>
+                        <td scope="row">{{ post.post_timestamp }}</td>
                         <td scope="row">分类1</td>
                         <td scope="row">
                             <p id="tag">tag1</p>
@@ -159,15 +159,17 @@
                             <p id="tag">tag1</p>
                         </td>
                         <td scope="row">comments</td>
-                        <td scope="row">display</td>
+                        <td scope="row">{{ post.post_status }}</td>
 
                         <td scope="row">
-                            <a id="edit_post" class="btn btn-default"
-                               href="#">编辑</a>
-                            <a id="del_post" class="btn btn-danger"
-                               href="#">删除</a>
+                            <a id="edit_post" class="btn"
+                               href="{{ url_for('admin.edit_post',post_id=post.post_id) }}">编辑</a>
+                            <form method="post" action="{{ url_for('admin.del_post', post_id=post.post_id) }}">
+                                <input class="input" class="danger" type="submit" value="Delete"
+                                       onclick="return confirm('Are you sure?');">
+                            </form>
                             <a id="publish_post" class="btn"
-                               href="#">发布</a>
+                               href="{{ url_for('admin.renew_post',post_id=post.post_id) }}">发布</a>
 
 
                         </td>

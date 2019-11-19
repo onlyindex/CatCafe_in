@@ -98,6 +98,27 @@ div#share_weibo {
     </style>
 {% endblock %}
 {% block page_content %}
+     <div>
+                {% for post in posts %}
+                    <div class="card">
+                        <div class="author_face">
+                            <a href="{{ url_for('user.user_profile',user_id=1) }}">
+                                <img id="post_author" src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>
+                        </div>
+                        <div class="author_detail">
+                            <div class="author_post_date">
+                                <div class="author_post"><a href="{{ url_for('user.my_profile') }}">{{ post[3] }}</a>
+                                </div>
+                                init
+                                <div class="type_post">日志</div>
+                                <div class="author_post_info" id="author_post_info"><a
+                                        href="{{ url_for('post.post',post_id = post[0]) }}">{{ post[1] }}</a></div>
+                            </div>
+                            <div class="author_date">{{ post[2] }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
 <article class="post">
 <div class="post_header">
     <h1>{{ post[1] }}</h1>

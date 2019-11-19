@@ -1,18 +1,19 @@
-{% extends 'base.html' %}
-{% block title %}update"{{post['title']}}"{% endblock %}
+{% extends 'admin/ad_base.html' %}
+{% block title %}update"{{ post['title'] }}"{% endblock %}
 
 {% block page_content %}
-<div id="PostPanel">
-<div id="PostForm">
-  <form  method="post" action="{{ url_for('post.update',id=post.id) }}">
-    <input class="input" name="title" id="title" value="{{ post.title }}" >
-    <textarea class="textarea" name="body" id="body" >{{ post.body }}</textarea>
-    <button class="button" type="submit">更新日志</button>
-  </form>
-</div>
-    <hr>
-    <form method="post" action="{{ url_for('post.delete', id=post['id']) }}" >
-    <input class="input" class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-    </form>
-</div>
+    <div id="PostPanel">
+        <div id="PostForm">
+            <form method="post" action="{{ url_for('admin.edit_post',post_id=post.post_id) }}">
+                <input class="input" name="title" id="title" value="{{ post.post_title }}">
+                <textarea class="textarea" name="body" id="body">{{ post.post_body }}</textarea>
+                <select name="status" id="status">
+                    <option value="draft">draft</option>
+                    <option value="show">show</option>
+                </select>
+                <button class="button" type="submit">更新日志</button>
+            </form>
+        </div>
+        <hr>
+    </div>
 {% endblock %}
