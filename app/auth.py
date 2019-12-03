@@ -13,10 +13,11 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 用户登录登出'''
 
 
-# 判断是否登陆
+# 判断用户是否登陆
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
+        print("login_required exc")
         if g.user is None:
             return redirect(url_for('auth.signin'))
 
@@ -25,6 +26,7 @@ def login_required(view):
 def admin_login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
+        print("admin_login_required exc")
         if g.user is not None:
             if g.user[0] == 1:
                 return redirect(url_for('admin.dashboard'))
@@ -32,12 +34,9 @@ def admin_login_required(view):
             return redirect(url_for('auth.signin'))
 
 
-# 每次请求之前都要从会话中获取用户信息 知道是谁才好进行相应响应 不知道是谁也要做匿名响应
-# session里面的user_id是登录用户才有的福利吧 没有user_id就是未注册的访客（匿名用户）
-# 会话-》某个用户id-》某个用户存在g里面的全局信息
-# g.user 空 =匿名用户 =未登录用户
 @auth_bp.before_app_request
 def load_logged_in_user():
+    print("load_logged_in_user exc")
     user_id = session.get('user_id')
     if user_id is None:
         g.user = None
@@ -100,6 +99,7 @@ def signin():
             error = '错误密码'
         if error is None:
             session.clear()
+            # 登录后写入session
             session['user_id'] = user[0]
             print(session)
             return redirect(url_for('home'))

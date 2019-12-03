@@ -32,17 +32,17 @@ def index():
 
 # 某分类下的日志列表
 
-# 日志详情页
+# 日志详情页 show_post
 @post_bp.route('/<int:post_id>', methods=['GET'])
 def post(post_id):
     if request.method == 'GET':
-        # 获得日志标题+内容+发布时间＋作者
+        # 获得日志标题+内容+时间
         db = get_db()
         cursor = db.cursor()
         cursor.execute(
-            'select p.post_id,p.post_title,p.post_body,date(p.post_timestamp) as post_timestamp,u.username '
-            'from post as p,user as u '
-            'where author_id=u.user_id and p.post_id= %s ' % post_id)
+            'select p.post_id,p.post_title,p.post_body,date(p.post_timestamp) as post_timestamp '
+            'from post as p '
+            'where p.post_id= %s ' % post_id)
         post = cursor.fetchone()
         # cursor.execute('select t.tag_name from (tag as t '
         #                'inner join r_post_by_tag as r on t.tag_id = r.tag_id) '
@@ -62,21 +62,15 @@ def post(post_id):
         # 401 Unauthorized redirect(login)
 
 
-
-
-
-
-
-
-# 获得 日志评论总数
-def post_comment_count(post_id):
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute('select count(*) '
-                   'from comment as c '
-                   'where c.post_id = %s' % (post_id,))
-    count = cursor.fetchone()
-    return count
+# # 获得 日志评论总数
+# def post_comment_count(post_id):
+#     db = get_db()
+#     cursor = db.cursor()
+#     cursor.execute('select count(*) '
+#                    'from comment as c '
+#                    'where c.post_id = %s' % (post_id,))
+#     count = cursor.fetchone()
+#     return count
 
 
 
@@ -89,32 +83,30 @@ def post_comment_index(post_id):
     cursor = db.cursor()
     cursor.execute(
         'select c.comment_body, datetime(c.comment_timestamp) as comment_timestamp,u.username '
-        'from comment as c '
-        'where c.post_id = s% ',
-        'join user as u '
-        'on c.reader_id = u.user_id '
+        'from comment as c,user as u '
+        'where c.reader_id = u.user_id and c.post_id = s% '
         'order by comment.comment_timestamp desc' % (post_id,))
     comments = cursor.fetchall()
     return render_template('post/post.html', comments=comments)
 
 
 # post请求  提交日志 评论评论
+# g.user['user_id']
 @login_required
 @post_bp.route('/<int:post_id>', methods=['POST'])
 def post_comment_add(post_id):
     if request.method == 'POST':
         body = request.form['body']
-        error = None
+        user_id = g.user['user_id']
         if not body:
-            error = '评论不能为空'
+            flash('评论不能为空', 'warning')
         else:
             db = get_db()
             cursor = db.cursor()
             cursor.execute("insert into comment (comment_body,reader_id,post_id)"
-                           "values('%s',%s,%s)" % (body, g.user['user_id'], post_id))
+                           "values('%s',%s,%s)" % (body, user_id, post_id))
             db.commit()
             return redirect(url_for('post.post_comment_index', post_id=post_id))
-        flash(error)
     return render_template('post/post.html')
 
 # 前台回复评论 管理员回复
