@@ -62,15 +62,15 @@ def post(post_id):
         # 401 Unauthorized redirect(login)
 
 
-# # 获得 日志评论总数
-# def post_comment_count(post_id):
-#     db = get_db()
-#     cursor = db.cursor()
-#     cursor.execute('select count(*) '
-#                    'from comment as c '
-#                    'where c.post_id = %s' % (post_id,))
-#     count = cursor.fetchone()
-#     return count
+# 获得 日志评论总数
+def post_comment_count(post_id):
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('select count(*) '
+                   'from comment as c '
+                   'where c.post_id = %s' % (post_id,))
+    count = cursor.fetchone()
+    return count
 
 
 
@@ -82,12 +82,12 @@ def post_comment_index(post_id):
     db = get_db()
     cursor = db.cursor()
     cursor.execute(
-        'select c.comment_body, datetime(c.comment_timestamp) as comment_timestamp,u.username '
+        'select c.comment_id,c.comment_body, datetime(c.comment_timestamp) as comment_timestamp,u.username '
         'from comment as c,user as u '
-        'where c.reader_id = u.user_id and c.post_id = s% '
-        'order by comment.comment_timestamp desc' % (post_id,))
+        'where c.reader_id = u.user_id and c.post_id = %s ' % (post_id,))
     comments = cursor.fetchall()
-    return render_template('post/post.html', comments=comments)
+    count = post_comment_count(post_id)
+    return render_template('post/post.html', comments=comments, count=count)
 
 
 # post请求  提交日志 评论评论
@@ -103,8 +103,8 @@ def post_comment_add(post_id):
         else:
             db = get_db()
             cursor = db.cursor()
-            cursor.execute("insert into comment (comment_body,reader_id,post_id)"
-                           "values('%s',%s,%s)" % (body, user_id, post_id))
+            cursor.execute("insert into comment (comment_body,reader_id,post_id) "
+                           "values('%s',%s,%s) " % (body, user_id, post_id))
             db.commit()
             return redirect(url_for('post.post_comment_index', post_id=post_id))
     return render_template('post/post.html')

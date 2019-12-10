@@ -339,20 +339,9 @@ h4 {
 
 /*输入框整体样式*/
 .input, .textarea {
-    /* border:0;*/
-    border-width: 0.1rem;
-    border-style: solid;
-    border-color: #d9d9d9;
-    border-radius: 0.5rem;
-    -moz-border-radius: 0.5rem;
-    -webkit-border-radius: 0.5rem;
-    font-size: 1.5rem;
-    line-height: 2.5rem;
-    background-color: white;
+     border:0;
     vertical-align: baseline; /*设置对齐方式*/
     margin-top: 0.5rem; /*相对于字体大小 */
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
     /*输入框宽度 分web端和移动端*/
     max-width: 100%;
 

@@ -124,15 +124,15 @@
             </tr>
             </thead>
             <tbody>
-            {% if posts %}
+            {% if comments %}
 
-                {% for post in posts %}
+                {% for comment in comments %}
 
                     <tr>
-                        <td scope="row">读者1</td>
-                        <td scope="row">评论时间</td>
-                        <td scope="row">评论内容</td>
-                        <td scope="row">文章标题</td>
+                        <td scope="row">{{ comment.username }}</td>
+                        <td scope="row">{{ comment.comment_timestamp }}</td>
+                        <td scope="row">{{ comment.comment_body }}</td>
+                        <td scope="row">{{ comment.post_title }}</td>
                         <td scope="row">display</td>
 
                         <td scope="row">
@@ -162,7 +162,7 @@
                     </div>
                 </table>
             {% else %}
-                No posts
+                No comments
             {% endif %}
     </div>
 {% endblock %}

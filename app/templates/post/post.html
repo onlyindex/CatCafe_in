@@ -47,12 +47,7 @@
 
         /*引导目录*/
         #directory {
-        {#    position: fixed;#}
-        {#    z-index: 0;#}
-        {#top: 100px;#}
-        {#    display: inline-block;#}
-        {#    text-align: left;#}
-        {#    font-size: 14px;#} float:right;
+        {#    position: fixed;#}{#    z-index: 0;#}{#top: 100px;#}{#    display: inline-block;#}{#    text-align: left;#}{#    font-size: 14px;#} float: right;
         }
 
         #directory > ul {
@@ -109,6 +104,81 @@
             color: #313131;
             outline: 0;
         }
+
+        .cm_panel {
+            border: 1px solid #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+        {#font-size: 1.5rem;#}{#line-height: 2.5rem;#} background-color: rgba(255, 255, 255, 0.65);
+            vertical-align: baseline; /*设置对齐方式*/
+            margin-top: 0.5rem; /*相对于字体大小 */
+            /*输入框宽度 分web端和移动端*/
+            max-width: 100%;
+            margin-bottom: 10px;
+            -webkit-transition: all .3s ease;
+            transition: all .3s ease;
+
+
+        }
+
+
+        .textarea {
+            width: 100%;
+            min-height: 8.75em;
+            font-size: .875em;
+            background: transparent;
+            resize: vertical;
+            -webkit-transition: all .25s ease;
+            transition: all .25s ease;
+        }
+
+        .comment_list ul {
+            list-style-type: none;
+        }
+
+        .comment .comment_head .comment_user {
+            font-weight: 600;
+            line-height: 2;
+        }
+
+        .comment .comment_head .comment_user img {
+            display: inline-block;
+            vertical-align: top;
+            width: 2em;
+            height: 2em;
+            border-radius: 9em;
+            margin-right: .2em;
+            margin-left: -2.4em;
+        }
+
+        .comment_count {
+            font-weight: 600;
+            font-size: 1.25em;
+        }
+
+        .submit_btn {
+            border: 1px solid #ededed;
+            border-radius: .3em;
+            display: inline-block;
+            background: #ededed;
+            padding: .5em 1.25em;
+            float: right;
+            margin: -10px auto;
+        }
+
+        {##}
+        {#.smile_btn {#}
+        {#    background: 0 0;#}
+        {#    border: 0;#}
+        {#    line-height: 2;#}
+        {#    padding: 0 .5em;#}
+        {#    pointer-events: auto;#}
+        {#    cursor: pointer;#}
+        {#    -webkit-tap-highlight-color: transparent;#}
+
+
     </style>
 {% endblock %}
 {% block page_content %}
@@ -126,22 +196,22 @@
                 {#            <a style="color: #5a84b3" class="action" href="{{ url_for('post.update', post_id=post['post_id']) }}">编辑</a>#}
                 {#            <a style="color: #5a84b3" class="action" href="{{ url_for('post.delete', post_id=post['post_id']) }}">删除</a>#}
                 {#            </div>#}
-{#                <div id="share">#}
-{#                    分享到#}
-{#                    <div id="share_weibo">#}
-{#                        <a title="扫码分享到微信" href="#">#}
-{#                            <i src="#"></i>#}
-{#                            <span>微博</span>#}
-{#                        </a>#}
-{#                    </div>#}
-{#                    <div id="share_wechat">#}
-{#                        <a title="分享到微博" href="#">#}
-{#                            <i src="#"></i>#}
-{#                            <span>微信</span>#}
-{#                        </a>#}
-{#                    </div>#}
-{##}
-{#                </div>#}
+                {#                <div id="share">#}
+                {#                    分享到#}
+                {#                    <div id="share_weibo">#}
+                {#                        <a title="扫码分享到微信" href="#">#}
+                {#                            <i src="#"></i>#}
+                {#                            <span>微博</span>#}
+                {#                        </a>#}
+                {#                    </div>#}
+                {#                    <div id="share_wechat">#}
+                {#                        <a title="分享到微博" href="#">#}
+                {#                            <i src="#"></i>#}
+                {#                            <span>微信</span>#}
+                {#                        </a>#}
+                {#                    </div>#}
+                {##}
+                {#                </div>#}
             </div>
         </div>
 
@@ -174,51 +244,88 @@
                 </ul>
                 <p><code>sudo apt-get install python2.7</code><br>
             </div>
+            <p>本文链接：<a href="http://www.eyrefree.org/2015/05/31/2015-05-31-WordPress-Notes/">http://www.eyrefree.org/2015/05/31/2015-05-31-WordPress-Notes/</a>
+            </p>
+            <p>如文中无特殊说明，本站均使用以下协议保护：<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/cn/" target="_blank"
+                                       rel="noopener">署名-非商业性使用-禁止演绎</a></p>
 
         </div>
-{#        <div class="like">#}
-{#            <div class="author">#}
-{#                <a><img id="post_author" src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>#}
-{#            </div>#}
-{#            <button>like</button>#}
-{#        </div>#}
+        {#        <div class="like">#}
+        {#            <div class="author">#}
+        {#                <a><img id="post_author" src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>#}
+        {#            </div>#}
+        {#            <button>like</button>#}
+        {#        </div>#}
 
 
-{#        <div class="post_bottom">#}
-{#            <div class="tag_list">#}
-{#                {% for tag in tags %}#}
-{#                    <a class="tag">{{ tag[0] }}</a>#}
-{#                {% endfor %}#}
-{#            </div>#}
-{#        </div>#}
-    </article>
-    <div id="CommentPanel">
-        <div class="comment_count">评论233</div>
-        <div id="CommentForm">
-            <form method="post" action="{{ url_for('post.post_comment_add',post_id=post[0]) }}">
+        {#        <div class="post_bottom">#}
+        {#            <div class="tag_list">#}
+        {#                {% for tag in tags %}#}
+        {#                    <a class="tag">{{ tag[0] }}</a>#}
+        {#                {% endfor %}#}
+        {#            </div>#}
+        {#        </div>#}
+        <div class="post_comments">
+            <form class="cm_panel" method="post"
+                  action="{{ url_for('post.post_comment_add',post_id=post['post_id']) }}">
                 {% if g.user %}
-                    <a href="{{ url_for('user.my_profile') }}">
-                        {{ currenet_user[1] }}
-                    </a>
+                    <div class="cm_user">
+                        <div class="cm_user_info">
+                            {{ g.user['username'] }}<a href="#" action="toLogin">切换账号</a>
+                        </div>
+                    </div>
+                    <div class="cm_reply">
+                        <div class="cm_reply_body">
+                                <textarea class="textarea" name="body" id="body" placeholder="灌水唠嗑" required>
+                                </textarea>
+                        </div>
+                        <div class="cm_reply_ctrl">
+                            <div class="cm_submit">
+                                <button class="submit_btn" type="submit">凸(艹皿艹 )
+                                </button>
+                            </div>
+                            {#                                <div class="cm_bar">#}
+                            {#                                    <button class="smile_btn" type="smile" action="smile">表情</button>#}
+                            {#                                </div>#}
+                        </div>
+                    </div>
                 {% else %}
-                    <a href="{{ url_for('auth.signin') }}">登录</a><br>
-
+                    <div style="text-align: center;">使用<a href="#">weibo</a>、<a href="#">github</a>、<a href="#">qq</a>
+                        登录评论
+                    </div>
                 {% endif %}
-                <textarea class="textarea" name="body" id="body" placeholder="我要吐槽" required></textarea><br>
-                <button class="button" type="submit">评论</button>
-                <br>
             </form>
+            <span class="comment_count">{{ count }}</span>评论
+            <ul class="comment_list">
+                {% if comments %}
+
+                    {% for comment in comments %}
+                        <li id="{{ comment.comment_id }}">
+                            <div class="comment">
+                                <div class="comment_head">
+                                    <span class="comment_user"><img src="//api.mouto.org/avatar/b/34002.jpg">{{ comment.username }}</span>
+                                </div>
+                                <div class="comment_content">{{ comment.comment_body }}</div>
+                                <div class="comment_ctrl">
+                                    <span class="time"> {{ comment.comment_timestamp }}</span>
+                                    <span class="reply">回复</span>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    No comments
+                {% endif %}
+            </ul>
+
+
         </div>
-        <p id="Comments">
+        </div>
 
-            {% for comment in comments %}
-                <h5>{{ comment.username }}</h5>
-                <p> {{ comment.comment_timestamp }}</p>
-                <small>{{ comment.comment_body }}</small>
-            {% endfor %}
+    </article>
 
-    </div>
-    </div>
+
+
 
 {% endblock %}
 

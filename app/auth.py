@@ -28,7 +28,7 @@ def admin_login_required(view):
     def wrapped_view(**kwargs):
         print("admin_login_required exc")
         if g.user is not None:
-            if g.user[0] == 1:
+            if g.user['user_id'] == 1:
                 return redirect(url_for('admin.dashboard'))
         else:
             return redirect(url_for('auth.signin'))
@@ -36,14 +36,13 @@ def admin_login_required(view):
 
 @auth_bp.before_app_request
 def load_logged_in_user():
-    print("load_logged_in_user exc")
     user_id = session.get('user_id')
     if user_id is None:
         g.user = None
     else:
         db = get_db()
         cursor = db.cursor()
-        cursor.execute("select * from user where user_id = '%s' " % user_id)
+        cursor.execute("select user_id, username, email from user where user_id = '%s' " % user_id)
         g.user = cursor.fetchone()
 
 

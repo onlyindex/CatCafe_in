@@ -170,10 +170,10 @@ def manage_comment():
     db = get_db()
     cursor = db.cursor()
     # 三表查询 评论表 用户表 日志表
-    cursor.execute('select u.username,c.comment_timestamp,c.comment_body '
-                   'from comment as c , user as u '
-                   'where c.reader_id=u.user_id ')
+    cursor.execute('select u.username,c.comment_timestamp,c.comment_body,p.post_title '
+                   'from comment as c , user as u,post as p '
+                   'where c.reader_id=u.user_id and c.post_id=p.post_id ')
     comments = cursor.fetchall()
-    return render_template('admin/post_manage.html', comments=comments)
+    return render_template('admin/comment_manage.html', comments=comments)
 
 # 后台回复评论  跟发布新评论好像？
