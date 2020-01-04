@@ -1,0 +1,16 @@
+{% extends "admin/ad_base.html" %}
+{% block title %}catalog manage{% endblock %}
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+{% block page_content %}
+    <div id="CatalogPanel">
+        <div id="CatalogForm">
+            <form method="post" action="{{ url_for('admin.new_catalog') }}">
+                <input class="input" name="catalog_name" id="catalog_name" placeholder="分类名" required><br>
+                <input class="input" type="catalog_img" name="catalog_img" placeholder="分类配图"><br>
+                <button class="button" type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

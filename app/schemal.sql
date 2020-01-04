@@ -25,7 +25,9 @@ create table user
 -- post：user = 1:1
 -- user_id是post的外键
 -- post.author=user.user_id
-
+--post：catalog= 1：1
+--catalog：post=1：m
+--catalog_id是post的外键
 create table post
 (
     post_id    integer primary key autoincrement,
@@ -34,12 +36,24 @@ create table post
     post_timestamp default current_timestamp,
     post_status varchar(20) not null default 'draft',
     author_id  integer     not null,
-    foreign key (author_id) references user (user_id)
+    catalog_id integer not null,
+    foreign key (author_id) references user (user_id),
+    foreign key (catalog_id) references catalog (catalog_id)
+
 
 );
 drop table post;
 
+--目录表
+create table catalog
+(
+    catalog_id   integer primary key autoincrement,
+    catalog_name varchar(30) unique not null,
+    catalog_img  varchar(120) default '',
+    catalog_total integer default 0
+);
 
+drop table catalog;
 --标签表
 create table tag
 (

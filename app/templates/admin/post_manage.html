@@ -114,7 +114,7 @@
 {% block page_content %}
 
     <div id="post_list" class="card">
-        <h2>日志</h2><a id="add_post" class="action" href="{{ url_for('admin.new_post') }}">添加日志</a>
+        <h2>日志</h2><a id="add_post" class="action" href="{{ url_for('admin.new_post') }}">添加分类</a>
 
         <ul class="post_status">
             <li class="all_posts">
@@ -152,7 +152,7 @@
                     <tr>
                         <td scope="row">{{ post.post_title }}</td>
                         <td scope="row">{{ post.post_timestamp }}</td>
-                        <td scope="row">我的Python不可能这么萌</td>
+                        <td scope="row">{{ post.catalog_name }}</td>
                         <td scope="row">
                             <p id="tag">tag1</p>
                             <p id="tag">tag1</p>

@@ -19,15 +19,16 @@ def dashboard():
 
 
 # 日志管理
-#mysql->sqlite timstamp
+# mysql->sqlite timstamp
 @admin_login_required
 @admin_bp.route('/post/manage', methods=['GET'])
 def manage_post():
     # 查询所有文章、进行分页处理?、传入模板
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('select p.post_id,p.post_title,p.post_timestamp,p.post_status '
-                   'from post as p '
+    cursor.execute('select p.post_id,p.post_title,p.post_timestamp,p.post_status,c.catalog_name '
+                   'from post as p,catalog as c '
+                   'where p.catalog_id = c.catalog_id '
                    'order by p.post_timestamp desc ')
     posts = cursor.fetchall()
     return render_template('admin/post_manage.html', posts=posts)
@@ -40,11 +41,14 @@ def manage_post():
 @admin_login_required
 @admin_bp.route('/post/new', methods=['GET', 'POST'])
 def new_post():
+    db = get_db()
+    cursor = db.cursor()
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
         status = request.form['status']
-        print(status)
+        catalog_id = request.form['catalog_id']
+        print(catalog_id)
         # tags = request.form['tags']
         # 分割tags获得一组字符串['a','b']
         # tag_name = [str(tag_name) for tag_name in tags.split()]
@@ -57,18 +61,18 @@ def new_post():
             error = '标题不能为空'
         elif not body:
             error = '内容不能为空'
-        #elif not tags:
+        # elif not tags:
         #    error = '标签不为空'
+        elif not catalog_id:
+            error =" 分类不为空 "
         else:
-            db = get_db()
-            cursor = db.cursor()
-           # for tag in tag_name:
-                #cursor.execute("select tag_id from tag where tag_name = '%s' " % tag)
-                # if cursor.fetchone() is None:
-                #     # 查询tag判断其是否在数据中已经存在，如果不存在就添加tag，存在就默认不添加
-                #     cursor.execute("insert into tag(tag_name) values('%s') " % tag)
-                #     cursor.execute("select tag_id from tag where tag_name = '%s'" % tag)
-                    # tag_ids = tag_ids.insert(0, cursor.fetchone()[0])
+            # for tag in tag_name:
+            # cursor.execute("select tag_id from tag where tag_name = '%s' " % tag)
+            # if cursor.fetchone() is None:
+            #     # 查询tag判断其是否在数据中已经存在，如果不存在就添加tag，存在就默认不添加
+            #     cursor.execute("insert into tag(tag_name) values('%s') " % tag)
+            #     cursor.execute("select tag_id from tag where tag_name = '%s'" % tag)
+            # tag_ids = tag_ids.insert(0, cursor.fetchone()[0])
 
             # 查询该文章所有tag_id
             # cursor.execute("select t.tag_id from tag as t where tag_name in (%s) " % ','.join(['%s'] * len(tag_name)),
@@ -77,11 +81,11 @@ def new_post():
 
             # 添加post
             cursor.execute(
-                "insert into post(post_title,post_body,post_status,author_id) values('%s','%s','%s',%s) " % (
-                    title, body, status, user_id))
+                "insert into post(post_title,post_body,post_status,author_id,catalog_id) "
+                "values('%s','%s','%s',%s,%s)" % (title, body, status, user_id, catalog_id))
             # 获得最新新生成的post_id
-            cursor.execute("select max(post_id) from post WHERE author_id= '%s' " % user_id)
-            post_id = cursor.fetchone ()
+            cursor.execute("select max(post_id) from post WHERE author_id= %s " % user_id)
+            post_id = cursor.fetchone()
             # 更新user表中的别名_(:зゝ∠)_判断别名是否已经存在在，再进行更新
             # 把发布日志中的别名。
             # 关联表 没有更新成功
@@ -93,7 +97,12 @@ def new_post():
             flash('发布成功', 'info')
             return redirect(url_for('admin.manage_post'))
         flash(error, 'warning')
-    return render_template('admin/post_new.html')
+
+    cursor.execute('select c.catalog_id,c.catalog_name,c.catalog_img '
+                   'from catalog as c ')
+    catalogs = cursor.fetchall()
+
+    return render_template('admin/post_new.html', catalogs=catalogs)
 
 
 # 新建日志新建标签时候选选择旧标签通过tag——name关联旧的tag——id
@@ -124,9 +133,6 @@ def edit_post(post_id):
         db.commit()
         flash("edit post sucess")
         return redirect(url_for('admin.manage_post'))
-
-
-
 
 
 # 删除日志
@@ -176,4 +182,48 @@ def manage_comment():
     comments = cursor.fetchall()
     return render_template('admin/comment_manage.html', comments=comments)
 
+
 # 后台回复评论  跟发布新评论好像？
+
+
+# 分类管理
+@admin_login_required
+@admin_bp.route('/catalog/manage', methods=['GET'])
+def manage_catalog():
+    # 列出所有分类
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute('select c.catalog_name,c.catalog_img '
+                   'from catalog as c ')
+    catalogs = cursor.fetchall()
+    return render_template('admin/catalog_manage.html', catalogs=catalogs)
+
+
+# 增加分类
+@admin_login_required
+@admin_bp.route('/catalog/new', methods=['GET', 'POST'])
+def new_catalog():
+    if request.method == 'POST':
+        catalog_name = request.form['catalog_name']
+        catalog_img = request.form['catalog_img']
+        if not catalog_name:
+            error = "catalog 不能为空"
+        elif not catalog_img:
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute(
+                "insert into catalog(catalog_name) values('%s') " % (
+                    catalog_name))
+            db.commit()
+            return redirect(url_for('admin.manage_catalog'))
+
+        else:
+            db = get_db()
+            cursor = db.cursor()
+            cursor.execute(
+                "insert into catalog(catalog_name,catalog_img) values('%s','%s') " % (
+                    catalog_name, catalog_img))
+            db.commit()
+            return redirect(url_for('admin.manage_catalog'))
+        flash(error, 'warning')
+    return render_template('admin/catalog_new.html')

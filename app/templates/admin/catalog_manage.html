@@ -1,0 +1,30 @@
+{% extends "admin/ad_base.html" %}
+{% block title %}post manage{% endblock %}
+{% block styles %}
+    {{ super() }}
+{% endblock %}
+{% block page_content %}
+    <h2>分类</h2>
+    <a id="add_catalog" class="action" href="{{ url_for('admin.new_catalog') }}">添加日志</a>
+
+    <table class="table_list">
+
+        <thead>
+        <tr>
+            <th scope="col">catalog_name</th>
+            <th scope="col">catalog_img</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if catalogs %}
+            {% for catalog in catalogs %}
+                <tr>
+                    <td scope="row">{{ catalog.catalog_name }}</td>
+                    <td scope="row">{{ catalog.catalog_img }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            No Catalog
+        {% endif %}
+        </tbody>
+{% endblock %}
