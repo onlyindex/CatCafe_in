@@ -7,12 +7,13 @@
 <div id="PostForm">
   <form  method="post" action="{{ url_for('admin.new_post') }}">
     <input class="input" name="title" id="title" placeholder="标题" required><br>
-    <textarea class="textarea" name="body" id="body" placeholder="内容" required></textarea><br>
+
+    <textarea class="ckeditor"  name="body" id="body" placeholder="内容" required></textarea><br>
       <input class="input" type="text"  name="tags" placeholder="输入标签空格分隔"><br>
       <select name="catalog_id" id="catalog_id" >
               {% if catalogs %}
                   {% for catalog in catalogs %}
-                            <option value="{{ catalog.catalog_id }} "> {{ catalog.catalog_name }}         </option>
+                            <option value="{{ catalog.catalog_id }} "> {{ catalog.catalog_name }} </option>
                   {% endfor %}
 
 
@@ -24,10 +25,15 @@
           <option value="show">show</option>
       </select>
     <button class="button" type="submit">发布</button>
+
   </form>
 
 
+ <script>
+                CKEDITOR.replace('body');
 
+
+        </script>
 
 </div>
 </div>

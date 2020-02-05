@@ -3,7 +3,7 @@ import os
 import db
 from db import get_db
 # from flask_sqlalchemy import SQLAlchemy
-
+# from flask_ckeditor import CKEditor
 
 from datetime import timedelta
 
@@ -28,7 +28,11 @@ def create_app():
 
     # 初始化数据库
     # db = SQLAlchemy()
+    # 实例化CKEditor类
+    # ckeditor=CKEditor()
+    # 使用工厂函数初始化
     db.init_app(app)
+    # ckeditor.init(app)
 
     from app.auth import auth_bp
     from app.post import post_bp
@@ -50,4 +54,8 @@ def create_app():
     @app.route('/', methods=['GET'])
     def home():
         return render_template('home.html')
+
+    @app.route('/me', methods=['GET'])
+    def me():
+        return render_template('me.html')
     return app

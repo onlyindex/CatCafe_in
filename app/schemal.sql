@@ -58,9 +58,12 @@ drop table catalog;
 create table tag
 (
     tag_id   integer primary key autoincrement,
-    tag_name varchar(30) unique not null
+    tag_name varchar(30) unique not null,
+    tag_total integer default 0
 );
 
+alter table tag
+	add tag_total integer default 0;
 --日志标签表
 -- post：tag = m：m
 -- tag:post =m:m

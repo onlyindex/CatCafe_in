@@ -4,27 +4,51 @@
     {{ super() }}
 {% endblock %}
 {% block page_content %}
-    <h2>分类</h2>
-    <a id="add_catalog" class="action" href="{{ url_for('admin.new_catalog') }}">添加日志</a>
+    <div id="list" class="card">
 
-    <table class="table_list">
+        <h2>分类</h2>
+        <a class="add_action" href="{{ url_for('admin.new_catalog') }}">添加分类</a>
 
-        <thead>
-        <tr>
-            <th scope="col">catalog_name</th>
-            <th scope="col">catalog_img</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% if catalogs %}
-            {% for catalog in catalogs %}
-                <tr>
-                    <td scope="row">{{ catalog.catalog_name }}</td>
-                    <td scope="row">{{ catalog.catalog_img }}</td>
-                </tr>
-            {% endfor %}
-        {% else %}
-            No Catalog
-        {% endif %}
-        </tbody>
+        <table class="table_list">
+
+            <thead>
+            <tr>
+
+                <th scope="col">catalog_name</th>
+                <th scope="col">catalog_img</th>
+                <th scope="col">catalog_total</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% if catalogs %}
+                {% for catalog in catalogs %}
+                    <tr>
+                        <td scope="row">{{ catalog.catalog_name }}</td>
+                        <td scope="row">{{ catalog.catalog_img }}</td>
+                        <td scope="row">{{ catalog.catalog_total }}</td>
+
+                    </tr>
+                {% endfor %}
+            {% else %}
+                No Catalog
+            {% endif %}
+            </tbody>
+
+        </table>
+        <table class="table_footer">
+            <div class="pagination">
+                <a href="#">«</a>
+                <a href="#">‹</a>
+                <a href="#" class="selected">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">›</a>
+                <a href="#">»</a>
+            </div>
+        </table>
+    </div>
+
 {% endblock %}

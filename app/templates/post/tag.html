@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}tag{% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        {{super()}}
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 10px 15px;
+            display: inline-block;
+            font-size: 1em;
+        }
+
+
+
+        .tag_count {
+            display: inline-block;
+            position: relative;
+            top: -28px;
+            right: -42px;
+            color: #8590a6;
+            font-size: 12px;
+        }
+    </style>
+{% endblock %}
+{% block page_content %}
+
+
+    {% if tags %}
+        <h2>Tag</h2>
+        <ul id="catalog_list">
+            {% for tag in tags %}
+                <li class="catalog_info">
+                    <a href="{{ url_for('post.tags',tag_name=tag.tag_name) }}">#{{ tag.tag_name }}</a><br>
+                    <span class="tag_count">{{ tag.tag_total }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No Catalog
+    {% endif %}
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}about me{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <style>
+      .site_author {
+            text-align: center;
+            margin-top: 120px;
+        }
+
+
+        .me_summary {
+            line-height: 1.4;
+            font-weight: 200;
+            padding: 28px 0 14px;
+        }
+
+
+        .me_summary p {
+            color: #666;
+            line-height: 1.8;
+
+        }
+
+        .me_summary strong {
+            font-weight: 400;
+            color: #333;
+        }
+
+        .me_summary b {
+            font-weight: 300;
+            color: #333;
+        }
+
+        .me_summary del {
+            font-size: 10px;
+            opacity: .3;
+            margin: .5em 0 0 -2em;
+            position: absolute;
+        }
+
+        .footer_analysis {
+            margin-left: 80px;
+        }
+
+
+
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
+
+{% block page_content %}
+    {{ super() }}
+
+
+        <div class="me_summary">
+                <p>🐣</p>
+                <p>1989 B型♋巨蟹座,暂居珠海。</p>
+                <p>2011 进入互联网,先后从事 <strong>SEO优化</strong>、<strong>运营</strong>、<strong>产品喵</strong>
+                    工作，熟悉 <b>谷歌百度统计工具</b> ,擅长和 <b>用户交流</b>
+                    <del>吹水尬聊</del>
+                    喜欢琢磨用户都在想什么,熟练使用 <b>EXCEL</b> 分析数据 ，花样折腾
+                    <del>瞎抄</del>
+                    过<b>不少</b>产品。
+                <p>2014 学习 <strong>sketch & AI</strong> 开始<strong>产品界面设计</strong>
+                    <del>开脑洞</del>
+                    ，每天总觉得只差一个程序员。
+                </p>
+                <p>2015 接触 <strong>python & swift编程</strong>，开始<b>自己造轮子</b>
+                    <del>写bug🐛</del>
+                    旅程</strong>。 希望能写出有趣
+                        <del>bigger</del>
+                        の产品
+                        <del>拖延</del>
+                    </a>~<br>
+                    <small>代码开源在 <a href="https://github.com/onlyindex">GitHub</a></small>
+                    .
+                </p>
+                <p>兴趣爱好广泛，用❤️发电、野生无证，玩的内容五花八门: 互联网产品，设计，运营，技术开发，bug处理，数据挖掘，市场商业化，心理学、占星学、画画、lolita等,被分门别类整理成册。
+                </p>
+                <small>整理记录在 <a href="/post/" href="{{ url_for('post.posts') }}" class="">日誌</a></small>
+                .
+
+            </div>
+
+{% endblock %}

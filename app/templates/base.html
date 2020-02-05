@@ -9,8 +9,10 @@
     <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='static/images/favicon.png') }}">
     {% block styles %}
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/phone.css' ) }}"/>
+
     {% endblock %}
     {% block scripts %}
+        <script src="//cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
         <script type="text/javascript">
 
             function show(obj) {
@@ -65,9 +67,58 @@
                 </div>
             </div>
         </header>
-        <aside class="sidebar sidebar_active">
+        <aside class="sidebar sidebar_active ">
             <div class="sidebar_inner">
                 {% block sidebar %}
+                    <div  class="site_overview_wrap sidebar_panel sidebar_panel_active"
+                         style="max-width: 360px; opacity: 1;">
+                        <div class="site_author">
+                            <img class="author_image" alt="Onlyindex"
+                                 src="{{ url_for('static',filename='static/images/myself.jpg') }}">
+                            <sup>野良喵</sup>
+                            <p class="author_name">OnlyIndex</p>
+                            <div class="author_description" style="font-size:14px;">不会代码&占星の设计师不是好喵ฅTㅅTฅ</div>
+                        </div>
+                        <div class="site_state_wrap motion_element">
+                            <nav class="site_state">
+                                <div class="site_state_item site_state_posts">
+                                    <a href="/post/">
+                                        <span class="site_state_item_count">2233</span>
+                                        <span class="site_state_item_name">日誌</span>
+                                    </a>
+                                </div>
+                                <div class="site_state_item site_state_imgs">
+                                    <a href="/post/catalog/">
+                                        <span class="site_state_item_count">22</span>
+                                        <span class="site_state_item_name">分类</span>
+                                    </a>
+                                </div>
+                                <div class="site_state_item site_state_works">
+                                    <a href="/post/tag/">
+                                        <span class="site_state_item_count">33</span>
+                                        <span class="site_state_item_name">标签</span>
+                                    </a>
+                                </div>
+                            </nav>
+
+                        </div>
+                        <footer class="footer">
+                            <div class="footer_analysis">
+                                喵茶会在宇宙存在<span>1</span>天<br>
+                                遇见<span>3000</span>只喵星人<br>
+                                和<span>2333</span>只喵星人high5<br>
+
+                                收到<span>500</span>只土豪喵的投喂<br>
+
+                            </div>
+
+                            © 2019 Design ❤ Code by<a href="http://catcafe.in"
+                                                      title="Powered by onlyindex">OnlyIndex</a>
+                            <a class="btn" href="{{ url_for('auth.signin') }}">登录</a>
+                            <a class="btn" href="{{ url_for('auth.signup') }}">注册</a>
+                        </footer>
+
+                    </div>
                 {% endblock %}
 
             </div>

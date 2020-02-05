@@ -1,6 +1,11 @@
-from flask import Blueprint, request, session, render_template, redirect, url_for, flash
+from flask import Blueprint, request, session, render_template, redirect, url_for, flash, make_response
 from db import get_db
 from app.auth import admin_login_required
+import re
+import json
+import random
+import urllib
+import datetime
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -26,7 +31,7 @@ def manage_post():
     # 查询所有文章、进行分页处理?、传入模板
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('select p.post_id,p.post_title,p.post_timestamp,p.post_status,c.catalog_name '
+    cursor.execute('select p.post_id,p.post_title,date(p.post_timestamp) as post_timestamp,p.post_status,c.catalog_name '
                    'from post as p,catalog as c '
                    'where p.catalog_id = c.catalog_id '
                    'order by p.post_timestamp desc ')
@@ -64,7 +69,7 @@ def new_post():
         # elif not tags:
         #    error = '标签不为空'
         elif not catalog_id:
-            error =" 分类不为空 "
+            error = " 分类不为空 "
         else:
             # for tag in tag_name:
             # cursor.execute("select tag_id from tag where tag_name = '%s' " % tag)
@@ -85,6 +90,9 @@ def new_post():
                 "values('%s','%s','%s',%s,%s)" % (title, body, status, user_id, catalog_id))
             # 获得最新新生成的post_id
             cursor.execute("select max(post_id) from post WHERE author_id= %s " % user_id)
+            # 更新日志分类计数
+            cursor.execute("UPDATE catalog SET catalog_total = catalog_total+1 "
+                           "where catalog_id=%s " % catalog_id)
             post_id = cursor.fetchone()
             # 更新user表中的别名_(:зゝ∠)_判断别名是否已经存在在，再进行更新
             # 把发布日志中的别名。
@@ -193,7 +201,7 @@ def manage_catalog():
     # 列出所有分类
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('select c.catalog_name,c.catalog_img '
+    cursor.execute('select c.catalog_name,c.catalog_img ,c.catalog_total '
                    'from catalog as c ')
     catalogs = cursor.fetchall()
     return render_template('admin/catalog_manage.html', catalogs=catalogs)
@@ -227,3 +235,48 @@ def new_catalog():
             return redirect(url_for('admin.manage_catalog'))
         flash(error, 'warning')
     return render_template('admin/catalog_new.html')
+
+
+def gen_rnd_filename():
+    filename_prefix = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
+    return '%s%s' % (filename_prefix, str(random.randrange(1000, 10000)))
+
+
+@admin_login_required
+@admin_bp.route('/ckupload/', methods=['POST', 'OPTIONS'])
+def ckupload():
+    """CKEditor file upload"""
+    error = ''
+    url = ''
+    callback = request.args.get("CKEditorFuncNum")
+
+    if request.method == 'POST' and 'upload' in request.files:
+        fileobj = request.files['upload']
+        fname, fext = os.path.splitext(fileobj.filename)
+        rnd_name = '%s%s' % (gen_rnd_filename(), fext)
+
+        filepath = os.path.join(app.static_folder, 'upload', rnd_name)
+
+        # 检查路径是否存在，不存在则创建
+        dirname = os.path.dirname(filepath)
+        if not os.path.exists(dirname):
+            try:
+                os.makedirs(dirname)
+            except:
+                error = 'ERROR_CREATE_DIR'
+        elif not os.access(dirname, os.W_OK):
+            error = 'ERROR_DIR_NOT_WRITEABLE'
+
+        if not error:
+            fileobj.save(filepath)
+            url = url_for('static', filename='%s/%s' % ('upload', rnd_name))
+    else:
+        error = 'post error'
+
+    res = """<script type="text/javascript">
+  window.parent.CKEDITOR.tools.callFunction(%s, '%s', '%s');
+</script>""" % (callback, url, error)
+
+    response = make_response(res)
+    response.headers["Content-Type"] = "text/html"
+    return response

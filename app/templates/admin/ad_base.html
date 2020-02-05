@@ -11,8 +11,20 @@
     {% block styles %}
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/admin.css' ) }}"/>
     {% endblock %}
-    <script type="text/javascript">
-    </script>
+
+    {% block scripts %}
+        <script src="//cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script>
+
+
+{#                    <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>#}
+{#        <script type="text/javascript">#}
+{#            CKEDITOR.replace('body', {#}
+{#                filebrowserUploadUrl: '/ckupload/',#}
+{#            });#}
+{#        </script>#}
+
+
+    {% endblock %}
 </head>
 
 
@@ -20,7 +32,7 @@
 <nav id="nav">
 
     <div id="nav_box">
-    <div id="nav_menu_box" onmouseover="show('nav_content')" onmouseout="hide('nav_content')">
+        <div id="nav_menu_box" onmouseover="show('nav_content')" onmouseout="hide('nav_content')">
             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon">
                 <path fill="currentColor"
                       d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path>
@@ -54,27 +66,43 @@
     <div class="sidebar">
         <ul class="nav_links">
             <li class="nav_item">
-                <a  href="{{ url_for('admin.dashboard') }}" class="nav-link">仪表盘</a>
+                <a href="{{ url_for('admin.dashboard') }}" class="nav-link">仪表盘</a>
             </li>
             <li class="nav_item">
-                <a  href="{{ url_for('admin.manage_post' ) }}" class="nav-link router-link-exact-active router-link-active">日志</a>
+                <a href="{{ url_for('admin.manage_post' ) }}"
+                   class="nav-link router-link-exact-active router-link-active">
+                                           <ruby>日志<rt>99+</rt></ruby>
+
+                </a>
+            </li>
+
+            <li class="nav_item">
+                <a href="{{ url_for('admin.manage_comment' ) }}" class="nav-link">
+                    <ruby>评论<rt>99+</rt></ruby>
+                </a>
             </li>
             <li class="nav_item">
-                <a href="{{ url_for('admin.manage_comment' ) }}" class="nav-link">评论</a>
-            </li>
-             <li class="nav_item">
-                <a href="{{ url_for('admin.manage_catalog' ) }}" class="nav-link">分类</a>
-            </li>
-            <li class="nav_item">
-                <a href="#" class="nav-link">标签</a>
+                <a href="{{ url_for('admin.manage_catalog' ) }}" class="nav-link">
+                                        <ruby>分类<rt>99+</rt></ruby>
+
+                </a>
             </li>
             <li class="nav_item">
-                <a href="#" class="nav-link">用户</a></li>
+                <a href="#" class="nav-link">
+                                        <ruby>标签<rt>99+</rt></ruby>
+
+                </a>
+            </li>
+            <li class="nav_item">
+                <a href="#" class="nav-link">
+                                        <ruby>读者<rt>99+</rt></ruby>
+
+            </li>
         </ul>
 
     </div>
     <div id="page_content">
-             {% block page_content %}
+        {% block page_content %}
             {% for message in get_flashed_messages(with_categories=True) %}
                 <div class="flash alert alert-{{ message[0] }}" id="close" role="alert">
                     <button class="close" onclick="turnoff('close')">&times;</button>
@@ -83,7 +111,7 @@
             {% endfor %}
         {% endblock %}
 
-</div>
+    </div>
 </main>
 </div>
 </body>

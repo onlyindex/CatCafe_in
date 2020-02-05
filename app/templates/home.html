@@ -1,139 +1,182 @@
 {% extends 'base.html' %}
-{% block title %}about me{% endblock %}
-
+{% block title %}catcafe.in{% endblock %}
 {% block styles %}
     {{ super() }}
     <style>
-        .site_author {
+        .page {
+            padding-left: 0px;
+        }
+
+        .sidebar {
+            display: none;
+        }
+
+        .mycard {
+       margin-top: 320px;
+        {#margin-bottom: 100px;#}
+        {#    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);#}
+        }
+
+
+
+        .mycard .nav {
+            color: #bbb;
+        }
+
+        .mycard .nav .item {
+            display: inline-block;
+        }
+
+        .mycard .nav .item a {
+            font-size: 14px;
+            display: inline-block;
             text-align: center;
-            margin-top: 120px;
+            text-decoration: none;
+            color: #000;
+            transition-duration: 0.5s;
+            transition-propety: background-color;
+        }
+
+        a.icon {
+            background: none;
+        }
+
+        a {
+            color: #c9cacc;
+            text-decoration: none;
+        }
+
+        .fab {
+            font-family: "Font Awesome 5 Brands";
+            -webkit-font-smoothing: antialiased;
+            display: inline-block;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+        }
+
+        .fa-github:before {
+            content: "\f09b";
+        }
+
+        code {
+            background-color: #4a4a4a;
+            color: white;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            margin: 0 5px;
+            box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.15), 1px 1px 8px rgba(0, 0, 0, 0.15);
         }
 
 
-        .me_summary {
-            line-height: 1.4;
-            font-weight: 200;
-            padding: 28px 0 14px;
-        }
+    i {
+    background-color: #fa4b8b;
+    color: #fff;
+    border-radius: 2px;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+}
 
 
-        .me_summary p {
-            color: #666;
-            line-height: 1.8;
+        {#.normal {#}
+        {#display: inline-block;#}{#vertical-align: top;#}
+        {#    background: url("../static/images/like.png") no-repeat 0 0/20px;#}
+        {#    width: 20px;#}
+        {#    height: 20px;#}
+        {#    margin-right: 4px;#}
 
-        }
+        .active {
+        display: inline-block;
+        vertical-align: top;
 
-        .me_summary strong {
-            font-weight: 400;
-            color: #333;
-        }
-
-        .me_summary b {
-            font-weight: 300;
-            color: #333;
-        }
-
-        .me_summary del {
-            font-size: 10px;
-            opacity: .3;
-            margin: .5em 0 0 -2em;
-            position: absolute;
-        }
-
-        .footer_analysis {
-            margin-left: 80px;
+            background: url("../static/images/like_activate.png") no-repeat 0 0/20px;
+            width: 20px;
+            height: 20px;
+            {#margin-right: 4px;#}
         }
 
     </style>
-{% endblock %}
 
+{% endblock %}
 {% block scripts %}
     {{ super() }}
 {% endblock %}
-
-{% block sidebar %}
-    <div class="site_overview_wrap sidebar_panel sidebar_panel_active"
-         style="max-height: 1049px; opacity: 1;">
+{% block page_content %}
+    {{ super() }}
+    <div class="mycard text-center">
         <div class="site_author">
             <img class="author_image" alt="Onlyindex"
                  src="{{ url_for('static',filename='static/images/myself.jpg') }}">
-            <sup>野生喵</sup>
-            <p class="author_name">OnlyIndex</p>
-            <div class="author_description">不会代码&占星の设计师不是好喵ฅTㅅTฅ</div>
+            <sup>野良喵</sup>
+            <p class="author_name" href="/me">OnlyIndex</p>
+            <code> 自由散漫/脑洞狠黑/废柴呆萌宅/人形图书馆</code>
+            <div class="author_description">不会代码&占星の设计师不是好产品喵ฅTㅅTฅ</div>
         </div>
-        <div class="site_state_wrap motion_element">
-            <nav class="site_state">
-                <div class="site_state_item site_state_posts">
-                    <a href="/post/">
-                        <span class="site_state_item_count">39</span>
-                        <span class="site_state_item_name">日志</span>
-                    </a>
-                </div>
-                <div class="site_state_item site_state_imgs">
-                    <a href="/image/">
-                        <span class="site_state_item_count">23</span>
-                        <span class="site_state_item_name">写真</span>
-                    </a>
-                </div>
-                <div class="site_state_item site_state_works">
-                    <a href="/work/">
-                        <span class="site_state_item_count">23</span>
-                        <span class="site_state_item_name">作品</span>
-                    </a>
-                </div>
-            </nav>
 
+        {#  <hr>#}
+
+
+        <ul class="text-center nav">
+
+            <li class="item">
+
+                <a href="/post">Blog</a>
+
+                <span>|</span>
+            </li>
+            <li class="item">
+
+                <a href="https://github.com/onlyindex">Github</a>
+
+                <span>|</span>
+            </li>
+
+            <li class="item">
+
+                <a href="https://i.ui.cn/ucenter/93339">Behance</a>
+
+                <span>|</span>
+            </li>
+             <li class="item">
+
+                <a href="#">Pivix</a>
+
+                <span>|</span>
+            </li>
+            <li class="item">
+
+                <a href="https://leetcode.com/onlyindex/">LeetCode</a>
+
+                <span>|</span>
+            </li>
+            <li class="item">
+
+                <a href="#">Weibo</a>
+
+                <span>|</span>
+            </li>
+
+            <li class="item">
+
+                <a href="https://www.zhihu.com/people/BearRobot">Zhihu</a>
+
+                <span>|</span>
+            </li>
+            <li class="item">
+
+                <a href="https://www.jianshu.com/u/10bd21526a98">Jianshu</a>
+            </li>
+
+        </ul>
+{#        <a class="icon" target="_blank" rel="noopener" href="https://github.com/Sunnyyoung">#}
+{#            <i class="fab fa-github"></i><!--#}
+{#      ---></a>#}
+        <div class="like_me ">
+            <i class="active"></i>182
         </div>
-        <footer class="footer">
-            <div class="footer_analysis">
-                喵茶会在宇宙存在<span>1</span>天<br>
-            遇见<span>3000</span>只喵星人<br>
-            和<span>2333</span>只喵星人high5<br>
-
-            收到<span>500</span>只土豪喵的投喂<br>
-
-            </div>
-
-            © 2019 Design ❤ Code by<a href="http://catcafe.in" title="Powered by onlyindex">OnlyIndex</a>
-            <a class="btn" href="{{ url_for('auth.signin') }}">登录</a>
-            <a class="btn" href="{{ url_for('auth.signup') }}">注册</a>
-        </footer>
 
     </div>
-{% endblock %}
-
-{% block page_content %}
-    {{ super() }}
-
-
-        <div class="me_summary">
-                <p>🐣</p>
-                <p>1989 B型♋巨蟹座,暂居珠海。</p>
-                <p>2011 进入互联网,先后从事 <strong>SEO优化</strong>、<strong>运营</strong>、<strong>产品喵</strong>
-                    工作，熟悉 <b>谷歌百度统计工具</b> ,擅长和 <b>用户交流</b>
-                    <del>吹水尬聊</del>
-                    喜欢琢磨用户都在想什么,熟练使用 <b>EXCEL</b> 分析数据 ，花样折腾
-                    <del>瞎抄</del>
-                    过<b>不少</b>产品。
-                <p>2014 学习 <strong>sketch & AI</strong> 开始<strong>产品界面设计</strong>
-                    <del>开脑洞</del>
-                    ，每天总觉得只差一个程序员。
-                </p>
-                <p>2015 接触 <strong>python & swift编程</strong>，开始<b>自己造轮子</b>
-                    <del>写bug🐛</del>
-                    旅程</strong>。 希望能写出<a href="/work">有趣
-                        <del>bigger</del>
-                        の产品
-                        <del>拖延</del>
-                    </a>~<br>
-                    <small>代码开源在 <a href="https://github.com/onlyindex">GitHub</a></small>
-                    .
-                </p>
-                <p>兴趣爱好广泛，用❤️发电、野生无证，玩的内容五花八门: 互联网产品，设计，运营，技术开发，bug处理，数据挖掘，市场商业化，心理学、占星学、画画、lolita等,被分门别类整理成册。
-                </p>
-                <small>直播分享在 <a href="/post/" href="{{ url_for('post.index') }}" class="">日志</a></small>
-                .
-
-            </div>
-
 {% endblock %}

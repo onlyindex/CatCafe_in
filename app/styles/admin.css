@@ -1,7 +1,8 @@
 html {
     word-break: break-word;
-    font: 16px BlinkMacSystemFont, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;
+    /*font: 16px BlinkMacSystemFont, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;*/
     /*Helvetica*/
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
     color: #222;
 }
 
@@ -22,17 +23,18 @@ body:before {
     right: 0;
     bottom: 0;
     left: 0;
-    background: url("../static/images/bg1.jpg") center 0 no-repeat;
-    background-size: cover;
-    opacity: .3;
+    /*background: url("../static/images/bg1.jpg") center 0 no-repeat;*/
+    /*background-size: cover;*/
+    background-color: #fff;
+    /*opacity: .3;*/
 }
 
-*{
-   margin: 0 auto;/*网页居中*/
-   padding: 0;/*网页边距*/
+* {
+    margin: 0 auto; /*网页居中*/
+    padding: 0; /*网页边距*/
     box-sizing: border-box;
 
-   }
+}
 
 ul, li {
     list-style-type: none;
@@ -42,16 +44,19 @@ ul, li {
 /*导航栏背景样式*/
 nav {
 
-    box-shadow: 0 0 0 0.1rem #555555;
+    /*box-shadow: 0 0 0 0.1rem #555555;*/
     position: fixed;
     top: 0;
     left: 0;
     z-index: 20;
     right: 0;
-    height: 4.5rem;
-    background-color: #555555;
+    height: 3.6rem;
+    /*height：4.5rem；*/
+    /*background-color: #f5f5f5;*/
     box-sizing: border-box;
-    border-bottom: 1px solid #555555;
+    /*border-bottom: 1px solid #555555;*/
+    background-color: #fff;
+    border-bottom: 1px solid #eaecef;
 }
 
 
@@ -79,7 +84,7 @@ nav {
     height: 1.25rem;
     margin-left: 12px;
     margin-right: 12px;
-    color: #f09191;
+    color: #a0a0a0;
 
 }
 
@@ -107,7 +112,6 @@ nav {
     background: #F1F1F1;
     -webkit-border-radius: 10rem;
     border-radius: 10rem;
-
     transition: all 500ms ease;
     transition-property: all;
     transition-duration: 500ms;
@@ -121,7 +125,6 @@ nav {
     margin-right: 0;
     -webkit-border-radius: 10rem;
     border-radius: 10rem;
-    font-size: 12px;
 }
 
 #nav_auth_success {
@@ -135,13 +138,13 @@ nav {
 #in_btn {
     padding: 0.25rem 0.25rem 0.25rem 0.5rem;
     display: inline-block;
-color: #f09191;
+    color: #f09199;
 }
 
 #up_btn {
     padding: 0.25rem 0.25rem 0.25rem 0.5rem;
     display: inline-block;
-    color: #f09191;
+    color: #f09199;
 
 }
 
@@ -186,30 +189,8 @@ a:link, a:active, a:visited {
     color: #F09199
     /*锚链接颜色 #42ABB3;*/
 }
-span{
-   font-size:  0.8rem;
-}
 
-/*输入框整体样式*/
-.input, .textarea {
-    /* border:0;*/
-    border-width: 0.05rem;
-    border-style: solid;
-    border-color: #d9d9d9;
-    border-radius: 0.5rem;
-    -moz-border-radius: 0.5rem;
-    -webkit-border-radius: 0.5rem;
-    font-size: 1.5rem;
-    line-height: 2.5rem;
-    background-color: white;
-    vertical-align: baseline; /*设置对齐方式*/
-    margin-top: 0.5rem; /*相对于字体大小 */
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    /*输入框宽度 分web端和移动端*/
-    width: 100%;
 
-}
 
 /*按钮*/
 .button {
@@ -259,35 +240,44 @@ span{
 
 #content {
     margin-top: 6em;
-    margin-left: 12em;
     max-width: 720px;
 }
 
-#page_content{
-
+#page_content {
+    overflow: auto;
+    line-height: 30px;
+    border-radius: 8px;
+    /*box-shadow: 3px 3px 0 #F3F3F3;*/
+    /*background: #fff;*/
 }
 
+ @media screen and (max-width: 720px) {
+            /*移动端二级导航栏*/
+
+        }
 /*侧边栏*/
 .sidebar {
-    font-size: 15px;
-    background-color:#545652;
-    width: 10rem;
+    font-size: 16px;
+    /*background-color: #f6f6f6;*/
+    /*width: 10rem;*/
+    width: 320px;
     position: fixed;
     z-index: 10;
     margin: 0;
-    top: 4.5rem;
+    top: 3.6rem;
     left: 0;
     bottom: 0;
     box-sizing: border-box;
-    border-right: 1px solid #eaecef;
+    /*border-right: 1px solid #eaecef;*/
     overflow-y: auto;
     display: flex;
     justify-content: center;
+    border-right: 1px solid #eaecef;
 
 }
 
 ul.nav_links {
-    background-color: #545652;
+    /*background-color: #f6f6f6;*/
     position: fixed;
     height: 100%;
     overflow: auto;
@@ -302,27 +292,107 @@ ul.nav_links li a {
     text-align: center;
     margin-top: 0.75rem;
 }
+
 ul.nav_links li a.active {
-    background-color: #F09191;
+    /*background-color: #F09191;*/
+    background-color: #F6f6f6;
+    /*f5f5f5   f4f8f9*/
     color: white;
 }
 
 ul.nav_links li a:hover:not(.active) {
-    background-color: #F09191;
-    color: white;
+    background-color: #F6f6f6;
+
+    /*background-color: #F09191;*/
+    /*color: white;*/
+    color: #8590a6;
 }
 
 
-@media screen and (max-width:720px) {
+/*添加样式*/
+.add_action {
+    border: 0.1rem solid #F09199;
+    /* font-size: 1.5rem; */
+    /* margin: 0.5rem 0; */
+    padding: 0 12px;
+    background: #f09191;
+    color: #FFF;
+    cursor: pointer;
+    /* width: 100%; */
+    /* line-height: 2.5rem; */
+    border-radius: 3px;
+    display: inline-block;
+    font-size: 16px;
+}
+
+
+@media (max-width: 720px) {
+
+
+}
+
+
+
+
+
+p {
+    padding: 8px;
+    float: left;
+}
+
+.pagination {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.pagination a {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: transparent;
+    color: #222;
+    border: 1px solid white;
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none;
+    font-weight: 200;
+    margin: 4px;
+    transition: all 0.2s linear;
+}
+
+.pagination a:hover, .pagination a.selected {
+    color: #fff;
+    background-color: #f09191;
+    border-color: #f09191;
+    /*background: #f5f5f5;*/
+}
+
+
+#tag {
+    color: #f09191;
+    display: inline-block;
+    border: 1px solid #f09191;
+    border-radius: 4px;
+    padding: 1px;
+    margin-right: 2px;
+}
+
+.status li {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+
+@media screen and (max-width: 1200px) {
     /*移动端二级导航栏*/
     #content {
-    margin-top: 8em;
+        margin-top: 8em;
         margin-left: 0em;
-    max-width: 720px;
-}
+        max-width: 720px;
+    }
+
     .sidebar {
         width: 100%;
-        height: 46px;
     }
 
     ul.nav_links {
@@ -344,6 +414,7 @@ ul.nav_links li a:hover:not(.active) {
     }
 
 }
+
 
 
 

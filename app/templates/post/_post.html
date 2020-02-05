@@ -1,8 +1,9 @@
 {% extends "base.html" %}
-{% block title %}{{ post[1] }}{% endblock %}
+{% block title %}{{ post.post_title }}{% endblock %}
 {% block styles %}
     {{ super() }}
     <style>
+        {#日志样式 header＋content#}
         #post_header_info {
             font-size: .75rem;
             line-height: 1.25rem;
@@ -19,38 +20,24 @@
             font-size: 18px;
             line-height: 28px;
         }
+        .post_date
+        {font-size: 16px;}
 
-        div#share_weibo {
-            display: inline-block;
-        }
+        {#div#share_weibo {#}
+        {#    display: inline-block;#}
+        {##}
+        {#div#share_wechat {#}
+        {#    display: inline-block;#}
+        {##}
+        {#div#share {#}
+        {#    float: right;#}
+        {#    margin-right: 12px;#}
 
-        div#share_wechat {
-            display: inline-block;
-        }
+        {#.tag_list {#}
+        {#    text-align: left;#}
+        {#    margin-left: 12px;#}
 
-        div#share {
-            float: right;
-            margin-right: 12px;
-        }
-
-        .tag_list {
-            text-align: left;
-            margin-left: 12px;
-        }
-
-        /*评论面板样式*/
-        div#CommentPanel {
-            margin-left: 12px;
-            border: none;
-        }
-
-
-        a {
-            text-decoration: none;
-            color: #313131;
-            outline: 0;
-        }
-
+        /*日志评论样式*/
 
         .cm_panel {
             border: 1px solid #f0f0f0;
@@ -69,7 +56,7 @@
             color: #808080;
         }
 
-
+        {#评论框#}
         .textarea {
             width: 100%;
             min-height: 8.75em;
@@ -80,14 +67,12 @@
             transition: all .25s ease;
         }
 
+
+        {#评论列表样式#}
         .comment_list ul {
             list-style-type: none;
         }
 
-        .comment .comment_head .comment_user {
-            font-weight: 600;
-            line-height: 2;
-        }
 
         .comment .comment_head .comment_user img {
             display: inline-block;
@@ -104,93 +89,29 @@
             font-size: 1.25em;
         }
 
-        .submit_btn {
-            border: 1px solid #ededed;
-            border-radius: .3em;
-            display: inline-block;
-            background: #ededed;
-            padding: .5em 1.25em;
-            float: right;
-            margin: -10px auto;
-        }
 
-        {##}
-        {#.smile_btn {#}
-        {#    background: 0 0;#}
-        {#    border: 0;#}
-        {#    line-height: 2;#}
-        {#    padding: 0 .5em;#}
-        {#    pointer-events: auto;#}
-        {#    cursor: pointer;#}
-        {#    -webkit-tap-highlight-color: transparent;#}
-
-
-        .WB_feed_repeat .WB_repeat {
-            width: 100%;
-            /* margin: -1px 0 0; */
-            padding: 16px 0 6px;
-            border-top-width: 1px;
-            border-top-style: solid;
+        .smile_btn {
+            background: 0 0;
+            border: 0;
+            line-height: 2;
+            padding: 0 .5em;
+            pointer-events: auto;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
 
 
-        .W_tips {
-            text-align: center;
+        .cm_commit_body {
+            margin-left: 40px;
         }
 
 
-        i {
-            font-style: normal;
-            font-weight: normal;
-        }
-
-
-        a:hover, a:active {
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        }
-
-        a:hover {
-            text-decoration: none;
-        }
-
-        .W_tips .close {
-            margin: 2px 0 0 10px;
-            *margin-top: -16px;
-            float: right;
-        }
-
-        .W_tips .txt {
-            display: inline;
-            line-height: 18px;
-            text-align: left;
-        }
-
-        .S_ficon {
-            color: #6582ab;
-        }
-
-        .W_ficon {
-            font-family: "wbficonregular" !important;
-            display: inline-block;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .clearfix:after {
-            content: ".";
-            display: block;
-            height: 0;
-            clear: both;
-            visibility: hidden;
-        }
-
-
-        .WB_publish .p_input {
+        .cm_input {
             margin: 0 0 10px;
         }
 
         {#输入框样式#}
-        .WB_publish .p_input .W_input {
-            width: 92%;
+        .cm_input textarea {
             height: 23px;
             margin: 0px;
             padding: 5px 2px 0px 6px;
@@ -204,46 +125,35 @@
             border-color: #cccccc;
             color: #919191;
             text-decoration: none;
+            width: 98%;
+            overflow-y: visible;
+        {#ie自动变化高度#} resize: none;
+
+
         }
 
-        .W_btn_a {
-            background: #ff8140;
-            border: 1px solid #f77c3d;
-            color: #fff;
-            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
-            padding: 0 10px 0 10px;
-            white-space: nowrap;
-            display: inline-block;
-            border-radius: 2px;
-            height: 24px;
-            line-height: 25px;
-            *line-height: 24px;
-            text-decoration: none;
-            font-size: 12px;
-            min-width: 40px;
-            text-align: center;
-            outline: none;
+        {#评论按钮设定#}
+        .submit_btn {
+            text-align: left;
+            float: right;
+            background-color: #28a745;
+            color: white;
         }
 
-        em {
-
-            font-style: normal;
-            font-weight: normal;
+        {#颜文字设定#}
+        .smile_btn {
+            background: 0 0;
+            border: 0;
+            line-height: 2;
+            padding: 0 .5em;
+            pointer-events: auto;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            position: absolute;
         }
-
 
         ul {
             list-style: none;
-        }
-
-
-        .WB_feed_publish {
-            padding-top: 20px;
-            padding-bottom: 20px;
-        }
-
-        .clearfix {
-            display: block;
         }
 
 
@@ -281,10 +191,98 @@
 
 
         {#评论表情包#}
-        .p_opt .opt .ico {
-            float: left;
-            margin: -4px 5px 0 0;
+        .face-panel {
+            position: absolute;
+
+            z-index: 100;
+            top: 35px;
+            left: 0;
+            box-shadow: 0 4px 16px 0 rgba(0, 0, 0, .1);
+            border: 1px solid #e9e9f0;
+            display: none;
+        {#显示隐藏开关#}
         }
+
+        .face-panel:after {
+            position: absolute;
+            top: 0;
+            left: 40px;
+            content: "";
+            -webkit-transform: rotate(135deg);
+            transform: rotate(135deg);
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border: 1px solid;
+            border-color: transparent transparent #e9e9f0 #e9e9f0;
+            border-radius: 3px;
+        }
+
+        ._box {
+            box-sizing: border-box;
+            box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .1);
+            background-color: #fff;
+            border-radius: 6px;
+        }
+
+        .face-list-wrap {
+            padding: 20px;
+            width: 531px;
+            height: 185px;
+        }
+
+        .face-list-wrap .face-list {
+            border-top: 1px solid #fce4ec;
+            border-left: 1px solid #fce4ec;
+            overflow: hidden;
+            box-sizing: content-box;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .face-list .item {
+            box-sizing: border-box;
+            display: block;
+            float: left;
+            width: 98px;
+            line-height: 28px;
+            text-align: center;
+            border-right: 1px solid #fce4ec;
+            border-bottom: 1px solid #fce4ec;
+            color: #252526;
+            cursor: pointer;
+        }
+
+        .face-panel .tab-controls {
+            height: 40px;
+            background-color: #f5f5fa;
+            display: -webkit-box;
+            display: flex;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .tab-controls .tab-ctr.active {
+            background-color: #fff;
+        }
+
+        .tab-controls .tab-ctr {
+            text-align: center;
+            line-height: 40px;
+            height: 40px;
+            width: 65px;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+        }
+
 
         {#下划线样式#}
         .S_bg {
@@ -316,23 +314,117 @@
             float: right;
         }
 
+        a.chapter_link {
+            font-weight: 400;
+            display: inline-block;
+            color: #2c3e50;
+        {#border-left: .25rem solid transparent;#} padding: .35rem 1rem .35rem 1.25rem;
+            line-height: 1.4;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        a.chapter_link.active {
+            font-weight: 600;
+            color: #00a2ff;
+        {#border-left-color: #00a2ff;#}
+        }
+
+    {#tag style#}
+
+        .post_item_tag {
+            margin-right: 16px !important;
+            margin-left: 0 !important;
+        }
+
+        .tag_color {
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #f09199;
+        }
+
+        .tag_name {
+            font-size: 12px;
+        }
+
+
+
+    {#底部导航#}
+    .page-nav {
+    padding-top: 1rem;
+    padding-bottom: 0;
+        max-width: 740px;
+    margin: 0 auto;
+    padding: 2rem 2.5rem;
+}
+    .page-nav .next {
+    float: right;
+}
+    .page-nav .inner {
+    min-height: 2rem;
+    margin-top: 0;
+    border-top: 1px solid #eaecef;
+    padding-top: 1rem;
+    overflow: auto;
+}
+
 
     </style>
 {% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+        document.querySelector('#body').addEventListener('input', function (e) {
+            e.target.style.height = 'auto';
+            e.target.style.height = this.scrollHeight + 'px';
+            // this.style.height = 'auto';
+            // this.style.height = this.scrollHeight + 'px';
+        })
+    </script>
+{% endblock %}
 {% block sidebar %}
-    <ul class="sidebar-links">
+    <ul class="article_chapters">
     <li>
-        <div class="sidebar-group">
-            <p class="sidebar-heading open"><span>作品集</span> <!----></p>
-            <ul class="sidebar-group-items">
-                <li><a href="/works/httpcode.html" class="sidebar-link">Http状态码系列T恤</a></li>
-                <li><a href="/works/serverchan.html" class="sidebar-link">Server酱</a></li>
-                <li><a href="/works/timetodo.html" class="active sidebar-link">TimeTodo</a></li>
-                <li><a href="/works/h2bookreader.html" class="sidebar-link">H2 Book Reader</a></li>
-                <li><a href="/works/bearcv.html" class="sidebar-link">冷熊简历</a></li>
+        <div class="article_header">
+            <p><span>{{ post.post_title }}</span></p>
+            <ul class="chapter_list">
+                <div>→</div>
+                <li><a href="/post/1/#前言" class="chapter_link"> 前言</a></li>
+                <li><a href="/post/1/#语言环境" class="chapter_link">语言环境</a></li>
+                <li><a href="/post/1/#步骤" class="active chapter_link">步骤</a></li>
             </ul>
+
+
         </div>
     </li>
+    <div class="sidebar-group collapsable">
+        <p class="sidebar-heading open">
+            <span><a href="/post/我的swift不可能这么萌/" class="sidebar-link"># 我的swift不可能这么萌</a></span>
+        <li><a href="/post/我的swift不可能这么萌/chapter1/all.html" class="sidebar-link">我的swift不可能这么萌3</a></li>
+
+            <span class="arrow down"></span>
+        </p>
+        <ul class="sidebar-group-items">
+            <li><a href="/post/我的swift不可能这么萌/chapter1/01.html" class="active sidebar-link">Html form select下拉列表菜单与跳转菜单表单标签篇</a>
+                <ul class="sidebar-sub-headers">
+                    <li class="sidebar-sub-header">
+                        <a href="/post/我的swift不可能这么萌/chapter1/01.html#网络、ip和域名"
+                                                      class="active sidebar-link">前言</a></li>
+                    <li class="sidebar-sub-header">
+                        <a href="/post/我的swift不可能这么萌/chapter1/01.html#数据传输"
+                                                      class="sidebar-link">语言环境</a></li>
+                    <li class="sidebar-sub-header">
+                        <a href="/post/我的swift不可能这么萌/chapter1/01.html#页面跳转"
+                                                      class="sidebar-link">步骤</a></li>
+                </ul>
+            </li>
+            <li><a href="/post/我的swift不可能这么萌/chapter1/02.html" class="sidebar-link">嘿！你的奥利奥利奥 23388888
+</a></li>
+        </ul>
+    </div>
 
 {% endblock %}
 {% block page_content %}
@@ -343,8 +435,7 @@
                 <div class="post_date">
                     {#{{ moment(post.post_timestamp).fromNow() }}#}
                     {# {{ post['post_timestamp'].strftime('%Y-%m-%d') }} #}
-                    {{ post[3] }}
-
+                    Written by <a href="/">Onlyindex</a> with ♥ {{ post[3] }} from  post.catalog
                 </div>
                 {#            <div>#}
                 {#            <a style="color: #5a84b3" class="action" href="{{ url_for('post.update', post_id=post['post_id']) }}">编辑</a>#}
@@ -372,7 +463,7 @@
         <div class="post_content">
             <div>
                 {{ post[2] }}
-                <h1 id="1">前言</h1>
+                <h1 id="1"># 前言</h1>
                 <p>因为班群里总是挺静的，所以想着要不放个机器人试试能不能活跃活跃气氛，然后就begin网上查阅资料试着建立个机器人。
                     <br></p>
                 <h1 id="directory0400571130604497672">语言环境</h1>
@@ -381,7 +472,7 @@
                 </blockquote>
                 <h1 id="directory0400571130604497673">步骤</h1>
                 <ul>
-                    <li>第一步：首先安装python2.7语言</li>
+                    <li># 第一步：首先安装python2.7语言</li>
                 </ul>
                 <p><code>sudo apt-get install python2.7</code><br>
             </div>
@@ -391,181 +482,205 @@
                                        rel="noopener">署名-非商业性使用-禁止演绎</a></p>
 
         </div>
-        {#        <div class="like">#}
-        {#            <div class="author">#}
-        {#                <a><img id="post_author" src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>#}
-        {#            </div>#}
-        {#            <button>like</button>#}
-        {#        </div>#}
-
-
-        {#        <div class="post_bottom">#}
-        {#            <div class="tag_list">#}
-        {#                {% for tag in tags %}#}
-        {#                    <a class="tag">{{ tag[0] }}</a>#}
-        {#                {% endfor %}#}
-        {#            </div>#}
-        {#        </div>#}
+{#                <div class="like">#}
+{#                    <div class="author">#}
+{#                        <a><img id="post_author" src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>#}
+{#                    </div>#}
+{#                    <button>like</button>#}
+{#                </div>#}
+{##}
+{##}
+{#                <div class="post_bottom">#}
+{#                    <div class="tag_list">#}
+{#                        {% for tag in tags %}#}
+{#                            <a class="tag">{{ tag[0] }}</a>#}
+{#                        {% endfor %}#}
+{#                    </div>#}
+{#                </div>#}
+        <span class="post_item_tag">
+            <span class="tag_color"></span>
+            <span class="tag_name">Tag1</span>
+        </span>
+        <div class="page-nav">
+            <p class="inner">
+                <span class="prev">←
+                    <a href="/book/proguide/" class="prev router-link-active">前言</a>
+                </span>
+                <span class="next">
+                    <a href="/book/proguide/vol2/w11.html" class="">#步骤</a>
+                    →
+                </span>
+            </p>
+        </div>
 
         <div class="post_comments">
-            <form method="post"
-                  action="{{ url_for('post.post_comment_add',post_id=post['post_id']) }}">
-                {% if g.user %}
-                    <div class="WB_feed_publish clearfix">
-                        <div class="WB_face W_fl">
-                            <a target="_blank" href="">
-                                <img
-                                        src="https://tvax4.sinaimg.cn/crop.0.0.960.960.50/88a66b96ly8g7ymas65crj20qo0qomz5.jpg?KID=imgbed,tva&amp;Expires=1576043955&amp;ssig=QYUz13c%2FoV"
-                                        user_id="user_id">
+            <div>
+                <form method="post" action="{{ url_for('post.post_comment_add',post_id=post['post_id']) }}">
+                    {% if g.user %}
+                        <div class="cm_commit">
+                        <div class="cm_user">
+                            <a class="user_face" target="_blank" href="">
+                                {#  {{ g.user['username'] }}#}
+
+                                <img src="https://tvax4.sinaimg.cn/crop.0.0.960.960.50/88a66b96ly8g7ymas65crj20qo0qomz5.jpg?KID=imgbed,tva&amp;Expires=1576043955&amp;ssig=QYUz13c%2FoV"
+                                     user_id="user_id">
                             </a>
                         </div>
-                        <div class="WB_publish">
-                            <div class="p_input">
-                            <textarea class="W_input">
-
-                            </textarea>
-                            </div>
-                            <div class="p_opt clearfix">
-                                <div class="btn W_fr"><a href="#" class="W_btn_a"><em
-                                        node-type="btnText">評論</em></a>
-                                </div>
-                                <div class="opt clearfix">
-                                <span class="ico">
-                                    <a href="#" title="表情" alt="表情">
-                                        <i class="W_ficon ficon_face">😺</i>
-                                    </a>
-                                </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cm_user">
-                        <div class="cm_user_info">
-                            {{ g.user['username'] }}<a href="#" action="toLogin">切换账号</a>
-                        </div>
-                    </div>
-                    <div class="cm_commit">
                         <div class="cm_commit_body">
-                                <textarea class="textarea" name="body" id="body" placeholder="灌水唠嗑" required>
-                                </textarea>
-                        </div>
-                        <div class="cm_commit_submit">
-                            <div class="cm_submit">
-                                <button class="submit_btn" type="submit">凸(艹皿艹 )
-                                </button>
+                            <div class="cm_input">
+                                <textarea rows="2" name="body" id="body" placeholder="灌水唠嗑" required></textarea>
                             </div>
-                            {#                                <div class="cm_bar">#}
-                            {#                                    <button class="smile_btn" type="smile" action="smile">表情</button>#}
-                            {#                                </div>#}
-                        </div>
-                    </div>
-                {% else %}
-                    {#                            这里应该是复杂的通知#}
-                    <div class="W_tips clearfix cm_panel">
-                        <p class="txt">使用
-                            <a href="#" target="_blank">weibo</a>、
-                            <a href="#">github</a>、
-                            <a href="#">qq</a>登录评论
-                        </p>
-                        <p class="close"><a href="#" class="W_ficon ficon_close S_ficon">X</a></p>
-                    </div>
-                {% endif %}
-            </form>
-            <span class="comment_count">{{ count }}</span>评论
-            <ul class="comment_list">
-                {% if comments %}
+                            <div class="cm_submit">
+                                <button class="submit_btn" action="" href="#">評論</button>
+                                <div class="smile_btn">
+                                    <a href="#" title="表情" alt="表情">
+                                        ฅTㅅTฅ
+                                    </a>
+                                    <div>
+                                        <div class="_box face-panel">
+                                            <div class="face-list-wrap">
+                                                <ul class="face-list">
+                                                    <li class="item">(。・∀・)ノ゛</li>
+                                                    <li class="item">(TωT)</li>
+                                                    <li class="item">(･ω-｡)</li>
+                                                    <li class="item">ヾ(≧∇≦*)</li>
+                                                    <li class="item">ヾ(ﾟ∀ﾟ○)ﾂ</li>
+                                                    <li class="item">ヽ(*´Д｀*)ﾉ</li>
+                                                    <li class="item">(；ω；｀)</li>
+                                                    <li class="item">(/ω＼*)</li>
+                                                    <li class="item">(●＾U＾●)</li>
+                                                    <li class="item">(｡ゝω･)bﾞ</li>
+                                                    <li class="item">(;´ρ`)</li>
+                                                    <li class="item">（´・ω・｀）</li>
+                                                    <li class="item">∑(ﾟωﾟﾉ)ノ</li>
+                                                    <li class="item">(-д-；)</li>
+                                                    <li class="item">（＾ε＾）</li>
+                                                    <li class="item">(`_ゝ´)</li>
+                                                    <li class="item">（＞△＜）</li>
+                                                    <li class="item">m(_ _)m</li>
+                                                    <li class="item">┌(^q^ ┐)┐</li>
+                                                    <li class="item">_(:з」∠)_</li>
+                                                </ul>
+                                            </div>
+                                            {#                                            <div class="tab-controls">#}
+                                            {#                                            <span class="tab-ctr">#}
+                                            {#                                                <img width="30" height="30"#}
+                                            {#                                                     src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/bcy/emoji/huhu/cover_3x.png"></span>#}
+                                            {#                                                <span class="tab-ctr active">#}
+                                            {#                                                    <img width="65" height="40" src="https://sf1-ttcdn-tos.pstatp.com/obj/ttfe/bcy/emoji/faceicon.png">#}
+                                            {#                                                </span>#}
+                                            {#                                            </div>#}
+                                            {#                                        </div>#}
+                                        </div>
+                                    </div>
 
-                    {% for comment in comments %}
-                        <li id="{{ comment.comment_id }}">
-                            <div class="cm">
-                                <div class="cm_head">
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        {#未登录的提示#}
+                        <div class="cm_panel">
+                            <p class="txt">使用
+                                <a href="#" target="_blank">weibo</a>、
+                                <a href="#">github</a>、
+                                <a href="#">qq</a>、<a href="{{ url_for('auth.signin') }}">喵账户</a>登录评论
+                            </p>
+                            <p class="close"><a href="#" class="">X</a></p>
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+            <div>
+                <span class="comment_count">{{ count }}</span>评论
+                <ul class="comment_list">
+                    {% if comments %}
+
+                        {% for comment in comments %}
+                            <li id="{{ comment.comment_id }}">
+                                <div class="cm">
+                                    <div class="cm_head">
                                                 <span class="cm_user">
                                                     <img src="//api.mouto.org/avatar/b/34002.jpg">{{ comment.username }}</span>
-                                </div>
-                                <div class="cm_content">{{ comment.comment_body }}</div>
-                                <div class="cm_handle">
-                                    <span class="cm_time"> {{ comment.comment_timestamp }}</span>
-                                    <span class="cm_reply">回复</span>
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-                {% else %}
-                    No comments
-                {% endif %}
-            </ul>
-            <div class="comment_list">
-                <!-- 1级评论循环模块 -->
-                <div class="comment">
-                    <div class="main_cm_content">
-                        <div comment_id="1" class="list_li S_line">
-                            <div class="user_face">
-                                <a target="_blank" href="#">
-                                    <img src="https://tvax2.sinaimg.cn/crop.0.0.751.751.50/006qAKxIly8g5yev1xs6nj30kv0kvq5d.jpg?KID=imgbed,tva&amp;Expires=1576043957&amp;ssig=BcWeKBxRxv">
-                                </a>
-                            </div>
-                            <div>
-                                <div class="cm_content">
-                                    <a href="#" user_id="122">葳蕤321</a>：
-                                    评论只显示审批通过的，功能按钮只有回复。删除暂不考虑。
-                                </div>
-                                <div class="cm_handle">
-                                    <span class="cm_time">2019-08-10</span>
-                                    <span class="cm_reply">回复</span>
-                                </div>
-                            </div>
-
-                            <!-- 二级评论循环模块 -->
-                            <div class="list_box_in S_bg">
-                                <div class="list_ul">
-                                    <div comment_id="2" class="list_li S_line">
-                                        <!-- 评论用户信息及评论内容 -->
-                                        <div class="cm_content">
-                                            <a href="#">onlyindex</a>
-                                            <span style="font-size:0.6em;background-color: #7bc96f;color: #FFFFFF;padding: 2px;margin: 0 1px 0 1px;"
-                                                  class="admin_name">Master</span>
-                                            ：回覆<a href="#">@葳蕤321</a>:
-                                            怎么叫都起不来，老迟到懒床。怎么叫都起不来，老迟到懒床。怎么叫都起不来，老迟到懒床。
-                                        </div>
-                                        <div class="cm_handle">
-                                            <span class="cm_time">20分钟前</span>
-                                            <span class="cm_reply">回复</span>
-                                        </div>
                                     </div>
-                                    <div comment_id="3" class="list_li S_line ">
-                                        <!-- 评论用户信息及评论内容 -->
-                                        <div class="cm_content">
-                                            <a href="#" usercard="id=2292607894">onlyindex</a>
-                                            <span style="font-size:0.6em;background-color: #7bc96f;color: #FFFFFF;padding: 2px;margin: 0 1px 0 1px;"
-                                                  class="admin_name">Master</span>
-
-                                            ：回覆<a
-                                                href="#">@葳蕤321</a>:
-                                            怎么叫都起不来，老迟到懒床。
-                                        </div>
-                                        <div class="cm_handle ">
-                                            <span class="cm_time">25分钟前</span>
-                                            <span class="cm_reply">回复</span>
-                                        </div>
+                                    <div class="cm_content">{{ comment.comment_body }}</div>
+                                    <div class="cm_handle">
+                                        <span class="cm_time"> {{ comment.comment_timestamp }}</span>
+                                        <span class="cm_reply">回复</span>
                                     </div>
-                                    {#                                    <div class="more_child_cm">#}
-                                    {#                                        <a href="#">共4条回复</a>#}
-                                    {#                                    </div>#}
                                 </div>
-                            </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        No comments
+                    {% endif %}
+                </ul>
+                <div class="comment_list">
+                    <!-- 1级评论循环模块 -->
+                    <div class="comment">
+                        <div class="main_cm_content">
+                            <div comment_id="1" class="list_li S_line">
+                                <div class="user_face">
+                                    <a target="_blank" href="#">
+                                        <img src="https://tvax2.sinaimg.cn/crop.0.0.751.751.50/006qAKxIly8g5yev1xs6nj30kv0kvq5d.jpg?KID=imgbed,tva&amp;Expires=1576043957&amp;ssig=BcWeKBxRxv">
+                                    </a>
+                                </div>
+                                <div>
+                                    <div class="cm_content">
+                                        <a href="#" user_id="122">葳蕤321</a>：
+                                        评论只显示审批通过的，功能按钮只有回复。删除暂不考虑。
+                                    </div>
+                                    <div class="cm_handle">
+                                        <span class="cm_time">2019-08-10</span>
+                                        <span class="cm_reply">回复</span>
+                                    </div>
+                                </div>
 
+                                <!-- 二级评论循环模块 -->
+                                <div class="list_box_in S_bg">
+                                    <div class="list_ul">
+                                        <div comment_id="2" class="list_li S_line">
+                                            <!-- 评论用户信息及评论内容 -->
+                                            <div class="cm_content">
+                                                <a href="#">onlyindex</a>
+                                                <span style="font-size:0.6em;background-color: #7bc96f;color: #FFFFFF;padding: 2px;margin: 0 1px 0 1px;"
+                                                      class="admin_name">Master</span>
+                                                ：回覆<a href="#">@葳蕤321</a>:
+                                                怎么叫都起不来，老迟到懒床。怎么叫都起不来，老迟到懒床。怎么叫都起不来，老迟到懒床。
+                                            </div>
+                                            <div class="cm_handle">
+                                                <span class="cm_time">20分钟前</span>
+                                                <span class="cm_reply">回复</span>
+                                            </div>
+                                        </div>
+                                        <div comment_id="3" class="list_li S_line ">
+                                            <!-- 评论用户信息及评论内容 -->
+                                            <div class="cm_content">
+                                                <a href="#" usercard="id=2292607894">onlyindex</a>
+                                                <span style="font-size:0.6em;background-color: #7bc96f;color: #FFFFFF;padding: 2px;margin: 0 1px 0 1px;"
+                                                      class="admin_name">Master</span>
+
+                                                ：回覆<a
+                                                    href="#">@葳蕤321</a>:
+                                                怎么叫都起不来，老迟到懒床。
+                                            </div>
+                                            <div class="cm_handle ">
+                                                <span class="cm_time">25分钟前</span>
+                                                <span class="cm_reply">回复</span>
+                                            </div>
+                                        </div>
+                                        {#                                    <div class="more_child_cm">#}
+                                        {#                                        <a href="#">共4条回复</a>#}
+                                        {#                                    </div>#}
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
 
     </article>
-
-
-
-
 {% endblock %}
-
-
