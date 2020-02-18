@@ -3,10 +3,51 @@
 {% block styles %}
     {{ super() }}
     <style>
+    .py-5 {
+    padding-top: 3rem!important;
+}
+    night-mode, .nice-night-mode a:not(.btn) {
+    color: #28a745;
+}
+    .h2 {
+    line-height: 1.5;
+    margin: 0;
+        font-size: 32px;
+}
+    .archive-header span {
+    position: relative;
+}
+    .archive-header span sup {
+    position: absolute;
+    left: 102%;
+    top: 0.2em;
+        line-height: 0;
+    vertical-align: baseline;
+}
+    .text-muted {
+    color: #979EAB !important;
+}
+    .text-sm {
+    font-size: 14px;
+}
+    .font-theme {
+    font-family: nicetheme, "SF Pro SC", "SF Pro Text", Arial, sans-serif;
+}
+    .text-sm {
+    font-size:14px;
+}
+    .mt-2 {
+    margin-top: .5rem!important;
+}
     </style>
 {% endblock %}
 {% block page_content %}
-    tag
+    <div class="archive-header bg-light text-lg-center py-5 py-lg-5">
+            <h1 class="h2">#<span>天王星<sup class=" font-theme text-muted text-sm">19</sup></span></h1>
+            <div class="text-sm mt-2 mt-lg-2">
+                <p>不可不简，不可再简。</p>
+            </div>
+    </div>
 
     post list
 {% endblock %}

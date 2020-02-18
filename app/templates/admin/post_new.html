@@ -1,6 +1,5 @@
 {% extends 'admin/ad_base.html' %}
 {% block title %}New Post{% endblock %}
-
 {% block page_content %}
     {{ super() }}
 <div id="PostPanel">
@@ -15,15 +14,22 @@
                   {% for catalog in catalogs %}
                             <option value="{{ catalog.catalog_id }} "> {{ catalog.catalog_name }} </option>
                   {% endfor %}
-
-
               {% endif %}
       </select>
-
       <select name="status" id="status">
           <option value="draft">draft</option>
           <option value="show">show</option>
       </select>
+      <div class="select-area">
+          <span class="select-value"></span>
+          <select>
+              <option>甘肃</option>
+              <option>兰州</option>
+          </select>
+
+
+</div>
+</div>
     <button class="button" type="submit">发布</button>
 
   </form>
@@ -31,6 +37,16 @@
 
  <script>
                 CKEDITOR.replace('body');
+                $(".select-area .select-value").each(function(){
+                if( $(this).next("select").find("option:selected").length != 0 ){
+                    $(this).text( $(this).next("select").find("option:selected").text() );
+                }
+            });
+            $(".select-area select").change(function(){
+                var value = $(this).find("option:selected").text();
+                $(this).parent(".select-area").find(".select-value").text(value);
+            });
+
 
 
         </script>

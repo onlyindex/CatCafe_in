@@ -95,7 +95,7 @@
 
         /*存档*/
 
-        @media screen and (max-width: 1200px) {
+        @media screen and (max-width: 720px) {
             /*移动端时间线整体效果调整*/
         }
 
@@ -105,11 +105,7 @@
             font-size: 16px;
             font-weight: 400;
         }
-
-        @media (max-width: 1200px) {
-
-
-        }
+        
 
 
         .page_content a {
@@ -143,6 +139,7 @@
 
         .post_item_time {
             font-size: 12px;
+            color: #999;
 
         }
 
@@ -203,7 +200,7 @@
                     <h3>{{ key }}</h3>
                     <ul class="post_list group">
                         {% for post in group %}
-                            <div class="post_item">
+                            <li class="post_item">
                                 <span class="post_item_title">
                                     <a href="{{ url_for('post.post',post_id=post.post_id) }}">
                                         {{ post.post_title }}</a>
@@ -213,7 +210,7 @@
                                 </div>
 
 
-                            </div>
+                            </li>
                         {% endfor %}
                     </ul>
 

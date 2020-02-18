@@ -20,8 +20,10 @@
             font-size: 18px;
             line-height: 28px;
         }
-        .post_date
-        {font-size: 16px;}
+
+        .post_date {
+            font-size: 16px;
+        }
 
         {#div#share_weibo {#}
         {#    display: inline-block;#}
@@ -69,20 +71,7 @@
 
 
         {#评论列表样式#}
-        .comment_list ul {
-            list-style-type: none;
-        }
 
-
-        .comment .comment_head .comment_user img {
-            display: inline-block;
-            vertical-align: top;
-            width: 2em;
-            height: 2em;
-            border-radius: 9em;
-            margin-right: .2em;
-            margin-left: -2.4em;
-        }
 
         .comment_count {
             font-weight: 600;
@@ -152,35 +141,12 @@
             position: absolute;
         }
 
-        ul {
-            list-style: none;
-        }
-
-
-        .S_line {
-            border-color: #d9d9d9;
-        }
-
-
-        .list_li {
-            padding: 5px 0 7px;
-            border-bottom-width: 1px;
-            border-bottom-style: solid;
-        }
-
-
-        .list_box_in {
-            margin-top: 8px;
-            margin-bottom: 10px;
-            padding: 0 12px;
-            margin-left: 36px;
-            background-color: rgba(0, 0, 0, 0.04);
-        }
 
         {#头像设置#}
         .user_face img {
-            width: 30px;
-            height: 30px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
         }
 
         .user_face {
@@ -284,93 +250,115 @@
         }
 
 
-        {#下划线样式#}
-        .S_bg {
-            background-color: rgba(0, 0, 0, 0.04);
-        }
+        {#tag style#}
 
-        {#回复处理#}
-
-        .cm_handle {
-
-        }
-
-        {#评论时间#}
-
-        .cm_time {
-            color: #b3b3b3;
-            color: #919191;
-            text-decoration: none;
-            font-size: .75em;
-            margin-right: .875em;
-            padding-right: 6px;
-        }
-
-        {#回复样式#}
-        .cm_reply {
-            font-size: .8125em;
-            color: #ef2f11;
-            cursor: pointer;
-            float: right;
-        }
-
-        a.chapter_link {
-            font-weight: 400;
-            display: inline-block;
-            color: #2c3e50;
-        {#border-left: .25rem solid transparent;#} padding: .35rem 1rem .35rem 1.25rem;
-            line-height: 1.4;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        a.chapter_link.active {
-            font-weight: 600;
-            color: #00a2ff;
-        {#border-left-color: #00a2ff;#}
-        }
-
-    {#tag style#}
-
-        .post_item_tag {
+        .post_item_catalog {
             margin-right: 16px !important;
             margin-left: 0 !important;
         }
 
-        .tag_color {
+        .catalog_color {
             position: relative;
             top: 1px;
             display: inline-block;
-            width: 6px;
-            height: 6px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background-color: #f09199;
         }
 
-        .tag_name {
-            font-size: 12px;
+        .catalog_name {
+            font-size: 14px;
         }
 
 
+        {#底部导航#}
+        .page-nav {
+            padding-top: 1rem;
+            padding-bottom: 0;
+            max-width: 740px;
+            margin: 0 auto;
+            padding: 2rem 2.5rem;
+        }
 
-    {#底部导航#}
-    .page-nav {
-    padding-top: 1rem;
-    padding-bottom: 0;
-        max-width: 740px;
-    margin: 0 auto;
-    padding: 2rem 2.5rem;
-}
-    .page-nav .next {
-    float: right;
-}
-    .page-nav .inner {
-    min-height: 2rem;
-    margin-top: 0;
-    border-top: 1px solid #eaecef;
-    padding-top: 1rem;
-    overflow: auto;
-}
+        .page-nav .next {
+            float: right;
+        }
+
+        .page-nav .inner {
+            min-height: 2rem;
+            margin-top: 0;
+            border-top: 1px solid #eaecef;
+            padding-top: 1rem;
+            overflow: auto;
+        }
+
+
+        {#heheda#}
+        .comment_list {
+            margin: 3rem 0;
+        }
+
+        .comment_list > .comment {
+            padding: .5rem 0 .5rem .5rem;
+        }
+
+        .comment {
+            margin: 1rem 0;
+            border-radius: .35rem;
+        }
+
+        .comment_avatar img {
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+        }
+
+        .comment_main {
+            display: flex;
+        }
+
+        .comment_left {
+            float: left;
+            width: 60px;
+        }
+
+        .comment_right {
+            float: right;
+            width: calc(100% - 60px);
+        }
+
+        .comment_author {
+            font-size: 1.05rem;
+            line-height: 2.5rem;
+            margin-right: 10px;
+        }
+
+        .comment_date {
+            color: #999;
+            font-size: .875rem;
+        }
+
+        .comment_content {
+            padding: .5rem 0;
+        }
+
+        .comment_content p {
+            color: #222;
+            font-size: .95rem;
+            white-space: pre-line;
+        }
+
+        .comment_reply {
+            float: right;
+            font-size: .8rem;
+        }
+
+        .comment_reply_to {
+            color: #222;
+            margin-right: 10px;
+            font-size: .875rem;
+        }
 
 
     </style>
@@ -405,24 +393,25 @@
             <span><a href="/post/我的swift不可能这么萌/" class="sidebar-link"># 我的swift不可能这么萌</a></span>
         <li><a href="/post/我的swift不可能这么萌/chapter1/all.html" class="sidebar-link">我的swift不可能这么萌3</a></li>
 
-            <span class="arrow down"></span>
+        <span class="arrow down"></span>
         </p>
         <ul class="sidebar-group-items">
-            <li><a href="/post/我的swift不可能这么萌/chapter1/01.html" class="active sidebar-link">Html form select下拉列表菜单与跳转菜单表单标签篇</a>
+            <li><a href="/post/我的swift不可能这么萌/chapter1/01.html" class="active sidebar-link">Html form
+                select下拉列表菜单与跳转菜单表单标签篇</a>
                 <ul class="sidebar-sub-headers">
                     <li class="sidebar-sub-header">
                         <a href="/post/我的swift不可能这么萌/chapter1/01.html#网络、ip和域名"
-                                                      class="active sidebar-link">前言</a></li>
+                           class="active sidebar-link">前言</a></li>
                     <li class="sidebar-sub-header">
                         <a href="/post/我的swift不可能这么萌/chapter1/01.html#数据传输"
-                                                      class="sidebar-link">语言环境</a></li>
+                           class="sidebar-link">语言环境</a></li>
                     <li class="sidebar-sub-header">
                         <a href="/post/我的swift不可能这么萌/chapter1/01.html#页面跳转"
-                                                      class="sidebar-link">步骤</a></li>
+                           class="sidebar-link">步骤</a></li>
                 </ul>
             </li>
             <li><a href="/post/我的swift不可能这么萌/chapter1/02.html" class="sidebar-link">嘿！你的奥利奥利奥 23388888
-</a></li>
+            </a></li>
         </ul>
     </div>
 
@@ -435,7 +424,11 @@
                 <div class="post_date">
                     {#{{ moment(post.post_timestamp).fromNow() }}#}
                     {# {{ post['post_timestamp'].strftime('%Y-%m-%d') }} #}
-                    Written by <a href="/">Onlyindex</a> with ♥ {{ post[3] }} from  post.catalog
+                    Written by <a href="/">Onlyindex</a> with ♥ In
+                    <span class="post_item_catalog">
+                        <span class="catalog_color"></span>
+                        <span class="catalog_name">我的swift不可能这么萌</span>
+                    </span>{{ post[3] }}
                 </div>
                 {#            <div>#}
                 {#            <a style="color: #5a84b3" class="action" href="{{ url_for('post.update', post_id=post['post_id']) }}">编辑</a>#}
@@ -482,21 +475,22 @@
                                        rel="noopener">署名-非商业性使用-禁止演绎</a></p>
 
         </div>
-{#                <div class="like">#}
-{#                    <div class="author">#}
-{#                        <a><img id="post_author" src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>#}
-{#                    </div>#}
-{#                    <button>like</button>#}
-{#                </div>#}
-{##}
-{##}
-{#                <div class="post_bottom">#}
-{#                    <div class="tag_list">#}
-{#                        {% for tag in tags %}#}
-{#                            <a class="tag">{{ tag[0] }}</a>#}
-{#                        {% endfor %}#}
-{#                    </div>#}
-{#                </div>#}
+        {#                <div class="like">#}
+        {#                    <div class="author">#}
+        {#                        <a><img id="post_author" src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>#}
+        {#                    </div>#}
+        {#                    <button>like</button>#}
+        {#                </div>#}
+        {##}
+        {##}
+        {#                <div class="post_bottom">#}
+        {#                    <div class="tag_list">#}
+        {#                        {% for tag in tags %}#}
+        {#                            <a class="tag">{{ tag[0] }}</a>#}
+        {#                        {% endfor %}#}
+        {#                    </div>#}
+        {#                </div>#}
+
         <span class="post_item_tag">
             <span class="tag_color"></span>
             <span class="tag_name">Tag1</span>
@@ -521,7 +515,6 @@
                         <div class="cm_user">
                             <a class="user_face" target="_blank" href="">
                                 {#  {{ g.user['username'] }}#}
-
                                 <img src="https://tvax4.sinaimg.cn/crop.0.0.960.960.50/88a66b96ly8g7ymas65crj20qo0qomz5.jpg?KID=imgbed,tva&amp;Expires=1576043955&amp;ssig=QYUz13c%2FoV"
                                      user_id="user_id">
                             </a>
@@ -588,6 +581,8 @@
                             <p class="close"><a href="#" class="">X</a></p>
                         </div>
                     {% endif %}
+
+                    </div>
                 </form>
             </div>
             <div>
@@ -596,88 +591,74 @@
                     {% if comments %}
 
                         {% for comment in comments %}
-                            <li id="{{ comment.comment_id }}">
-                                <div class="cm">
-                                    <div class="cm_head">
+                            <div class="comment" id="{{ comment.comment_id }}">
+                                <div class="comment_main">
+                                    <div class="comment_left">
                                                 <span class="cm_user">
                                                     <img src="//api.mouto.org/avatar/b/34002.jpg">{{ comment.username }}</span>
                                     </div>
                                     <div class="cm_content">{{ comment.comment_body }}</div>
                                     <div class="cm_handle">
                                         <span class="cm_time"> {{ comment.comment_timestamp }}</span>
-                                        <span class="cm_reply">回复</span>
                                     </div>
                                 </div>
-                            </li>
+                            </div>
                         {% endfor %}
                     {% else %}
                         No comments
                     {% endif %}
                 </ul>
+
                 <div class="comment_list">
-                    <!-- 1级评论循环模块 -->
-                    <div class="comment">
-                        <div class="main_cm_content">
-                            <div comment_id="1" class="list_li S_line">
-                                <div class="user_face">
-                                    <a target="_blank" href="#">
-                                        <img src="https://tvax2.sinaimg.cn/crop.0.0.751.751.50/006qAKxIly8g5yev1xs6nj30kv0kvq5d.jpg?KID=imgbed,tva&amp;Expires=1576043957&amp;ssig=BcWeKBxRxv">
-                                    </a>
+                    <div class="comment" id="comment-1">
+                        <div class="comment_main ">
+                            <div class="comment_left">
+                                <div class="comment_avatar">
+                                    <img src="{{ url_for('static',filename='static/images/myself.jpg') }}">
                                 </div>
-                                <div>
-                                    <div class="cm_content">
-                                        <a href="#" user_id="122">葳蕤321</a>：
-                                        评论只显示审批通过的，功能按钮只有回复。删除暂不考虑。
-                                    </div>
-                                    <div class="cm_handle">
-                                        <span class="cm_time">2019-08-10</span>
-                                        <span class="cm_reply">回复</span>
-                                    </div>
+                            </div>
+                            <div class="comment_right">
+                                <div class="comment_meta">
+                                    <a class="comment_author" href="#" target="_blank" rel="nofollow">user1</a>
+                                    <span class="comment_date">2020-01-04 12:33</span>
                                 </div>
+                                <div class="comment_content">
+                                    <p>一直觉得你写代码简直可惜了</p>
 
-                                <!-- 二级评论循环模块 -->
-                                <div class="list_box_in S_bg">
-                                    <div class="list_ul">
-                                        <div comment_id="2" class="list_li S_line">
-                                            <!-- 评论用户信息及评论内容 -->
-                                            <div class="cm_content">
-                                                <a href="#">onlyindex</a>
-                                                <span style="font-size:0.6em;background-color: #7bc96f;color: #FFFFFF;padding: 2px;margin: 0 1px 0 1px;"
-                                                      class="admin_name">Master</span>
-                                                ：回覆<a href="#">@葳蕤321</a>:
-                                                怎么叫都起不来，老迟到懒床。怎么叫都起不来，老迟到懒床。怎么叫都起不来，老迟到懒床。
-                                            </div>
-                                            <div class="cm_handle">
-                                                <span class="cm_time">20分钟前</span>
-                                                <span class="cm_reply">回复</span>
-                                            </div>
-                                        </div>
-                                        <div comment_id="3" class="list_li S_line ">
-                                            <!-- 评论用户信息及评论内容 -->
-                                            <div class="cm_content">
-                                                <a href="#" usercard="id=2292607894">onlyindex</a>
-                                                <span style="font-size:0.6em;background-color: #7bc96f;color: #FFFFFF;padding: 2px;margin: 0 1px 0 1px;"
-                                                      class="admin_name">Master</span>
-
-                                                ：回覆<a
-                                                    href="#">@葳蕤321</a>:
-                                                怎么叫都起不来，老迟到懒床。
-                                            </div>
-                                            <div class="cm_handle ">
-                                                <span class="cm_time">25分钟前</span>
-                                                <span class="cm_reply">回复</span>
-                                            </div>
-                                        </div>
-                                        {#                                    <div class="more_child_cm">#}
-                                        {#                                        <a href="#">共4条回复</a>#}
-                                        {#                                    </div>#}
+                                </div>
+                                <div class="comment_reply">
+                                    <a href="#commentContainer" class="reply-btn" data-reply-to="1"
+                                       data-reply-id="7d715c8f71903207faaf7831e096ecf5">回复</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment" id="comment-1-1">
+                            <div class="comment_main">
+                                <div class="comment_left">
+                                    <div class="comment_avatar">
+                                        <img src="{{ url_for('static',filename='static/images/myself.jpg') }}">
                                     </div>
                                 </div>
-
+                                <div class="comment_right">
+                                    <div class="comment_meta">
+                                        <a class="comment_author" href="#" target="_blank" rel="nofollow">onlyindex</a>
+                                        <span class="comment_reply_to">@user1</span>
+                                        <span class="comment_date">2020-01-11 10:49</span>
+                                    </div>
+                                    <div class="comment_content">
+                                        <p>不写代码会饿死的</p>
+                                    </div>
+                                    <div class="comment_reply">
+                                        <a href="#commentContainer" class="reply-btn" data-reply-to="1-1"
+                                           data-reply-id="8f8195c9c36d6c98e8bcade3e3ac69fe">回复</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
 

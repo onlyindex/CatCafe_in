@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Catalog{% endblock %}
+{% block title %}文集{% endblock %}
 {% block styles %}
     {{ super() }}
     <style>
@@ -8,8 +8,19 @@
             width: 150px;
         }
 
-        span {
-            color: #8590a6;
+        span.catalog_total {
+            color: #eee;
+            top: -180px;
+            left: -40px;
+            position: relative;
+            background-color: #22222233;
+            padding: 1px;
+            width: 20px;
+            margin: 12px;
+            display: inline-block;
+            text-align: center;
+            border-radius: 3px;
+            font-size: 12px;
         }
 
         li {
@@ -23,20 +34,46 @@
             padding: 20px;
         }
 
+        .post_item_catalog {
+            margin-right: 16px !important;
+            margin-left: 0 !important;
+        }
+
+        .catalog_color {
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #bbbbbb;
+        }
+
+        .catalog_name {
+            font-size: 14px;
+        }
+
 
     </style>
 {% endblock %}
 
 {% block page_content %}
     {% if catalogs %}
-        <h2>Catalog</h2>
+        <h2>文集</h2>
         <ul id="catalog_list">
             {% for catalog in catalogs %}
                 <li class="catalog_info">
                     <img class="catalog_img"
-                         src="{{ url_for('static',filename='static/images/catalog_img.jpg') }}"><br>
-                    <a href="{{ url_for('post.catalogs',catalog_name=catalog.catalog_name) }}">#{{ catalog.catalog_name }}</a><br>
-                    <span>{{ catalog.catalog_total}}</span>
+                         src="{{ url_for('static',filename='static/images/catalog_img.jpg') }}">
+                    <span class="catalog_total">{{ catalog.catalog_total }}</span>
+
+                    <br>
+                    <span class="post_item_catalog">
+{#                        <span class="catalog_color"></span>#}
+                        <span class="catalog_name">
+                            <a href="{{ url_for('post.catalogs',catalog_name=catalog.catalog_name) }}">{{ catalog.catalog_name }}</a><br>
+                        </span>
+                    </span>
 
                 </li>
             {% endfor %}

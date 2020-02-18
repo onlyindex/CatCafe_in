@@ -13,26 +13,18 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 用户登录登出'''
 
 
-# 判断用户是否登陆
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        print("login_required exc")
-        if g.user is None:
-            return redirect(url_for('auth.signin'))
-
-
-# 判断是否是管理员登录
+# 判断登录状态
 def admin_login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         print("admin_login_required exc")
-        if g.user is not None:
-            if g.user['user_id'] == 1:
-                return redirect(url_for('admin.dashboard'))
-        else:
+        # 判断用户是否登陆
+        if g.user is None:
             return redirect(url_for('auth.signin'))
-
+        elif g.user['user_id'] == 1:
+            return redirect(url_for('admin.dashboard'))
+        else:
+            return render_template(url_for('user.my_profile'))
 
 @auth_bp.before_app_request
 def load_logged_in_user():
@@ -66,10 +58,10 @@ def signup():
         elif not email:
             error = '邮箱不为空'
             # 确认用户名是否已在数据库存在
-        elif len(cursor.execute("select user_id from user where username = '%s' " % username).fetchall())>=1:
+        elif len(cursor.execute("select user_id from user where username = '%s' " % username).fetchall()) >= 1:
             error = 'user{0} is already signup.'.format(username)
             # 确认邮箱是否已在数据库存在
-        elif len(cursor.execute("select user_id from user where email = '%s' " % email).fetchall())>=1:
+        elif len(cursor.execute("select user_id from user where email = '%s' " % email).fetchall()) >= 1:
             error = 'email{0} is already signup'.format(email)
         if error is None:
             cursor.execute("insert into user(username,email,password) values('%s','%s','%s') " % (
@@ -82,6 +74,7 @@ def signup():
 
 
 # 用户登录
+@admin_login_required
 @auth_bp.route('/signin', methods=['GET', 'POST'])
 def signin():
     if request.method == 'POST':

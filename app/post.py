@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, request, url_for, flash, g, session
 from db import get_db
 from werkzeug.exceptions import abort
-from app.auth import login_required
+from app.auth import admin_login_required
 from itertools import groupby
 from operator import itemgetter
 
@@ -17,7 +17,7 @@ def posts():
         # get游标 sqlite3封装了get游标的过程 mysql木有
         cursor = db.cursor()
         cursor.execute(
-            "select p.post_id, p.post_title, date(p.post_timestamp) as post_timestamp, strftime('%Y-%m',p.post_timestamp) as group_name "
+            "select p.post_id, p.post_title, date(p.post_timestamp) as post_timestamp, strftime('%Y-%m-%d',p.post_timestamp) as group_name "
             "from post as p "
             "order by post_timestamp desc "
         )
@@ -102,14 +102,12 @@ def tags():
         tags = cursor.fetchall()
     return render_template('post/tag.html', tags=tags)
 
-
-
-
-
-
-
-
 #tag
+
+@post_bp.route('/tag_name', methods=['GET'])
+def tag():
+    if request.method == 'GET':
+        return render_template('post/_tag.html')
 
 
 
@@ -156,16 +154,16 @@ def post_comment_index(post_id):
         'select c.comment_id,c.comment_body, datetime(c.comment_timestamp) as comment_timestamp,u.username '
         'from comment as c,user as u '
         'where c.reader_id = u.user_id and c.post_id = %s ' % (post_id,))
+    comments = cursor.fetchall()
     count = cursor.execute('select count(*) '
                            'from comment as c '
                            'where c.post_id = %s' % (post_id,)).fetchone()
-    comments = cursor.fetchall()
     return render_template('post/_post.html', comments=comments, count=count)
 
 
 # post请求  提交日志 评论评论
 # g.user['user_id']
-@login_required
+@admin_login_required
 @post_bp.route('/<int:post_id>', methods=['POST'])
 def post_comment_add(post_id):
     if request.method == 'POST':

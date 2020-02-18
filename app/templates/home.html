@@ -4,19 +4,36 @@
     {{ super() }}
     <style>
         .page {
-            padding-left: 0px;
+            padding: 0px;
+
         }
 
         .sidebar {
             display: none;
         }
 
-        .mycard {
-       margin-top: 320px;
-        {#margin-bottom: 100px;#}
-        {#    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);#}
+        @media (max-width: 720px) {
+            .mycard {
+                position: relative;
+            top: 50%; /*偏移*/
+            margin-top: 0rem;
+                        {#margin-bottom: 100px;#}
+
+
+                width: 100%;
+            }
+
         }
 
+
+        .mycard {
+            position: relative;
+            top: 50%; /*偏移*/
+            margin-top: 20rem;
+        {#margin-bottom: 100px;#}
+        {#    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);#} background-color: #ddd;
+            background-image: repeating-linear-gradient(-45deg, #fff, #fff 4px, transparent 4px, transparent 8px);
+        }
 
 
         .mycard .nav {
@@ -46,39 +63,25 @@
             text-decoration: none;
         }
 
-        .fab {
-            font-family: "Font Awesome 5 Brands";
-            -webkit-font-smoothing: antialiased;
-            display: inline-block;
-            font-style: normal;
-            font-variant: normal;
-            text-rendering: auto;
-            line-height: 1;
-        }
-
-        .fa-github:before {
-            content: "\f09b";
-        }
-
         code {
-            background-color: #4a4a4a;
+            background-color: #222;
             color: white;
             padding: 2px 4px;
             border-radius: 3px;
-            font-size: 0.85rem;
+            font-size: 12px;
             margin: 0 5px;
             box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.15), 1px 1px 8px rgba(0, 0, 0, 0.15);
         }
 
 
-    i {
-    background-color: #fa4b8b;
-    color: #fff;
-    border-radius: 2px;
-    box-sizing: border-box;
-    text-align: center;
-    cursor: pointer;
-}
+        i {
+            background-color: #fa4b8b;
+            color: #fff;
+            border-radius: 2px;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+        }
 
 
         {#.normal {#}
@@ -89,13 +92,13 @@
         {#    margin-right: 4px;#}
 
         .active {
-        display: inline-block;
-        vertical-align: top;
+            display: inline-block;
+            vertical-align: top;
 
             background: url("../static/images/like_activate.png") no-repeat 0 0/20px;
             width: 20px;
             height: 20px;
-            {#margin-right: 4px;#}
+        {#margin-right: 4px;#}
         }
 
     </style>
@@ -111,7 +114,7 @@
             <img class="author_image" alt="Onlyindex"
                  src="{{ url_for('static',filename='static/images/myself.jpg') }}">
             <sup>野良喵</sup>
-            <p class="author_name" href="/me">OnlyIndex</p>
+            <p><a class="author_name" href="/me">OnlyIndex</a></p>
             <code> 自由散漫/脑洞狠黑/废柴呆萌宅/人形图书馆</code>
             <div class="author_description">不会代码&占星の设计师不是好产品喵ฅTㅅTฅ</div>
         </div>
@@ -140,7 +143,7 @@
 
                 <span>|</span>
             </li>
-             <li class="item">
+            <li class="item">
 
                 <a href="#">Pivix</a>
 
@@ -171,9 +174,9 @@
             </li>
 
         </ul>
-{#        <a class="icon" target="_blank" rel="noopener" href="https://github.com/Sunnyyoung">#}
-{#            <i class="fab fa-github"></i><!--#}
-{#      ---></a>#}
+        {#        <a class="icon" target="_blank" rel="noopener" href="https://github.com/Sunnyyoung">#}
+        {#            <i class="fab fa-github"></i><!--#}
+        {#      ---></a>#}
         <div class="like_me ">
             <i class="active"></i>182
         </div>

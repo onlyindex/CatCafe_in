@@ -7,7 +7,6 @@
           content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no">
     <!--收藏夹图标-->
     <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='static/images/favicon.png') }}">
-    <title>{% block title %}dashboard{% endblock %}</title>
     {% block styles %}
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/admin.css' ) }}"/>
     {% endblock %}
@@ -16,12 +15,12 @@
         <script src="//cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script>
 
 
-{#                    <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>#}
-{#        <script type="text/javascript">#}
-{#            CKEDITOR.replace('body', {#}
-{#                filebrowserUploadUrl: '/ckupload/',#}
-{#            });#}
-{#        </script>#}
+        {#                    <script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>#}
+        {#        <script type="text/javascript">#}
+        {#            CKEDITOR.replace('body', {#}
+        {#                filebrowserUploadUrl: '/ckupload/',#}
+        {#            });#}
+        {#        </script>#}
 
 
     {% endblock %}
@@ -29,90 +28,131 @@
 
 
 <body>
-<nav id="nav">
+<div class="app">
+    <div class="container">
+        <header class="navbar">
+            <div class="menu">
+                {#                    onmouseover="show('sidebar')" onmouseout="hide('sidebar')"#}
+                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512"
+                     class="icon">
+                    <path fill="currentColor"
+                          d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path>
+                </svg>
+            </div>
+            <a href="{{ url_for('home') }}" class="logo iconpic">🐱猫茶会</a>
+            <div class="title">
+                {% block title %}dashboard{% endblock %}
+            </div>
+            <div class="links">
+                <div class="search-box">
+                    <input aria-label="Search" autocomplete="off" spellcheck="false" value=" ">
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">➕</button>
+                    <div class="dropdown-content">
+                        <a class="add_action" href="{{ url_for('admin.new_post') }}">添加日志</a>
+                        <a class="add_action" href="{{ url_for('admin.new_catalog') }}">添加分类</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <aside class="sidebar sidebar_active ">
+            <div class="sidebar_inner">
+                {% block sidebar %}
+                    <div class="nav_auth">
+                        {% if g.user %}
+                            <div class="nav_auth_success">
+                                <a href="{{ url_for('user.my_profile',_external=True) }}">
+                                    <img class="nav_img"
+                                         src="{{ url_for('static',filename='static/images/myself.jpg') }}">
+                                </a>
+                                <a class="success_btn" href="{{ url_for('auth.signout') }}">退出</a>
+                            </div>
+                        {% else %}
+                            <div class="nav_auth_box">
+                                <a class="btn" href="{{ url_for('auth.signin') }}">登录</a>
+                                <a class="btn" href="{{ url_for('auth.signup') }}">注册</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="nav_links">
+                        <div class="grey_li ">
+                            <a class=" ">仪表盘</a>
+                        </div>
+                        <div class="white_li">
+                            <a href="{{ url_for('admin.dashboard') }}" class="nav-link">仪表盘</a>
+                        </div>
+                        <div class="grey_li">
+                            <a class="">日志</a>
+                        </div>
+                        <div class="white_li show_posts">
+                            <a href="{{ url_for('admin.manage_post' ) }}"
+                               class=" " href="#">已发布<span>1353</span></a>
+                        </div>
+                        <div class="white_li draft_posts">
+                            <a href="#">草稿箱<span>1353</span></a>
+                        </div>
+                        <div class="white_li hide_posts">
+                            <a href="#">垃圾箱<span>1353</span></a>
+                        </div>
+                        <div class="grey_li">
+                            <a class="">评论</a>
+                        </div>
+                        <div class="white_li  show_comments">
+                            <a href="{{ url_for('admin.manage_comment' ) }}"
+                               class=" selected " href="#">未批准评论<span>1353</span></a>
+                        </div>
+                        <div class="white_li draft_posts">
+                            <a class="" href="#">已批准评论<span>1353</span></a>
+                        </div>
+                        <div class="grey_li">
+                            <a class="">用户</a>
+                        </div>
+                        <div class="white_li all_posts">
+                            <a class=" selected " href="#">读者<span>1353</span></a>
+                        </div>
+                        {#早期按注册时间，按照评论数排列比较好#}
+                        <div class="white_li show_posts ">
+                            <a href="#">黑名单<span>1353</span></a>
+                        </div>
+                        <div class="grey_li">
+                            <a class="">更多</a>
+                        </div>
+                        <div class="white_li all_posts">
+                            <a href="{{ url_for('admin.manage_catalog' ) }}" class="selected "
+                               href="#">分类<span>1353</span></a>
+                        </div>
+                        <div class="white_li show_posts">
+                            <a href="#">标签<span>1353</span></a>
+                        </div>
+                    </div>
+                    <footer class="footer">
 
-    <div id="nav_box">
-        <div id="nav_menu_box" onmouseover="show('nav_content')" onmouseout="hide('nav_content')">
-            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon">
-                <path fill="currentColor"
-                      d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path>
-            </svg>
-        </div>
-        <div id="nav_logo_box">
-            <div id="nav_logo">
-                <a href="{{ url_for('home') }}">
-                    <img id="logo_img" src="{{ url_for('static',filename='static/images/logo_ex.png') }}"></a>
+                        © 2019 Design ❤ Code by<a title="Powered by onlyindex">OnlyIndex</a>
+                    </footer>
+
+                {% endblock %}
+
+            </div>
+
+        </aside>
+        <div class="page">
+            <div class=" page_content">
+                {% block page_content %}
+                    {% for message in get_flashed_messages(with_categories=True) %}
+                        <div class="flash alert alert-{{ message[0] }}" id="close" role="alert">
+                            <a class="close" onclick="turnoff('close')">&times;</a>
+                            {{ message[1] }}
+                        </div>
+                    {% endfor %}
+
+                {% endblock %}
             </div>
         </div>
-
-
-        <div id="nav_auth_box">
-            {% if g.user %}
-                <div id="nav_auth_success">
-                    <a href="{{ url_for('user.my_profile',_external=True) }}"><img id="nav_img"
-                                                                                   src="{{ url_for('static',filename='static/images/myself.jpg') }}"></a>
-                    <a id="success_btn" href="{{ url_for('auth.signout') }}">退出</a>
-                </div>
-            {% else %}
-                <div id="nav_auth">
-                    <a id="in_btn" href="{{ url_for('auth.signin') }}">登录</a>
-                    <a id="up_btn" href="{{ url_for('auth.signup') }}">注册</a>
-                </div>
-            {% endif %}
-        </div>
     </div>
-</nav>
-<main id="content">
-    <div class="sidebar">
-        <ul class="nav_links">
-            <li class="nav_item">
-                <a href="{{ url_for('admin.dashboard') }}" class="nav-link">仪表盘</a>
-            </li>
-            <li class="nav_item">
-                <a href="{{ url_for('admin.manage_post' ) }}"
-                   class="nav-link router-link-exact-active router-link-active">
-                                           <ruby>日志<rt>99+</rt></ruby>
 
-                </a>
-            </li>
 
-            <li class="nav_item">
-                <a href="{{ url_for('admin.manage_comment' ) }}" class="nav-link">
-                    <ruby>评论<rt>99+</rt></ruby>
-                </a>
-            </li>
-            <li class="nav_item">
-                <a href="{{ url_for('admin.manage_catalog' ) }}" class="nav-link">
-                                        <ruby>分类<rt>99+</rt></ruby>
-
-                </a>
-            </li>
-            <li class="nav_item">
-                <a href="#" class="nav-link">
-                                        <ruby>标签<rt>99+</rt></ruby>
-
-                </a>
-            </li>
-            <li class="nav_item">
-                <a href="#" class="nav-link">
-                                        <ruby>读者<rt>99+</rt></ruby>
-
-            </li>
-        </ul>
-
-    </div>
-    <div id="page_content">
-        {% block page_content %}
-            {% for message in get_flashed_messages(with_categories=True) %}
-                <div class="flash alert alert-{{ message[0] }}" id="close" role="alert">
-                    <button class="close" onclick="turnoff('close')">&times;</button>
-                    {{ message[1] }}
-                </div>
-            {% endfor %}
-        {% endblock %}
-
-    </div>
-</main>
 </div>
+
 </body>
 </html>

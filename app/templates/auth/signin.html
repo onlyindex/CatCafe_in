@@ -1,29 +1,57 @@
 {% extends 'base.html' %}
 {% block title %}登录{% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        .sidebar {
+            display: none;
+        }
 
+        .page_content {
+            max-width: 720px;
+        }
+
+        .page {
+            padding-left: 0px;
+        }
+
+
+
+        @media (min-width: 720px) {
+
+            .page_content {
+                width: auto
+            }
+
+        }
+    </style>
+{% endblock %}
 {% block page_content %}
     {{ super() }}
 
-<div id="SigninPanel">
-<div id="SigninForm">
-          <h4>登录至喵茶会</h4>
-  <form method="post" action="{{ url_for('auth.signin') }}">
+    <div id="SigninPanel">
+        <div id="SigninForm">
+            <h4>登录至喵茶会</h4>
+            <form method="post" action="{{ url_for('auth.signin') }}">
 
-          <input class="input" name="username" type="username" id="username" placeholder="Enter username" required><br>
+                <input class="underline_input" name="username" type="username" id="username" placeholder="Enter username"
+                       required><br>
 
-          <input class="input" name="password" type="password" id="password" placeholder="Enter Password" required><br>
+                <input class="underline_input" name="password" type="password" id="password" placeholder="Enter Password"
+                       required><br>
 
-        <!--  <input type="checkbox"><label>保存登录状态</label><br>-->
-          <button class="button"type="submit">登录(ノ≧∇≦)ノ</button><br>
-</form>
-</div>
-<div id="other_link">
-         <a href="{{ url_for('auth.signup') }}">加入喵喵队</a> <a href="#修改密码">修改密码</a><br>
+                <!--  <input type="checkbox"><label>保存登录状态</label><br>-->
+                <button class="button" type="submit">登录(ノ≧∇≦)ノ</button>
+                <br>
+            </form>
+        </div>
+        <div id="other_link">
+            <a href="{{ url_for('auth.signup') }}">加入喵喵队</a> <a href="#修改密码">修改密码</a><br>
             微博账号登录
 
 
-</div>
-</div>
+        </div>
+    </div>
 
 {% endblock %}
 

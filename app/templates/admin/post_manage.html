@@ -20,15 +20,22 @@
             color: #222;
         }
 
+        .post_status
+        {
+            color: white;
+            background-color: #222;
+            border-radius: 16px;
+            padding: 0px 5px 0px 5px;
+        }
 
         .catalog_color {
             position: relative;
-            top: 1px;
+            top: 0px;
             display: inline-block;
-            width: 12px;
-            height: 12px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background-color: #f09199;
+            background-color: #aaa;
         }
 
         .catalog_name {
@@ -37,13 +44,13 @@
 
         .post_item_tag {
             font-size: 12px;
-            color: #f09199;
+            color: #555;
             /* border: 1px solid #f09199 !important; */
             padding: 2px;
             margin-right: 6px;
             white-space: nowrap;
             border-radius: 5px;
-            background-color: #f091991f;
+            background-color: #eee;
         }
 
         .post_item_post {
@@ -68,51 +75,6 @@
             float: right;
         }
 
-        ul.status li {
-            padding: 16px 8px;
-            margin-right: 16px;
-            font-size: 14px;
-            line-height: 1.5;
-            color: #586069;
-            text-align: center;
-            border: 0;
-            border-bottom: 2px solid transparent;
-        }
-
-        ul.status li span {
-            display: inline-block;
-            padding: 2px 5px;
-            font-size: 12px;
-            font-weight: 600;
-            line-height: 1;
-            color: #586069;
-            background-color: rgba(27, 31, 35, .08);
-            border-radius: 20px;
-        }
-
-        ul.status li a {
-            color: #666
-        }
-
-        ul.status li.all_posts a.selected {
-            border-bottom-color: #e36209;
-        }
-
-        .post_manger_header {
-            border-bottom: 1px solid #e1e4e8 !important;
-        }
-
-        span.post_status {
-            font-size: 12px;
-            background: #F09199;
-            color: #FFF;
-            line-height: 100%;
-            padding: 3px 5px;
-            -moz-border-radius: 5px;
-            -webkit-border-radius: 5px;
-            border-radius: 5px;
-            float: right;
-        }
 
 
     </style>
@@ -123,23 +85,8 @@
         <div class="post_manger_header">
             <div>
                 <h2>日志</h2>
-                <button class="add_action" href="{{ url_for('admin.new_post') }}">添加日志</button>
             </div>
-            <ul class="status">
-                <li class="all_posts">
-                    <a class="selected " href="#">日志</a><span>18,367</span>
-                </li>
-                <li class="show_posts">
-                    <a href="#">已发布</a><span>1353</span>
-                </li>
-                <li class="draft_posts">
-                    <a href="#">草稿箱</a><span>1353</span>
-                </li>
-                <li class="hide_posts">
-                    <a href="#">垃圾箱</a><span>233</span>
-                </li>
 
-            </ul>
 
         </div>
 
@@ -157,13 +104,13 @@
                     <div class="post_item_tags">
                         <div class="post_item_tag_list">
                             <a class="post_item_tag">
-                                blog
+                                # blog
                             </a>
                             <a class="post_item_tag">
-                                about me
+                                #about me
                             </a>
                             <a class="post_item_tag">
-                                swiftUI
+                                # swiftUI
                             </a>
                         </div>
                     </div>

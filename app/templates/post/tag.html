@@ -35,7 +35,7 @@
         <ul id="catalog_list">
             {% for tag in tags %}
                 <li class="catalog_info">
-                    <a href="{{ url_for('post.tags',tag_name=tag.tag_name) }}">#{{ tag.tag_name }}</a><br>
+                    <a href="{{ url_for('post.tag',tag_name=tag.tag_name) }}">#{{ tag.tag_name }}</a><br>
                     <span class="tag_count">{{ tag.tag_total }}</span>
                 </li>
             {% endfor %}

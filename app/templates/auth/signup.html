@@ -1,19 +1,54 @@
 {% extends 'base.html' %}
 {% block title %}注册{% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        .sidebar {
+            display: none;
+        }
+
+        .page_content {
+            max-width: 720px;
+        }
+
+        .page {
+            padding-left: 0px;
+        }
+
+
+        @media (min-width: 720px) {
+
+            .page_content {
+                width: auto
+            }
+
+        }
+
+
+
+
+
+
+    </style>
+{% endblock %}
 
 {% block page_content %}
-        {{ super() }}
-<div id="SignupPanel">
-<div id="SignupForm">
-    <h4>注册喵茶会</h4>
-    <form method="post" action="{{ url_for('auth.signup') }}" >
-          <input class="input" name="username" type="username" id="username" placeholder="Enter username" required ><br>
-          <input class="input" name="email" type="email"  placeholder="Enter email" required><br>
-          <input class="input" name="password"  type="password" id="password" placeholder="Enter Password" required ><br>
-          <input class="input" name="check_pwd" type="password" id="check_pwd" placeholder="Check Password" required><br>
-          <button class="button" type="submit" id="submit">加入我们(>^ω^<) </button><br>
-</form>
+    {{ super() }}
+    <div id="SignupPanel">
+        <div id="SignupForm">
+            <h4>注册喵茶会</h4>
+            <form method="post" action="{{ url_for('auth.signup') }}">
+                <input class="underline_input" name="username" type="username" id="username" placeholder="Enter username"
+                       required><br>
+                <input class="underline_input" name="email" type="email" placeholder="Enter email" required><br>
+                <input class="underline_input" name="password" type="password" id="password" placeholder="Enter Password"
+                       required><br>
+                <input class="underline_input" name="check_pwd" type="password" id="check_pwd" placeholder="Check Password"
+                       required><br>
+                <button class="button" type="submit" id="submit">加入我们(>^ω^<) </button>
+                <br>
+            </form>
 
-</div>
-</div>
+        </div>
+    </div>
 {% endblock %}

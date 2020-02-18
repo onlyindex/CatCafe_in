@@ -55,15 +55,25 @@
                           d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path>
                 </svg>
             </div>
-            <div href="{{ url_for('home') }}" class="logo iconpic"></div>
-
+            <div href="{{ url_for('home') }}" class="logo iconpic">🐱</div>
             <div class="title">
                 {% block title %}CatCafe{% endblock %}
             </div>
             <div class="links">
                 <div class="search-box">
-                    <input aria-label="Search" autocomplete="off" spellcheck="false" value=""
-                           class="">
+                    <input aria-label="Search" autocomplete="off" spellcheck="false" value=" ">
+                </div>
+                <div class="auth_box">
+                    {% if g.user %}
+                            <a href="{{ url_for('user.my_profile',_external=True) }}">
+                                <img id="nav_img"
+                                     src="{{ url_for('static',filename='static/images/myself.jpg') }}">
+                            </a>
+                            <a class="btn" href="{{ url_for('auth.signout') }}">退出</a>
+                    {% else %}
+                            <a class="btn" href="{{ url_for('auth.signin') }}">登录</a>
+                            <a class="btn" href="{{ url_for('auth.signup') }}">注册</a>
+                    {% endif %}
                 </div>
             </div>
         </header>
@@ -90,7 +100,7 @@
                                 <div class="site_state_item site_state_imgs">
                                     <a href="/post/catalog/">
                                         <span class="site_state_item_count">22</span>
-                                        <span class="site_state_item_name">分类</span>
+                                        <span class="site_state_item_name">文集</span>
                                     </a>
                                 </div>
                                 <div class="site_state_item site_state_works">
@@ -107,15 +117,12 @@
                                 喵茶会在宇宙存在<span>1</span>天<br>
                                 遇见<span>3000</span>只喵星人<br>
                                 和<span>2333</span>只喵星人high5<br>
-
                                 收到<span>500</span>只土豪喵的投喂<br>
 
                             </div>
 
-                            © 2019 Design ❤ Code by<a href="http://catcafe.in"
+                            © 2019 Design ❤ Code by<a href="/me"
                                                       title="Powered by onlyindex">OnlyIndex</a>
-                            <a class="btn" href="{{ url_for('auth.signin') }}">登录</a>
-                            <a class="btn" href="{{ url_for('auth.signup') }}">注册</a>
                         </footer>
 
                     </div>
@@ -129,7 +136,7 @@
                 {% block page_content %}
                     {% for message in get_flashed_messages(with_categories=True) %}
                         <div class="flash alert alert-{{ message[0] }}" id="close" role="alert">
-                            <button class="close" onclick="turnoff('close')">&times;</button>
+                            <a class="close" onclick="turnoff('close')">&times;</a>
                             {{ message[1] }}
                         </div>
                     {% endfor %}

@@ -96,73 +96,37 @@
 {% endblock %}
 
 {% block page_content %}
+    <li id="tml_20481813" class="clearit tml_item">
+        <span class="avatar">
+            <a href="http://bgm.tv/user/121569" class="avatar">
+                <span class="avatarNeue avatarReSize40 ll"
+                style="background-image:url('//lain.bgm.tv/pic/user/m/000/12/15/121569.jpg?r=1485625347')"></span></a></span>
+        <span class="info clearit"><a href="http://bgm.tv/subject/215258"><img
+                src="//lain.bgm.tv/pic/cover/g/7f/b2/215258_a91Ll.jpg" alt="" class="rr"></a><a
+                href="http://bgm.tv/user/121569" class="l">qqqs3ss</a> 看过 <a href="http://bgm.tv/subject/215258"
+                                                                             data-subject-name-cn="猎魔人"
+                                                                             data-subject-id="215258"
+                                                                             data-subject-name="The Witcher" class="l">The Witcher</a> <div
+                class="collectInfo"><span class="starstop-s"><span class="starlight stars6"></span></span><div
+                class="quote"><q>6.5。剧情6，单元剧7，有几集反转很不错，主线不行没有主题，感觉就像很多流水账硬凑在一起。对世界观描写几乎没有。角色塑造5，白狼很好8，叶奈法3不能理解整个不知道在想啥。配角写了不少，都是莫名其妙匆匆的来匆匆的去，没留下印象，很多角色不知道存在意义何在。对话经常虚无缥缈意识流。演员演技没问题，但选角扣分，叶奈法、特莉斯，黑将军黑精灵黑男女巫学徒亲吻黑情人，正确到令人反感。尼弗迦德盔甲奇丑无比。</q></div></div>
+<p class="date">
+3分21秒前 · web </p>
+</span>
+    </li>
 
-    <div id="comment_list" class="card">
-        <h2>评论</h2>
-        <ul class="comment_status">
-            <li class="all_comments">
-                <a href="#">全部</a>(<span>18,367</span>) |
-            </li>
-            <li class="show_comments">
-                <a href="#">已批准</a>(<span>1353</span>) |
-            </li>
-            <li class="hide_comments">
-                <a href="#">隐藏评论</a>(<span>233</span>)</a>
-            </li>
-        </ul>
 
-        <table class="table_list">
-
-            <thead>
-            <tr>
-                <th scope="col"><a href="#">reader</a></th>
-                <th scope="col">Date</th>
-                <th scope="col">Comment</th>
-                <th scope="col">Title</th>
-                <th scope="col">Status</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% if comments %}
-
-                {% for comment in comments %}
-
-                    <tr>
-                        <td scope="row">{{ comment.username }}</td>
-                        <td scope="row">{{ comment.comment_timestamp }}</td>
-                        <td scope="row">{{ comment.comment_body }}</td>
-                        <td scope="row">{{ comment.post_title }}</td>
-                        <td scope="row">display</td>
-
-                        <td scope="row">
-                            <a id="rep_comment" class="btn btn-default"
-                               href="#">回复</a>
-                            <a id="del_comment" class="btn btn-danger"
-                               href="#">删除</a>
-                            <a id="show_comment" class="btn"
-                               href="#">批准</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-
-                </tbody>
-                </table>
-                <table class="table_footer">
-                    <div class="pagination">
-                        <a href="#">«</a>
-                        <a href="#">‹</a>
-                        <a href="#" class="selected">1</a>
-                        <a href="#">2</a>
-                        <a href="#">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#">›</a>
-                        <a href="#">»</a>
-                    </div>
-                </table>
-            {% else %}
-                No comments
-            {% endif %}
-    </div>
+{#            {% if comments %}#}
+{##}
+{#                {% for comment in comments %}#}
+{##}
+{#                    <tr>#}
+{#                        <td scope="row">{{ comment.username }}</td>#}
+{#                        <td scope="row">{{ comment.comment_timestamp }}</td>#}
+{#                        <td scope="row">{{ comment.comment_body }}</td>#}
+{#                        <td scope="row">{{ comment.post_title }}</td>#}
+{##}
+{##}
+{#            {% else %}#}
+{#                No comments#}
+{#            {% endif %}#}
 {% endblock %}

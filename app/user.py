@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import render_template, redirect, url_for, flash, request, session
 from db import get_db
-from app.auth import login_required
+from app.auth import admin_login_required
 
 user_bp = Blueprint('user', __name__, url_prefix='/user')
 
@@ -21,7 +21,7 @@ def user_profile(user_id):
 
 
 # 个人资料
-@login_required
+@admin_login_required
 @user_bp.route('/profile', methods=['GET'])
 def my_profile():
     user_id = session['user_id']
@@ -34,7 +34,7 @@ def my_profile():
 
 
 # 更新个人资料
-@login_required
+@admin_login_required
 @user_bp.route('/profile_edit', methods=['GET', 'POST'])
 def edit_my_profile():
     user_id = session['user_id']
