@@ -184,7 +184,7 @@ def manage_comment():
     db = get_db()
     cursor = db.cursor()
     # 三表查询 评论表 用户表 日志表
-    cursor.execute('select u.username,c.comment_timestamp,c.comment_body,p.post_title '
+    cursor.execute('select u.username,c.comment_timestamp,c.comment_body,p.post_title,p.post_id '
                    'from comment as c , user as u,post as p '
                    'where c.reader_id=u.user_id and c.post_id=p.post_id ')
     comments = cursor.fetchall()

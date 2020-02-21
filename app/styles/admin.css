@@ -676,10 +676,10 @@ footer {
 }
 
 
-p {
-    padding: 8px;
-    float: left;
-}
+/*p {*/
+/*    padding: 8px;*/
+/*    float: left;*/
+/*}*/
 
 .pagination {
     text-align: center;

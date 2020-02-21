@@ -587,31 +587,65 @@
             </div>
             <div>
                 <span class="comment_count">{{ count }}</span>评论
-                <ul class="comment_list">
+                <div class="comment_list">
                     {% if comments %}
 
                         {% for comment in comments %}
                             <div class="comment" id="{{ comment.comment_id }}">
-                                <div class="comment_main">
+                                <div class="comment_main ">
                                     <div class="comment_left">
-                                                <span class="cm_user">
-                                                    <img src="//api.mouto.org/avatar/b/34002.jpg">{{ comment.username }}</span>
+                                        <div class="comment_avatar">
+                                            <img src="{{ url_for('static',filename='static/images/myself.jpg') }}">
+                                        </div>
                                     </div>
-                                    <div class="cm_content">{{ comment.comment_body }}</div>
-                                    <div class="cm_handle">
-                                        <span class="cm_time"> {{ comment.comment_timestamp }}</span>
+                                    <div class="comment_right">
+                                        <div class="comment_meta">
+                                            <a class="comment_author" href="#" target="_blank" rel="nofollow">{{ comment.username }}</a>
+                                            <span class="comment_date">{{ comment.comment_timestamp }}</span>
+                                        </div>
+                                        <div class="comment_content">
+                                            <p>{{ comment.comment_body }}</p>
+
+                                        </div>
+                                        <div class="comment_reply">
+                                            <a href="#commentContainer" class="reply-btn" data-reply-to="1"
+                                               data-reply-id="7d715c8f71903207faaf7831e096ecf5">回复</a>
+                                        </div>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         {% endfor %}
                     {% else %}
                         No comments
                     {% endif %}
-                </ul>
+            </div>
 
-                <div class="comment_list">
-                    <div class="comment" id="comment-1">
-                        <div class="comment_main ">
+            <div class="comment_list">
+                <div class="comment" id="comment-1">
+                    <div class="comment_main ">
+                        <div class="comment_left">
+                            <div class="comment_avatar">
+                                <img src="{{ url_for('static',filename='static/images/myself.jpg') }}">
+                            </div>
+                        </div>
+                        <div class="comment_right">
+                            <div class="comment_meta">
+                                <a class="comment_author" href="#" target="_blank" rel="nofollow">user1</a>
+                                <span class="comment_date">2020-01-04 12:33</span>
+                            </div>
+                            <div class="comment_content">
+                                <p>一直觉得你写代码简直可惜了</p>
+
+                            </div>
+                            <div class="comment_reply">
+                                <a href="#commentContainer" class="reply-btn" data-reply-to="1"
+                                   data-reply-id="7d715c8f71903207faaf7831e096ecf5">回复</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment" id="comment-1-1">
+                        <div class="comment_main">
                             <div class="comment_left">
                                 <div class="comment_avatar">
                                     <img src="{{ url_for('static',filename='static/images/myself.jpg') }}">
@@ -619,47 +653,25 @@
                             </div>
                             <div class="comment_right">
                                 <div class="comment_meta">
-                                    <a class="comment_author" href="#" target="_blank" rel="nofollow">user1</a>
-                                    <span class="comment_date">2020-01-04 12:33</span>
+                                    <a class="comment_author" href="#" target="_blank" rel="nofollow">onlyindex</a>
+                                    <span class="comment_reply_to">@user1</span>
+                                    <span class="comment_date">2020-01-11 10:49</span>
                                 </div>
                                 <div class="comment_content">
-                                    <p>一直觉得你写代码简直可惜了</p>
-
+                                    <p>不写代码会饿死的</p>
                                 </div>
                                 <div class="comment_reply">
-                                    <a href="#commentContainer" class="reply-btn" data-reply-to="1"
-                                       data-reply-id="7d715c8f71903207faaf7831e096ecf5">回复</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment" id="comment-1-1">
-                            <div class="comment_main">
-                                <div class="comment_left">
-                                    <div class="comment_avatar">
-                                        <img src="{{ url_for('static',filename='static/images/myself.jpg') }}">
-                                    </div>
-                                </div>
-                                <div class="comment_right">
-                                    <div class="comment_meta">
-                                        <a class="comment_author" href="#" target="_blank" rel="nofollow">onlyindex</a>
-                                        <span class="comment_reply_to">@user1</span>
-                                        <span class="comment_date">2020-01-11 10:49</span>
-                                    </div>
-                                    <div class="comment_content">
-                                        <p>不写代码会饿死的</p>
-                                    </div>
-                                    <div class="comment_reply">
-                                        <a href="#commentContainer" class="reply-btn" data-reply-to="1-1"
-                                           data-reply-id="8f8195c9c36d6c98e8bcade3e3ac69fe">回复</a>
-                                    </div>
+                                    <a href="#commentContainer" class="reply-btn" data-reply-to="1-1"
+                                       data-reply-id="8f8195c9c36d6c98e8bcade3e3ac69fe">回复</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
+
+
+        </div>
         </div>
 
 

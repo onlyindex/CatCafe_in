@@ -4,61 +4,12 @@
     {{ super() }}
     <style>
 
-        .card {
-            max-width: 800px;
-            margin: 20px auto;
-            position: relative;
-            z-index: 0;
-        }
-
-        .card h2 {
-            display: inline-block;
-        }
-
-        .table_list {
-            background-color: white;
-            border: 1px solid #eceeef;
-            font-size: 0.8rem;
-            border-spacing: 0;
-            border-collapse: collapse;
-            empty-cells: show;
-            width: 100%;
-
-        }
 
         @media (max-width: 720px) {
-            .table_list {
-            }
 
-            .table-list td {
-                white-space: nowrap;
-                height: 1.75rem;
-                vertical-align: top;
-                padding: 10px;
-                border-bottom: 1px solid #d2d2d2;
-                line-height: 35px;
-            }
 
         }
 
-
-        th {
-        {#border-top: 1px solid #eceeef;#}{#border-bottom: 1px solid #d2d2d2;#} text-align: left;
-        }
-
-        th, td {
-            padding: 8px;
-        }
-
-        td {
-        {#width: 6%;#}
-        }
-
-
-        p {
-            padding: 8px;
-            float: left;
-        }
 
         .pagination {
             text-align: center;
@@ -85,48 +36,84 @@
             border-color: #f09191;
         }
 
-
-        .post_status li {
-            display: inline-block;
-            white-space: nowrap;
+        .cm_avatar img {
+            width: 45px;
+            height: 45px;
+            margin: 0 5px;
+            border-radius: 50%;
         }
 
+        .cm_left {
+            float: left;
+        }
+
+        .cm_right {
+            float: right;
+        }
+
+        .cm_content {
+            display: inline-flex;
+        }
+
+        .cm_body {
+            font-size: 14px;
+        }
+
+        .cm_date {
+            color: #999;
+        }
+
+        .cm_3 {
+            font-size: 12px;
+        }
+
+        span.cm_right {
+            padding-left: 12px;
+        }
+
+        .cm_1, .cm_2, .cm_3 {
+            padding: 2px 0px 2px 0px;
+        }
 
     </style>
 {% endblock %}
 
 {% block page_content %}
-    <li id="tml_20481813" class="clearit tml_item">
-        <span class="avatar">
-            <a href="http://bgm.tv/user/121569" class="avatar">
-                <span class="avatarNeue avatarReSize40 ll"
-                style="background-image:url('//lain.bgm.tv/pic/user/m/000/12/15/121569.jpg?r=1485625347')"></span></a></span>
-        <span class="info clearit"><a href="http://bgm.tv/subject/215258"><img
-                src="//lain.bgm.tv/pic/cover/g/7f/b2/215258_a91Ll.jpg" alt="" class="rr"></a><a
-                href="http://bgm.tv/user/121569" class="l">qqqs3ss</a> 看过 <a href="http://bgm.tv/subject/215258"
-                                                                             data-subject-name-cn="猎魔人"
-                                                                             data-subject-id="215258"
-                                                                             data-subject-name="The Witcher" class="l">The Witcher</a> <div
-                class="collectInfo"><span class="starstop-s"><span class="starlight stars6"></span></span><div
-                class="quote"><q>6.5。剧情6，单元剧7，有几集反转很不错，主线不行没有主题，感觉就像很多流水账硬凑在一起。对世界观描写几乎没有。角色塑造5，白狼很好8，叶奈法3不能理解整个不知道在想啥。配角写了不少，都是莫名其妙匆匆的来匆匆的去，没留下印象，很多角色不知道存在意义何在。对话经常虚无缥缈意识流。演员演技没问题，但选角扣分，叶奈法、特莉斯，黑将军黑精灵黑男女巫学徒亲吻黑情人，正确到令人反感。尼弗迦德盔甲奇丑无比。</q></div></div>
-<p class="date">
-3分21秒前 · web </p>
-</span>
-    </li>
 
 
-{#            {% if comments %}#}
-{##}
-{#                {% for comment in comments %}#}
-{##}
-{#                    <tr>#}
-{#                        <td scope="row">{{ comment.username }}</td>#}
-{#                        <td scope="row">{{ comment.comment_timestamp }}</td>#}
-{#                        <td scope="row">{{ comment.comment_body }}</td>#}
-{#                        <td scope="row">{{ comment.post_title }}</td>#}
-{##}
-{##}
-{#            {% else %}#}
-{#                No comments#}
-{#            {% endif %}#}
+
+    {% if comments %}
+
+        {% for comment in comments %}
+            <div id="comment_id">
+                <div class="cm_content">
+                    <div class="cm_left">
+                        <a href="http://bgm.tv/user/121569" class="cm_avatar">
+                            <img src="{{ url_for('static',filename='static/images/myself.jpg') }}">
+                        </a>
+                    </div>
+                    <div class="cm_right">
+                        <div class="cm_1">
+                            <a href="#">{{ comment.username }}</a>评论
+                            <a href="#" id="{{ comment.post_id }}">{{ comment.post_title }}</a>
+                        </div>
+                        <div class="cm_2"><q class="cm_body">{{ comment.comment_body }}</q></div>
+                        <div class="cm_3">
+                            <span class="cm_date cm_left">{{ comment.comment_timestamp }}</span>
+                            <span class="cm_right">回复</span>
+                            <span class="cm_right">批准</span>
+                            <span class="cm_right">删除</span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        {% endfor %}
+
+    {% else %}
+        No comments
+    {% endif %}
 {% endblock %}
