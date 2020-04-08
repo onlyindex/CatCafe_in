@@ -52,7 +52,7 @@ def catalogs():
         # 获得日志分类和分类统计
         cursor.execute('select c.catalog_name,c.catalog_img ,c.catalog_total from catalog as c')
         catalogs = cursor.fetchall()
-    return render_template('post/catalog.html', catalogs=catalogs)
+    return render_template('post/catalog1.html', catalogs=catalogs)
 
 
 # 分类日志列表

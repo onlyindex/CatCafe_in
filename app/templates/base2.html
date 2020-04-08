@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--移动设备优先 屏幕缩放比例自适应-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no">
+    <!--收藏夹图标-->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='static/images/favicon.png') }}">
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/style1.css' ) }}"/>
+
+    {% endblock %}
+    {% block scripts %}{% endblock %}
+
+</head>
+<body>
+<main>
+    <div id="box"></div>
+    <div class="profile">
+        <div class="photo"><img src="http://img5.imgtn.bdimg.com/it/u=3088814507,553265442&fm=26&gp=0.jpg"></div>
+        <div class="content">
+            <div class="text">
+                <h3>onlyindex</h3>
+                <h6> Astrolog/Baby_nurse/Coder/Designer/Datician </h6>
+            </div>
+
+        </div>
+        <div class="box"><i class="fa fa-codepen"></i><i class="fa fa-facebook"></i><i class="fa fa-github"></i><i
+                class="fa fa-tumblr"></i><i class="fa fa-twitter"></i></div>
+    </div>
+
+
+    <div class="app">
+        <div class="topbar">
+            <div class="flex topbar_content title-bar border-bottom">
+                <div class="topbar-content-bg"></div>
+                <i class="back iconpic"></i><img class="mobile-logo"
+                                                 src="//s3.pstatp.com/bcy/image/mobile-logo.eb91ee.png"><i
+                    class="share iconpic"></i></div>
+            <!--       <a href="/post" target="content_frame" title="返回"></a> -->
+        </div>
+        <div class="page">
+            <!--               <iframe name="content_frame" marginwidth="0" marginheight="0" width="335" height="600" src="#" frameborder="0"> -->
+
+            <div class="container">
+                <div class="author">
+                    <div class="author_left">
+                        <img class="author_img"
+                             src="http://img5.imgtn.bdimg.com/it/u=3088814507,553265442&fm=26&gp=0.jpg" alt="onlyindex">
+                    </div>
+                    <div class="author_right">
+                        <div class="title">onlyindex</div>
+                        <div class="des">不会设计&代码の占星师不是好の产品喵</div>
+                    </div>
+                </div>
+
+                <div class="post_group_list">
+                    <div class="post_group">
+                        <div class="post_time">2019-5-20</div>
+                        <div class="post_list">
+                            <div class="post">
+                                <a href="#" target="_blank">
+                                    <div class="post_img">
+                                        <img class="content_img"
+                                             src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582835199345&di=c3ee6ee8e64798e27c9c3618eaa88b85&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F9fo3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2Fd52a2834349b033b0135327215ce36d3d439bddd.jpg"
+                                             original="http://www.liangsonghua.com/wp-content/uploads/2020/02/lagoon-4812995_1920-1024x683.jpg"
+                                             lazy="y">
+                                        <div class="post_read">94个朋友读过</div>
+                                    </div>
+                                    <div class="post_title">性能分析与优化</div>
+                                    <div class="post_lead" style="text-indent:24px">
+                                        <p>性能优化工程</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--       </iframe> -->
+        </div>
+
+    </div>
+</main>
+</body>
+</html>
+
+

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--移动设备优先 屏幕缩放比例自适应-->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no">
+    <!--收藏夹图标-->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='static/images/favicon.png') }}">
+    {% block styles %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/phone1.css' ) }}"/>
+
+    {% endblock %}
+    {% block scripts %}{% endblock %}
+
+</head>
+<body>
+
+
+<div class="app">
+    <div class="profile">
+        <div class="photo">
+            <img src="http://img5.imgtn.bdimg.com/it/u=3088814507,553265442&fm=26&gp=0.jpg">
+        </div>
+        <div class="content">
+            <div class="text">
+                <h3><code>Live</code></code> indexの喵茶会</h3>
+                <h6> user 2333 </h6>
+            </div>
+
+        </div>
+    </div>
+
+    {#    <ul id="menu" class="">#}
+    {#<a href="#s1">#}
+    {#<li class="icon fa fa-home" id="home" aria-hidden="true"></li>#}
+    {#</a>#}
+    {#<a href="#s2">#}
+    {#<li class="icon fa fa-user" id="user" aria-hidden="true"></li>#}
+    {#</a>#}
+    {#<a href="#s3">#}
+    {#<li class="icon fa fa-code" id="skill" aria-hidden="true"></li>#}
+    {#</a>#}
+    {#<a href="#s4">#}
+    {#<li class="icon fa fa-files-o" id="project" aria-hidden="true"></li>#}
+    {#</a>#}
+    {#<a href="#s5">#}
+    {#<li class="icon fa fa-gamepad" id="game" aria-hidden="true"></li>#}
+    {#</a>#}
+    {#</ul>#}
+    <header id="header">
+        <a href="#/" class="title router-link-active">蝉時雨</a>
+        <span class="subtitle">蝉鸣如雨 花宵道中</span>
+        <nav>
+            <a href="#/" class="router-link-active">
+                <i class="icon icon-shop"></i></a>
+            <a href="#/archive" class=""><i
+                class="icon icon-inbox"></i></a>
+            <a href="#/category" class=""><i
+                class="icon icon-bookmark-empty"></i></a>
+            <a href="#/tag" class=""><i class="icon icon-tag"></i></a>
+            <a
+                href="#/book" class=""><i class="icon icon-pencil"></i></a>
+            <a href="#/inspiration" class=""><i
+                class="icon icon-comment"></i></a>
+            <a href="#/friend" class=""><i class="icon icon-heart"></i></a>
+            <a
+                href="#/about" class="router-link-exact-active router-link-active"><i
+                class="icon icon-universal-access"></i></a>
+        </nav>
+    </header>
+
+    <div class="page">
+        <div class="page_content">
+            {#          <div class="pulse"></div>#}
+            {#            <div class="app-chat">#}
+            {#                <div class="chat-item">#}
+            {#                    <div class="chat-photo"#}
+            {#                         style="background: url(https://68.media.tumblr.com/7ac0c8b95c993bdcb78ba3c002297742/tumblr_oktkwj20561w0681wo5_250.png) center;"></div>#}
+            {#                    <div class="chat-name">Princess</div>#}
+            {#                    <div class="chat-text">Gosh i am dying</div>#}
+            {#                </div>#}
+            {#                <div class="chat-item">#}
+            {#                    <div class="chat-photo"#}
+            {#                         style="background: url(https://68.media.tumblr.com/deb457d93685fa297412f8c09059a685/tumblr_oktkwj20561w0681wo3_250.png) center;"></div>#}
+            {#                    <div class="chat-name">Monster-R</div>#}
+            {#                    <div class="chat-text">Gosh you're so pretty</div>#}
+            {#                </div>#}
+            {#                <div class="chat-item">#}
+            {#                    <div class="chat-photo"#}
+            {#                         style="background: url(https://68.media.tumblr.com/e98399d16e613ded69d73af36ae6003d/tumblr_oktdilzTO11ugohbjo1_250.jpg) center;"></div>#}
+            {#                    <div class="chat-name">Kookie</div>#}
+            {#                    <div class="chat-text">Gosh this concept</div>#}
+            {#                </div>#}
+            {#                <div class="chat-item">#}
+            {#                    <div class="chat-photo"#}
+            {#                         style="background: url(https://68.media.tumblr.com/e8accc359d22f83ccc27a7ad433b9793/tumblr_oktnma7vqM1w19wsmo8_250.jpg) center;"></div>#}
+            {#                    <div class="chat-name">Jaaclaine</div>#}
+            {#                    <div class="chat-text">#YOU_NEVER_WALK_ALONE</div>#}
+            {#                </div>#}
+            {#            </div>#}
+            {% block page_content %}
+
+            {% endblock %}
+
+
+        </div>
+
+
+    </div>
+    <div class="app-nav">
+        <div class="app-nav-icon"><span class="icon-chat"></span></div>
+        <div class="app-nav-icon"><span class="icon-screen"></span></div>
+        <div class="app-nav-icon"><span class="icon-menu"></span></div>
+        <div class="app-nav-icon"><span class="icon-shop"></span></div>
+        <div class="app-nav-icon"><span class="icon-heart"></span></div>
+    </div>
+
+
+</div>
+</body>
+</html>
+
+

@@ -1,5 +1,5 @@
 {% extends "admin/ad_base.html" %}
-{% block title %}post manage{% endblock %}
+{% block title %}post{% endblock %}
 {% block styles %}
     {{ super() }}
     <style>
@@ -82,17 +82,6 @@
 
 {% block page_content %}
     <div>
-        <div class="post_manger_header">
-            <div>
-                <h2>日志</h2>
-            </div>
-
-
-        </div>
-
-
-
-
         {% if posts %}
 
             {% for post in posts %}

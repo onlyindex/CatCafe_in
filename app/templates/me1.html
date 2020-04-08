@@ -1,0 +1,289 @@
+{% extends 'base1.html' %}
+{% block title %}about me{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <style>
+        .site_author {
+            text-align: center;
+            margin-top: 120px;
+        }
+
+
+        .me_summary {
+            line-height: 1.4;
+            font-weight: 200;
+            padding: 28px 0 14px;
+        }
+
+
+        .me_summary p {
+            color: #666;
+            line-height: 1.8;
+
+        }
+
+        .me_summary strong {
+            font-weight: 400;
+            color: #333;
+        }
+
+        .me_summary b {
+            font-weight: 300;
+            color: #333;
+        }
+
+        .me_summary del {
+            font-size: 10px;
+            opacity: .3;
+            margin: .5em 0 0 -2em;
+            position: absolute;
+        }
+
+        .footer_analysis {
+            margin-left: 80px;
+        }
+{#jixuzhuijia#}
+
+.page {
+            padding: 0px;
+
+        }
+
+        .sidebar {
+            display: none;
+        }
+
+        @media (max-width: 720px) {
+            .mycard {
+                position: relative;
+            top: 50%; /*偏移*/
+            margin-top: 0rem;
+                        {#margin-bottom: 100px;#}
+
+
+                width: 100%;
+            }
+
+        }
+
+
+        .mycard {
+            position: relative;
+            top: 50%; /*偏移*/
+            margin-top: 20rem;
+        {#margin-bottom: 100px;#}
+        {#    box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);#} background-color: #ddd;
+            background-image: repeating-linear-gradient(-45deg, #fff, #fff 4px, transparent 4px, transparent 8px);
+        }
+
+
+        .mycard .nav {
+            color: #bbb;
+        }
+
+        .mycard .nav .item {
+            display: inline-block;
+        }
+
+        .mycard .nav .item a {
+            font-size: 14px;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            color: #000;
+            transition-duration: 0.5s;
+            transition-propety: background-color;
+        }
+
+        a.icon {
+            background: none;
+        }
+
+        a {
+            color: #c9cacc;
+            text-decoration: none;
+        }
+
+        code {
+            background-color: #222;
+            color: white;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin: 0 5px;
+            box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.15), 1px 1px 8px rgba(0, 0, 0, 0.15);
+        }
+
+
+        i {
+            background-color: #fa4b8b;
+            color: #fff;
+            border-radius: 2px;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+        }
+
+
+        {#.normal {#}
+        {#display: inline-block;#}{#vertical-align: top;#}
+        {#    background: url("../static/images/like.png") no-repeat 0 0/20px;#}
+        {#    width: 20px;#}
+        {#    height: 20px;#}
+        {#    margin-right: 4px;#}
+
+        .active {
+            display: inline-block;
+            vertical-align: top;
+
+            background: url("../static/images/like_activate.png") no-repeat 0 0/20px;
+            width: 20px;
+            height: 20px;
+        {#margin-right: 4px;#}
+        }
+
+
+
+
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
+
+{% block page_content %}
+    {{ super() }}
+
+
+    <div class="me_summary">
+        <p>🐣</p>
+        <p>1989 B型♋巨蟹座,暂居珠海。</p>
+        <p>2011 进入互联网,先后从事 <strong>SEO优化</strong>、<strong>运营</strong>、<strong>产品喵</strong>
+            工作，熟悉 <b>谷歌百度统计工具</b> ,擅长和 <b>用户交流</b>
+            <del>吹水尬聊</del>
+            喜欢琢磨用户都在想什么,熟练使用 <b>EXCEL</b> 分析数据 ，花样折腾
+            <del>瞎抄</del>
+            过<b>不少</b>产品。
+        <p>2014 学习 <strong>sketch & AI</strong> 开始<strong>产品界面设计</strong>
+            <del>开脑洞</del>
+            ，每天总觉得只差一个程序员。
+        </p>
+        <p>2015 接触 <strong>python & swift编程</strong>，开始<b>自己造轮子</b>
+            <del>写bug🐛</del>
+            旅程</strong>。 希望能写出有趣
+            <del>bigger</del>
+            の产品
+            <del>拖延</del>
+            </a>~<br>
+            <small>代码开源在 <a href="https://github.com/onlyindex">GitHub</a></small>
+            .
+        </p>
+        <p>兴趣爱好广泛，用❤️发电、野生无证，玩的内容五花八门: 互联网产品，设计，运营，技术开发，bug处理，数据挖掘，市场商业化，心理学、占星学、画画、lolita等,被分门别类整理成册。
+        </p>
+        <small>整理记录在 <a href="/post/" href="{{ url_for('post.posts') }}" class="">日誌</a></small>
+        .
+
+    </div>
+    <div class="mycard text-center">
+        <div class="site_author">
+            <img class="author_image" alt="Onlyindex"
+                 src="{{ url_for('static',filename='static/images/myself.jpg') }}">
+            <sup>野良喵</sup>
+            <p><a class="author_name" href="/me">OnlyIndex</a></p>
+            <code> 自由散漫/脑洞狠黑/废柴呆萌宅/人形图书馆</code>
+            <div class="author_description">不会代码&占星の设计师不是好产品喵ฅTㅅTฅ</div>
+        </div>
+
+        {#  <hr>#}
+
+
+        <ul class="text-center nav">
+
+            <li class="item">
+
+                <a href="/post">Blog</a>
+
+                <span>|</span>
+            </li>
+            <li class="item">
+
+                <a href="https://github.com/onlyindex">Github</a>
+
+                <span>|</span>
+            </li>
+
+            <li class="item">
+
+                <a href="https://i.ui.cn/ucenter/93339">Behance</a>
+
+                <span>|</span>
+            </li>
+            <li class="item">
+
+                <a href="#">Pivix</a>
+
+                <span>|</span>
+            </li>
+            <li class="item">
+
+                <a href="https://leetcode.com/onlyindex/">LeetCode</a>
+
+                <span>|</span>
+            </li>
+            <li class="item">
+
+                <a href="#">Weibo</a>
+
+                <span>|</span>
+            </li>
+
+            <li class="item">
+
+                <a href="https://www.zhihu.com/people/BearRobot">Zhihu</a>
+
+                <span>|</span>
+            </li>
+            <li class="item">
+
+                <a href="https://www.jianshu.com/u/10bd21526a98">Jianshu</a>
+            </li>
+
+        </ul>
+        {#        <a class="icon" target="_blank" rel="noopener" href="https://github.com/Sunnyyoung">#}
+        {#            <i class="fab fa-github"></i><!--#}
+        {#      ---></a>#}
+        <div class="like_me ">
+            <i class="active"></i>182
+        </div>
+
+    </div>
+    小熊座少女index，巨蟹座，血型b型，珠海人士，职业做产品 ，萌点待发现。很精分，喜欢喝善良，乐观，充满活力和智慧，乐俊一样的人做朋友，但是又把有趣，专注，挑战极限的人当做对手。
+
+    小熊有很多的分身，ID是由许多花式折腾的呆萌少女组合在一起的。她们 以吞食互联网信息为生，一直在面向个人层面的心理领域和面向社会的层面的政治&经济&金融&文化领域广泛涉猎，发现生活真相，探索自我道路。
+
+
+
+    小熊1号负责微博ID，发布碎碎念。 
+
+    小熊2号负责花瓣ID，搜集学习产品知识，深入垂直领域，外加整理各种设计素材。 
+
+    小熊3号负责知乎ID，努力提高吃瓜姿势。 
+
+    小熊4号负责简书ID，码字写文章。 
+
+    小熊5号负责豆瓣ID，刷影评和漫评。
+
+    小熊6号开产品设计脑洞，画画，各种只管挖坑不管填。
+
+     小熊7号追番，看漫画，看小说，看日剧。 
+
+    小熊8号学英语，翻墙看quora。 
+
+    小熊9号就主要负责微信公众号。 
+
+    比如，我现在就是小熊9号，专门负责运营喵茶会，目前已开通聊天服务。
+    其实办喵茶会一开始只是个玩笑，很想有一个放松自我去做创造性产出的环境，一杯咖啡，一只喵，听着音乐，做产品设计构想，然后完成app发布，去链接用户，去获取共鸣。这是小熊做产品的初心吧。自己太宅不爱现风头，但是又很渴望向世界表达自己得到回应，喵茶会承载我渴望与人链接深入交流的心情。要自信勇敢表达口号喊了很多年，2017小熊砸掉瓜，尝试做分享，未来就在脚下。
+
+{% endblock %}

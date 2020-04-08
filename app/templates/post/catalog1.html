@@ -1,0 +1,257 @@
+{% extends "base1.html" %}
+{% block title %}文集{% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        .catalog_img {
+            height: 200px;
+            width: 150px;
+        }
+
+        span.catalog_total {
+            color: #eee;
+            top: -180px;
+            left: -40px;
+            position: relative;
+            background-color: #22222233;
+            padding: 1px;
+            width: 20px;
+            margin: 12px;
+            display: inline-block;
+            text-align: center;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+
+        li.catalog_info {
+            float: left;
+            margin-left: 10px;
+            padding: 20px;
+        }
+
+        .post_item_catalog {
+            margin-right: 16px !important;
+            margin-left: 0 !important;
+        }
+
+        .catalog_color {
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #bbbbbb;
+        }
+
+        .catalog_name {
+            font-size: 14px;
+        }
+
+        {#追加杂志样式#}
+        /* 雜誌樣式 */
+        .mgz_list {
+            position: relative;
+
+             {#margin-top:120px;#}
+        }
+
+        .magazine {
+            {#display: inline-block;#}
+            {#float: left;#}
+            {#width: 320px;#}
+            margin-right: 10px;
+        }
+
+        .magazine a {
+            width: 320px;
+            height: 480px;
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .mgz_img {
+            width: 320px;
+            height: 480px;
+            box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+            -moz-box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+        }
+
+        /* 添加时间样式 */
+
+        .info {
+            position: relative;
+            top: 40px;
+            left: 280px;
+            z-index: 20;
+        }
+
+        .info .date {
+            color: #fff;
+            border-color: #e6c226;
+            width: 60px;
+            height: 60px;
+            border: 1px solid #e6c226;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            background-color: #e6c226;
+        }
+
+        .info a {
+            display: block;
+            text-align: center;
+        }
+
+        .info .day {
+            font-size: 20px;
+            padding: 7px 0 0;
+        }
+
+        .info span {
+            display: block;
+            text-align: center;
+        }
+
+        /* 设置刊期名 */
+
+        .button {
+            max-width: 80%;
+            position: relative;
+            top: -50%;
+            left: 5%;
+            color: white;
+            background: transparent;
+            border-width: 2px;
+            border-style: solid;
+            border-color: white;
+            position: relative;
+            display: inline-block;
+            padding: 0.5em 1em;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+            font-family: comfortaa;
+            font-weight: bold;
+            text-transform: none;
+            font-family: sans-serif;
+            font-size: 34px;
+            overflow: visible;
+        }
+
+        .button:before {
+            border-color: white;
+            top: -6px;
+            left: -6px;
+            border-width: 2px 0 0 2px;
+            z-index: 5;
+            content: "";
+            display: block;
+            position: absolute;
+            border-color: white;
+            box-sizing: border-box;
+            border-style: solid;
+            width: 1em;
+            height: 1em;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .button:after {
+            bottom: -6px;
+            right: -6px;
+            border-width: 0 2px 2px 0;
+            border-color: white;
+            content: "";
+            display: block;
+            position: absolute;
+            border-color: white;
+            box-sizing: border-box;
+            border-style: solid;
+            width: 1em;
+            height: 1em;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        p.author {
+            font-size: 12px;
+        }
+
+        .button p {
+            padding: -12px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block page_content %}
+    {% if catalogs %}
+        <h2>文集</h2>
+        <ul id="catalog_list">
+            {% for catalog in catalogs %}
+                <li class="catalog_info">
+                    <img class="catalog_img"
+                         src="{{ url_for('static',filename='static/images/catalog_img.jpg') }}">
+                    <span class="catalog_total">{{ catalog.catalog_total }}</span>
+
+                    <br>
+                    <span class="post_item_catalog">
+{#                        <span class="catalog_color"></span>#}
+                        <span class="catalog_name">
+                            <a href="{{ url_for('post.catalogs',catalog_name=catalog.catalog_name) }}">{{ catalog.catalog_name }}</a><br>
+                        </span>
+                    </span>
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No Catalog
+    {% endif %}
+    <h2>꧁期刊꧂</h2>
+    <div class="mgz_list">
+        <div class="magazine">
+            <div class="info box">
+                <a class="date" href="https://lofterphoto3.lofter.com/post/10e991_2d3bc5">
+                    <span class="day">06</span><span class="month">Nov</span>
+                </a>
+            </div>
+            <a href="/magazines/5776/">
+                <img class="mgz_img"
+                     src="http://rs.sfacg.com/web/novel/images/NovelCover/Big/2019/12/dbcc4afa-7d2e-457e-af42-9b12a483d7ca.jpg">
+                <div class="button">
+                    <p>种花家养兔手册
+                    <p>
+                    <p class="author">@index1号机</p>
+                </div>
+            </a>
+            </li>
+            </ul>
+        </div>
+        <div class="magazine">
+            <div class="info box">
+                <a class="date" href="https://lofterphoto3.lofter.com/post/10e991_2d3bc5">
+                    <span class="day">06</span><span class="month">Nov</span>
+                </a>
+            </div>
+            <a href="/magazines/5776/">
+                <img class="mgz_img"
+                     src="http://rs.sfacg.com/web/novel/images/NovelCover/Big/2019/12/dbcc4afa-7d2e-457e-af42-9b12a483d7ca.jpg">
+                <div class="button">
+                    <p>种花家养兔手册
+                    <p>
+                    <p class="author">@index1号机</p>
+                </div>
+            </a>
+            </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

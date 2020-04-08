@@ -1,5 +1,5 @@
 {% extends "admin/ad_base.html" %}
-{% block title %}comment manage{% endblock %}
+{% block title %}comment{% endblock %}
 {% block styles %}
     {{ super() }}
     <style>
@@ -83,7 +83,6 @@
 
 
     {% if comments %}
-
         {% for comment in comments %}
             <div id="comment_id">
                 <div class="cm_content">
@@ -101,19 +100,15 @@
                         <div class="cm_3">
                             <span class="cm_date cm_left">{{ comment.comment_timestamp }}</span>
                             <span class="cm_right">回复</span>
-                            <span class="cm_right">批准</span>
                             <span class="cm_right">删除</span>
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
-
         {% endfor %}
 
     {% else %}
         No comments
     {% endif %}
+    <a href="#">more comments</a>
 {% endblock %}

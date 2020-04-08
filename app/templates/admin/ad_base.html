@@ -76,55 +76,31 @@
                         {% endif %}
                     </div>
                     <div class="nav_links">
-                        <div class="grey_li ">
-                            <a class=" ">仪表盘</a>
-                        </div>
+
                         <div class="white_li">
-                            <a href="{{ url_for('admin.dashboard') }}" class="nav-link">仪表盘</a>
-                        </div>
-                        <div class="grey_li">
-                            <a class="">日志</a>
+                            <a href="{{ url_for('admin.dashboard') }}" class="nav-link">桌面</a>
                         </div>
                         <div class="white_li show_posts">
                             <a href="{{ url_for('admin.manage_post' ) }}"
-                               class=" " href="#">草稿箱<span>1353</span></a>
+                               class=" " href="#">日志<span>1353</span></a>
                         </div>
-                        <div class="white_li draft_posts">
-                            <a href="#">已发日志<span>1353</span></a>
-                        </div>
-                        <div class="white_li hide_posts">
-                            <a href="#">垃圾箱<span>1353</span></a>
-                        </div>
-                        <div class="grey_li">
-                            <a class="">评论</a>
-                        </div>
+
                         <div class="white_li  show_comments">
                             <a href="{{ url_for('admin.manage_comment' ) }}"
-                               class=" selected " href="#">待处理评论<span>1353</span></a>
+                               class=" selected " href="#">评论<span>1353</span></a>
                         </div>
-                        <div class="white_li draft_posts">
-                            <a class="" href="#">已处理评论<span>1353</span></a>
-                        </div>
-                        <div class="grey_li">
-                            <a class="">用户</a>
-                        </div>
+
                         <div class="white_li all_posts">
                             <a class=" selected " href="#">读者<span>1353</span></a>
                         </div>
                         {#早期按注册时间，按照评论数排列比较好#}
-                        <div class="white_li show_posts ">
-                            <a href="#">黑名单<span>1353</span></a>
-                        </div>
-                        <div class="grey_li">
-                            <a class="">更多</a>
-                        </div>
                         <div class="white_li all_posts">
                             <a href="{{ url_for('admin.manage_catalog' ) }}" class="selected "
                                href="#">分类<span>1353</span></a>
                         </div>
-                        <div class="white_li show_posts">
-                            <a href="#">标签<span>1353</span></a>
-                        </div>
+{#                        <div class="white_li show_posts">#}
+{#                            <a href="#">标签<span>1353</span></a>#}
+{#                        </div>#}
                     </div>
                     <footer class="footer">
 

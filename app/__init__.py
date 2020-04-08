@@ -53,9 +53,9 @@ def create_app():
     # the minimal flask application
     @app.route('/', methods=['GET'])
     def home():
-        return render_template('home.html')
+        return render_template('base1.html')
 
     @app.route('/me', methods=['GET'])
     def me():
-        return render_template('me.html')
+        return render_template('me1.html')
     return app

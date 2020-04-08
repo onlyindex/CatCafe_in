@@ -1,0 +1,409 @@
+html {
+    background-color: #000000;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    -webkit-text-size-adjust: none;
+    background-attachment: fixed;
+    background-image: url(https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1582831847604&di=a3618aa6cb1bf49d75a60a04ad4abc1a&imgtype=0&src=http%3A%2F%2Fgss0.baidu.com%2F94o3dSag_xI4khGko9WTAnF6hhy%2Fzhidao%2Fpic%2Fitem%2F8644ebf81a4c510f49cd6bbd6159252dd42aa508.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+
+}
+
+
+body{font-family: 'Audiowide','VT323', cursive,serif;}
+/*body{font-family: 'Audiowide','VT323', cursive,serif;}*/
+
+
+
+.app {
+    /*   background-image: url(http://www.liangsonghua.com/wp-content/themes/wexin/images/wx_di.png); */
+    background-color: rgba(255, 255, 255, 0.50);
+    -webkit-border-radius: 0 0 6px 6px;
+    width: 350px;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    padding-bottom: 15px;
+    position: fixed;
+    top: 20%;
+    right: 20%;
+}
+
+.topbar {
+    /*   background-image: url(http://www.liangsonghua.com/wp-content/themes/wexin/images/wx_top.png); */
+    height: 45px;
+    width: 350px;
+    /*     background-repeat: no-repeat; */
+}
+
+.topbar_content {
+    width: 100%;
+    height: 45px;
+    align-items: center;
+    justify-content: center !important;
+background：hsla(209, 89 %, 64 %, 0.3);
+}
+
+
+/* .topbar a {
+    text-decoration: none;
+    display: block;
+    height: 45px;
+    width: 45px;
+} */
+
+.border-bottom {
+    position: relative;
+}
+
+.flex {
+    display: flex;
+}
+
+.topbar-content-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 44px;
+    z-index: -1;
+}
+
+.topbar .title-bar .back {
+    left: .05rem;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAYAAACohjseAAAAAXNSR0IArs4c6QAAAeNJREFUaAXt2T1OhEAUB3BAD2GAeAk+rmDrVppsaW1nPIWdV1gLEy9gt63QaqImNpsAlbWV4HuGMRsy7hjm65m8SdZFdmaY358BZrNBwIUT4AQ4AU6AE+AEOAFOgBPwk0Do57BBUJblUd/3F3D8TRRFl1VVvdsYy76NTlV95nl+CrjVMAx7WBe28e0M/5gukekOVf0hDur84Mb6h6p2cz93CiyK4mSKC8PwE6bo1VyAqp0zIOJgSt6IaYkDQxy8lnD93asGOvdzJzeZXbi6rm/nDv4v7awDfeIwAKtA3zirQAo4a0AqOCtASjjjQGo4BH4vlXBDt4wrFOlzzvajYNfYjdxFZcsv8RD3iUO4NjDLsmPA3MlWKL5xCNReqgHumirOCBA7mRYAa8+MaZ9z/9c+g4A5x+tNDGA8m6vxuhS7vb1r30W7rntOkuQFBAt4icAiQC/iOH5t2/bRmw4OrA3EwQPiiSrSCJAy0hiQKtIokCLSOJAa0gqQEtIakArSKpAC0jrQN9IJUIVM0/ShaZo3rGe6iKWV6X6l/eHXJ1jCLadr1/FHGGkb3Z1OgThYGRJ2b3Qhv7V3NkW3B4BrV5yWsO8AzuYafz6DKfqxXYe3OQFOgBPgBDgBToAT4AQ4gf+ewBchHzZMyp46tQAAAABJRU5ErkJggg==);
+}
+
+.topbar .title-bar .share {
+    right: .1rem;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAABICAYAAABV7bNHAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAASKADAAQAAAABAAAASAAAAACQMUbvAAAB40lEQVR4Ae2awW3CQBBFTY50wYmcSRGYNJDcqID0EjrgBOkAqqELriSDEmuNMA+bKFrIG2ml2f3LMPv4WvtAb/8VhdFI4KFRUTgQEBAYQUACAgIg6yABAQGQdZCAgADIOkhAQABkHSQgIACyDhIQEABZBwkICICsgwQEBEDWQQICAiDrIAEBAZB1kICAAMg6SEBAAGQdJCAgALIO+gtAu92uiHFt5FYnznOVg1arj2IyeS5Go6fDiDzW2kZuddL+e13/HzSbvRWbzSatVeVlWRbz+Xs1P5fkVue4104Oil+8CU58wXq9vshJudU5hhPzToAWi8WpWrW1W9xTO8D3pDWguEi32+2pWrW12HPu4s6tTq35ZNIaUPLZf5G2BtTv94vBYIBwYk/sbYrc6jT12RpQFJpOp031qvVb3FM1nySdAL2+vhTj8TgpU0/jMR97KHKrc7LfeA/qGsvlal+Wk/1w+HgYkcda28itTtp/5xfFlPbP0+rcnZPub8pzqxN9/gqgpgPfw3qnO+geDn7pGQQEpAQkICAAsg4SEBAAWQcJCAiArIMEBARA1kECAgIg6yABAQGQdZCAgADIOkhAQABkHSQgIACyDhIQEABZBwkICICsgwQEBEDWQQICAiDrIAD0CZEYqBLPjXgsAAAAAElFTkSuQmCC);
+}
+
+.topbar .title-bar .iconpic {
+    display: inline-block;
+    color: #252526;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.topbar .mobile-logo {
+    height: 1.5rem;
+}
+
+.page {
+    /*   background-color: #F4F4F4; */
+    /*   background-color: rgba(255, 255, 255, 0.50); */
+    padding-top: 10px;
+    padding-left: 10px;
+    overflow: auto;
+    /* 自动向下滚动*/
+    overflow-y: scroll;
+}
+
+.author {
+    height: 75px;
+    padding-left: 12px;
+    padding-bottom: 24px;
+    margin: auto;
+    width: 272px;
+    padding-top: 24px;
+}
+
+.author_right {
+    float: right;
+    width: 200px;
+}
+
+.author_left {
+    margin-right: 12px;
+    float: left;
+}
+
+.author_img {
+    height: 52px;
+    width: 52px;
+    display: block;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+
+    -moz-box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+
+}
+
+.title {
+    font-size: 15px;
+    height: 20px;
+    line-height: 15px;
+    font-family: "Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif";
+    color: #333333;
+    padding-top: 7px;
+    display: block;
+    float: left;
+    /*     width: 200px; */
+    width: 100%;
+    font-weight: bold;
+}
+
+.des {
+    color: #9A9A9A;
+    line-height: 25px;
+    font-family: "Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif";
+    font-size: 12px;
+    display: block;
+    /*     width: 200px; */
+    width: 100%;
+    background-position: left 5px;
+}
+
+.post_time {
+    max-width: 116px;
+    background-color: #bbb;
+    font-size：12px;
+    font-family: Arial;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 20px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: auto;
+    background-color: #BDBDBD;
+    -webkit-border-radius: 10px;
+    margin-right: auto;
+}
+
+.post {
+
+    border: 1px solid #DDD;
+    background-color: #FFFFFF;
+    -webkit-border-radius: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+    /*   box-shadow: 1px 1px 5px 5px rgba(110,255,220,0.35); */
+    /*     -moz-box-shadow: 1px 1px 5px 5px rgba(110,255,220,0.35); */
+    box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+
+    -moz-box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+}
+
+.post_img {
+    padding-top: 0px;
+    position: relative;
+
+}
+
+.post_img .content_img {
+    width: 100%;
+    -webkit-border-radius: 10px 10px 0 0;
+}
+
+.post_read {
+    position: absolute;
+    z-index: 2;
+    top: 200px;
+    color: #ffff;
+    text-indent: 1em;
+}
+
+.post_title {
+    padding-top: 2px;
+    text-indent: 24px;
+    padding-bottom: 2px;
+    font-color: #333;
+    font-size: 16px;
+}
+
+.post_lead {
+    font-size: 12px;
+    font-color: #bbb;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link { /*默认状态*/
+    color: black;
+}
+
+a:visited { /*浏览过的*/
+    color: blue;
+}
+
+a:hover { /*悬浮状态*/
+    color: blue;
+}
+
+a:active { /*激活过的*/
+    color: blue;
+}
+
+/* 菜单样式1设置 */
+
+/* pc端效果设置 */
+@media screen and (min-width: 1080px) {
+
+    html {
+    url(https://jingyan.baidu.com/album/d5c4b52ba102beda560dc508.html?picindex=6);
+    }
+
+    .app {
+        width: 1080px;
+        box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+        -moz-box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+    }
+
+    .topbar {
+        width: 1080px;
+        background-color: rgba(80, 141, 234, 0.3);
+    }
+
+    .topbar .title-bar .back {
+        width: 40px;
+        height: 40px;
+        left: -1rem;
+        top: 4rem;
+    }
+
+    .topbar .title-bar .iconpic {
+        width: 40px;
+        height: 40px;
+        right: -1rem;
+        top: 4rem;
+        box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+        -moz-box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+    }
+
+    .topbar .iconpic {
+        display: inline-block;
+        padding: 5px;
+        background: #fff;
+        font-size: 26px;
+        border-radius: 50% ；
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        margin-top: -20px;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+        cursor: pointer;
+        -webkit-transition: -webkit-transform 0.3s cubic-bezier(0, .99, .44, 1.4);
+        -moz-transition: -moz-transform 0.3s cubic-bezier(0, .99, .44, 1.4);
+        -o-transition: -o-transform 0.3s cubic-bezier(0, .99, .44, 1.4);
+        -ms-transition: -ms-transform 0.3s cubic-bezier(0, .99, .44, 1.4);
+        transition: transform 0.3s cubic-bezier(0, .99, .44, 1.4);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .topbar .mobile-logo {
+        height: 2.5rem;
+    }
+
+    .author_img {
+        height: 120px;
+        width: 120px;
+    }
+
+    .author {
+        width: 562px;
+    }
+
+    .author_right {
+        width: 430px;
+    }
+
+    .title {
+        font-size: 30px;
+        height: 40px;
+        line-height: 30px;
+        padding-top: 15px;
+    }
+
+    .des {
+        font-size: 24px;
+        line-height: 50px;
+    }
+
+
+}
+
+
+
+/*个人头像*/
+.profile {
+    width: 360px;
+    height: 100px;
+    position: absolute;
+    top: 10%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    border-radius: 50px;
+    /*background-color: #fafafa;*/
+    /*box-shadow: 0 0 2rem #babbbc;*/
+    background-color: rgba(255, 255, 255, 0.50);
+    box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+    -moz-box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+    animation: show-profile 0.5s forwards ease-in-out;
+}
+.profile .photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #fafafa;
+    background-color: #fafafa;
+    margin-left: -50px;
+    /*box-shadow: 0 0 0.5rem #babbbc;*/
+    box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+    -moz-box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+    animation: rotate-photo 0.5s forwards ease-in-out;
+    position: relative;
+    top: 0px;
+    left: 50px;
+}
+.profile .photo, .profile .content {
+    box-sizing: border-box;
+}
+.profile .photo img {
+    width: 100%;
+}
+.profile .content {
+    padding: 10px;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.profile .content .text {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+.profile .content .text h3, .profile .content .text h6 {
+    font-weight: normal;
+    margin: 3px 0;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    position: relative;
+    left: 80px;
+}
+* {
+    outline: none;
+    user-select: none;
+}
