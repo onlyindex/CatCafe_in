@@ -1,16 +1,578 @@
 {% extends "admin/ad_base.html" %}
-{% block title %}dashboard{% endblock %}
+{% block title %}概览{% endblock %}
 {% block styles %}
     {{ super() }}
     <style>
+        .weui-desktop-panel {
+            padding: 24px 40px;
+        }
+
+        .weui-desktop-panel__hd {
+            padding: 16px 0;
+        }
+
+        .weui-desktop-panel__bd {
+            padding: 16px 0;
+        }
+
+        .weui-desktop-home-overview {
+            text-align: center;
+            padding: 24px 0 56px;
+        }
+
+        .weui-desktop-data-overview-list {
+            /* padding: 0 20px; */
+            font-size: 0;
+        }
+
+        .weui-desktop-data-overview {
+            width: 33%;
+        }
+
+        .weui-desktop-data-overview {
+            display: inline-block;
+            vertical-align: top;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .weui-desktop-data-overview__title {
+            color: #353535;
+            font-weight: 400;
+        }
+
+        .weui-desktop-data-overview__desc {
+            font-size: 42px;
+            padding-top: 16px;
+        }
+
+        .weui-desktop-data-overview__desc {
+            padding-top: 24px;
+            display: block;
+            font-style: normal;
+            line-height: 1.2;
+            font-size: 32px;
+        }
+
+        {#追加#}
+        .bPTSj {
+            margin: 40px 0px;
+        }
+
+        .bEwXOw {
+            box-sizing: border-box;
+            background-color: rgb(255, 255, 255);
+            padding: 40px;
+        }
+
+
+        .iXApfK {
+            display: flex;
+            border-bottom: 1px solid rgb(214, 222, 229);
+            /* display: inline-block; */
+            vertical-align: top;
+            text-align: center;
+        }
+
+
+        .ddxiIo {
+            position: relative;
+            display: inline-block;
+            text-align: left;
+            white-space: nowrap;
+            margin-right: 40px;
+            cursor: pointer;
+            padding: 0px 12px 12px;
+            overflow: hidden;
+        }
+
+        .bStxRo {
+            font-size: 12px;
+            line-height: 14px;
+            color: rgb(153, 153, 153);
+            white-space: nowrap;
+        }
+
+        .hHhJRC {
+            font-family: "Helvetica Neue", Roboto, sans-serif;
+            font-size: 40px;
+            line-height: 47px;
+            color: rgb(153, 153, 153);
+            transition: color 0.2s cubic-bezier(0, -0.06, 0.04, 1) 0s;
+        }
+
+        .fNdHu {
+            margin-left: 4px;
+        }
+
+        .fsMemu {
+            font-family: "Helvetica Neue", Roboto, sans-serif;
+            font-size: 40px;
+            line-height: 47px;
+            color: rgb(112, 214, 95);
+            transition: color 0.2s cubic-bezier(0, -0.06, 0.04, 1) 0s;
+        }
+
+        .kBYjse::after {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            height: 8px;
+            background-color: rgb(112, 214, 95);
+            transform: translateY(0%);
+            transition: transform 0.2s ease-out 0s;
+        }
+
+        .fNdHu {
+            margin-left: 4px;
+        }
+
+        .kBYjse {
+            position: relative;
+            display: inline-block;
+            text-align: left;
+            white-space: nowrap;
+            margin-right: 40px;
+            cursor: pointer;
+            padding: 0px 12px 12px;
+            overflow: hidden;
+        }
 
 
 
 
+        {#追加曲线图#}
+        AnalyticsWork-detailCountBodyHeader {
+            /* -webkit-box-align: center; */
+            -ms-flex-align: center;
+            /* align-items: center; */
+            /* color: #646464; */
+            /* display: -webkit-box; */
+            display: -ms-flexbox;
+            /* display: flex; */
+            height: 60px;
+            /* padding: 0 24px; */
+        }
 
+        .AnalyticsChart {
+            position: relative;
+        }
+
+        .AnalyticsWork-detailCountChart {
+            border-bottom: 1px solid #ebebeb;
+            padding: 0 24px 30px;
+        }
+
+        .recharts-tooltip-wrapper recharts-tooltip-wrapper-left recharts-tooltip-wrapper-top {
+            pointer-events: none;
+            visibility: visible;
+            position: absolute;
+            top: 0px;
+            transform: translate(352.286px, 12px);
+            transition: -webkit-transform 400ms ease 0s;
+        }
+
+        .AnalyticsChart-tooltip {
+            background: hsla(0, 0%, 100%, .95);
+            border: 1px solid #ebebeb;
+            -webkit-box-shadow: 0 5px 20px 0 rgba(68, 68, 68, .1);
+            box-shadow: 0 5px 20px 0 rgba(68, 68, 68, .1);
+            min-width: 210px;
+            padding: 24px;
+        }
+
+        .AnalyticsChart-tooltipHeader {
+            font-size: 14px;
+            margin-bottom: 24px;
+            text-align: center;
+            font-weight: 600;
+            font-synthesis: style;
+        }
+
+        ol, ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        .AnalyticsChart-tooltipLineItem {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            font-size: 12px;
+            line-height: 16px;
+            margin-bottom: 16px;
+        }
+
+        .AnalyticsChart-tooltipLineItemName {
+            -webkit-box-flex: 1;
+            -ms-flex: 1 1;
+            flex: 1 1;
+        }
+
+        .AnalyticsChart-tooltipLineItemValue {
+            color: #0084ff;
+        }
+
+        circle.recharts-dot {
+            cx: 622.286;
+            cy: 215.053;
+            r: 5;
+            fill: rgb(255, 255, 255);
+            stroke-width: 3;
+            stroke: rgb(66, 137, 232);
+        }
+
+        .AnalyticsChart-legend {
+            color: #8590a6;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            font-size: 14px;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            margin-left: 12px;
+            margin-top: 28px;
+        }
+
+        .AnalyticsChart-legendItem {
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            cursor: pointer;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            margin-right: 20px;
+        }
+
+        .AnalyticsChart-legendItemIconContainer {
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            height: 20px;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            margin-right: 4px;
+            width: 20px;
+        }
+
+        svg.Zi.Zi--CheckCircle {
+            color: rgb(66, 137, 232);
+            fill: currentcolor;
+            width: 18;
+            height: 18;
+        }
     </style>
 {% endblock %}
 
 {% block page_content %}
+    <div class="weui-desktop-panel weui-desktop-panel_overview">
+        <div class="weui-desktop-panel__hd"><h3 class="weui-desktop-panel__title">概况</h3></div>
+        <div class="weui-desktop-panel__bd">
+            <div class="weui-desktop-data-overview-list weui-desktop-home-overview">
+                <div class="weui-desktop-data-overview">
+                    <span class="weui-desktop-data-overview__title">
+                        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.882 15.931A8.366 8.366 0 0 0 10 17c4.418 0 8-3.358 8-7.5C18 5.358 14.418 2 10 2S2 5.358 2 9.5c0 2.028.859 3.869 2.254 5.219l-.274 1.35a.5.5 0 0 0 .74.533l1.162-.67zm.074 2.26L2.664 19.48a.8.8 0 0 1-1.077-.896l.603-3.15C.82 13.807 0 11.743 0 9.5 0 4.253 4.477 0 10 0s10 4.253 10 9.5S15.523 19 10 19c-1.44 0-2.807-.289-4.044-.809z"></path>
+                        </svg> 新评论
+                    </span>
+                    <em class="weui-desktop-data-overview__desc">
+                        <a href="/cgi-bin/message?t=message/list&amp;count=20&amp;day=7">0</a>
+                    </em>
+                </div>
+                <div class="weui-desktop-data-overview">
+                    <span class="weui-desktop-data-overview__title">
+                        <svg width="23" height="15" viewBox="0 0 23 15" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19.405 2.667L14 8.845l-5-3-9 8 1 1 8-7 5 3 6.505-7.318 2.279 1.78L22.488 0l-5.22.997 2.137 1.67z"></path>
+                        </svg>新增读者
+                    </span>
+                    <em class="weui-desktop-data-overview__desc">
+                        <a href="/cgi-bin/contactmanage?t=user/index&amp;pagesize=10&amp;pageidx=0&amp;type=0&amp;groupid=0">0</a>
+                    </em>
+                </div>
+                <div class="weui-desktop-data-overview">
+                    <span class="weui-desktop-data-overview__title">
+                        <svg width="21" height="20" viewBox="0 0 21 20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6.221 10.526c-.81-.905-1.08-2.952-1.08-3.526V4.21C5.14 1.915 7.82 0 10.445 0s5.304 2.105 5.304 4.21V7c0 2.297-.749 3-1.08 3.526L13.393 12c-.174.352.23.915 1.276 1.684 1.22.562 2.105 1 2.655 1.316 1.008.579 1.959.947 2.949 2 .99 1.053.982 3-.105 3H.722c-.779 0-1.088-2-.105-3 .983-1 1.586-1.183 2.948-2 .448-.268 1.334-.707 2.656-1.316 1.046-.77 1.45-1.333 1.276-1.684L6.22 10.526zM8 10c.63.632.963.912 1 .842.092.199.092 1.251 0 3.158-5.176 2.667-7.56 4-7.151 4H18l-6-4c-.091-1.906-.091-2.959 0-3.158.128.035.475-.263 1.041-.895.36-.402.73-1.105.85-1.947.162-1.142 0-2.505 0-3.421C13.89 2.989 12 2 10 2S7 4 7 5c0 .845-.156 1.91 0 3a3.362 3.362 0 0 0 1 2z">
+                            </path>
+                        </svg> 总读者数
+                    </span>
+                    <em class="weui-desktop-data-overview__desc">
+                        <a href="/cgi-bin/contactmanage?t=user/index&amp;pagesize=10&amp;pageidx=0&amp;type=0&amp;groupid=0">13</a>
+                    </em>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="sc-17e4vjg-0 bPTSj">
+        <div class="dv5ck1-0 bEwXOw">
+            <div class="ku7gxv-0 iXApfK">
+                <div class="wpmh11-3 ddxiIo">
+                    <div class="wpmh11-0 bStxRo">赏金</div>
+                    <div class="wpmh11-1 hHhJRC">0.9<span class="wpmh11-2 fNdHu"></span></div>
+                </div>
+                <div class="wpmh11-3 kBYjse">
+                    <div class="wpmh11-0 bStxRo">打赏者</div>
+                    <div class="wpmh11-1 fsMemu">12<span class="wpmh11-2 fNdHu"></span></div>
+                </div>
+                <div class="wpmh11-3 eaBzXh">
+                    <div class="wpmh11-0 bStxRo">读者数</div>
+                    <div class="wpmh11-1 hHhJRC">1000<span class="wpmh11-2 fNdHu"></span></div>
+                </div>
+            </div>
+            <div class="select_plug">
+                <div class="iIuPto">
+                    <div class="kOLcJ">
+                        <select class="select_options">
+                            <option value="month">最近30天</option>
+                            <option value="quarter">最近90天</option>
+                            <option value="year">最近365天</option>
+                            <option value="all">全部期间</option>
+                        </select>
+                    </div>
+                    <div class="cpoGLv">
+                        <div class="recharts-responsive-container" style="width: 100%; height: 100%;">
+                            <div style="position: absolute; width: 0px; height: 0px; visibility: hidden; display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="AnalyticsWork-detailCountSection">
+        <div class="AnalyticsWork-detailCountBodyHeader"></div>
+        <div class="AnalyticsChart AnalyticsWork-detailCountChart">
+            <div id="undefined" class="recharts-responsive-container" style="width: 100%; height: 450px;">
+                <div class="recharts-wrapper" style="position: relative; cursor: default; width: 730px; height: 450px;">
+                    <svg class="recharts-surface" width="730" height="450" viewBox="0 0 730 450" version="1.1">
+                        <defs>
+                            <clipPath id="recharts302-clip">
+                                <rect x="48" y="12" height="360" width="670"></rect>
+                            </clipPath>
+                        </defs>
+                        <g class="recharts-layer recharts-cartesian-axis recharts-xAxis xAxis">
+                            <line class="recharts-xAxis xAxis" orientation="bottom" width="670" height="30"
+                                  type="category" x="48" y="372" viewBox="[object Object]" stroke="#666" fill="none"
+                                  x1="48" y1="372" x2="718" y2="372"></line>
+                            <g class="recharts-cartesian-axis-ticks">
+                                <g class="recharts-layer recharts-cartesian-axis-tick">
+                                    <line class="recharts-xAxis xAxis" orientation="bottom" width="670" height="30"
+                                          type="category" x="48" y="372" viewBox="[object Object]" stroke="#EBEBEB"
+                                          fill="none" x1="167.64285714285714" y1="382" x2="167.64285714285714"
+                                          y2="372"></line>
+                                    <text orientation="bottom" width="670" height="30" type="category"
+                                          x="167.64285714285714" y="392" viewBox="[object Object]" stroke="none"
+                                          fill="#1A1A1A" font-size="12"
+                                          class="recharts-text recharts-cartesian-axis-tick-value" text-anchor="middle">
+                                        <tspan x="167.64285714285714" dy="0.71em">2020-03-17</tspan>
+                                    </text>
+                                </g>
+                                <g class="recharts-layer recharts-cartesian-axis-tick">
+                                    <line class="recharts-xAxis xAxis" orientation="bottom" width="670" height="30"
+                                          type="category" x="48" y="372" viewBox="[object Object]" stroke="#EBEBEB"
+                                          fill="none" x1="335.1428571428571" y1="382" x2="335.1428571428571"
+                                          y2="372"></line>
+                                    <text orientation="bottom" width="670" height="30" type="category"
+                                          x="335.1428571428571" y="392" viewBox="[object Object]" stroke="none"
+                                          fill="#1A1A1A" font-size="12"
+                                          class="recharts-text recharts-cartesian-axis-tick-value" text-anchor="middle">
+                                        <tspan x="335.1428571428571" dy="0.71em">2020-03-24</tspan>
+                                    </text>
+                                </g>
+                                <g class="recharts-layer recharts-cartesian-axis-tick">
+                                    <line class="recharts-xAxis xAxis" orientation="bottom" width="670" height="30"
+                                          type="category" x="48" y="372" viewBox="[object Object]" stroke="#EBEBEB"
+                                          fill="none" x1="502.6428571428571" y1="382" x2="502.6428571428571"
+                                          y2="372"></line>
+                                    <text orientation="bottom" width="670" height="30" type="category"
+                                          x="502.6428571428571" y="392" viewBox="[object Object]" stroke="none"
+                                          fill="#1A1A1A" font-size="12"
+                                          class="recharts-text recharts-cartesian-axis-tick-value" text-anchor="middle">
+                                        <tspan x="502.6428571428571" dy="0.71em">2020-03-31</tspan>
+                                    </text>
+                                </g>
+                                <g class="recharts-layer recharts-cartesian-axis-tick">
+                                    <line class="recharts-xAxis xAxis" orientation="bottom" width="670" height="30"
+                                          type="category" x="48" y="372" viewBox="[object Object]" stroke="#EBEBEB"
+                                          fill="none" x1="718" y1="382" x2="718" y2="372"></line>
+                                    <text orientation="bottom" width="670" height="30" type="category" x="686.53125"
+                                          y="392" viewBox="[object Object]" stroke="none" fill="#1A1A1A" font-size="12"
+                                          class="recharts-text recharts-cartesian-axis-tick-value" text-anchor="middle">
+                                        <tspan x="686.53125" dy="0.71em">2020-04-09</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                        </g>
+                        <g class="recharts-layer recharts-cartesian-axis recharts-yAxis yAxis">
+                            <line class="recharts-yAxis yAxis" orientation="left" width="60" height="360" type="number"
+                                  x="-12" y="12" viewBox="[object Object]" fill="none" x1="48" y1="12" x2="48"
+                                  y2="372"></line>
+                            <g class="recharts-cartesian-axis-ticks">
+                                <g class="recharts-layer recharts-cartesian-axis-tick">
+                                    <line class="recharts-yAxis yAxis" orientation="left" width="60" height="360"
+                                          type="number" x="-12" y="12" viewBox="[object Object]" fill="none" x1="42"
+                                          y1="372" x2="48" y2="372"></line>
+                                    <text stroke="none" orientation="left" width="60" height="360" type="number" x="32"
+                                          y="372" viewBox="[object Object]" fill="#1A1A1A" font-size="12"
+                                          class="recharts-text recharts-cartesian-axis-tick-value" text-anchor="end">
+                                        <tspan x="32" dy="0.355em">0</tspan>
+                                    </text>
+                                </g>
+                                <g class="recharts-layer recharts-cartesian-axis-tick">
+                                    <line class="recharts-yAxis yAxis" orientation="left" width="60" height="360"
+                                          type="number" x="-12" y="12" viewBox="[object Object]" fill="none" x1="42"
+                                          y1="282" x2="48" y2="282"></line>
+                                    <text stroke="none" orientation="left" width="60" height="360" type="number" x="32"
+                                          y="282" viewBox="[object Object]" fill="#1A1A1A" font-size="12"
+                                          class="recharts-text recharts-cartesian-axis-tick-value" text-anchor="end">
+                                        <tspan x="32" dy="0.355em">300</tspan>
+                                    </text>
+                                </g>
+                                <g class="recharts-layer recharts-cartesian-axis-tick">
+                                    <line class="recharts-yAxis yAxis" orientation="left" width="60" height="360"
+                                          type="number" x="-12" y="12" viewBox="[object Object]" fill="none" x1="42"
+                                          y1="192" x2="48" y2="192"></line>
+                                    <text stroke="none" orientation="left" width="60" height="360" type="number" x="32"
+                                          y="192" viewBox="[object Object]" fill="#1A1A1A" font-size="12"
+                                          class="recharts-text recharts-cartesian-axis-tick-value" text-anchor="end">
+                                        <tspan x="32" dy="0.355em">600</tspan>
+                                    </text>
+                                </g>
+                                <g class="recharts-layer recharts-cartesian-axis-tick">
+                                    <line class="recharts-yAxis yAxis" orientation="left" width="60" height="360"
+                                          type="number" x="-12" y="12" viewBox="[object Object]" fill="none" x1="42"
+                                          y1="102" x2="48" y2="102"></line>
+                                    <text stroke="none" orientation="left" width="60" height="360" type="number" x="32"
+                                          y="102" viewBox="[object Object]" fill="#1A1A1A" font-size="12"
+                                          class="recharts-text recharts-cartesian-axis-tick-value" text-anchor="end">
+                                        <tspan x="32" dy="0.355em">900</tspan>
+                                    </text>
+                                </g>
+                                <g class="recharts-layer recharts-cartesian-axis-tick">
+                                    <line class="recharts-yAxis yAxis" orientation="left" width="60" height="360"
+                                          type="number" x="-12" y="12" viewBox="[object Object]" fill="none" x1="42"
+                                          y1="12" x2="48" y2="12"></line>
+                                    <text stroke="none" orientation="left" width="60" height="360" type="number" x="32"
+                                          y="12" viewBox="[object Object]" fill="#1A1A1A" font-size="12"
+                                          class="recharts-text recharts-cartesian-axis-tick-value" text-anchor="end">
+                                        <tspan x="32" dy="0.355em">1.2K</tspan>
+                                    </text>
+                                </g>
+                            </g>
+                        </g>
+                        <g class="recharts-cartesian-grid">
+                            <g class="recharts-cartesian-grid-horizontal">
+                                <line stroke="#EBEBEB" fill="none" x="48" y="12" width="670" height="360"
+                                      offset="[object Object]" x1="48" y1="372" x2="718" y2="372"></line>
+                                <line stroke="#EBEBEB" fill="none" x="48" y="12" width="670" height="360"
+                                      offset="[object Object]" x1="48" y1="282" x2="718" y2="282"></line>
+                                <line stroke="#EBEBEB" fill="none" x="48" y="12" width="670" height="360"
+                                      offset="[object Object]" x1="48" y1="192" x2="718" y2="192"></line>
+                                <line stroke="#EBEBEB" fill="none" x="48" y="12" width="670" height="360"
+                                      offset="[object Object]" x1="48" y1="102" x2="718" y2="102"></line>
+                                <line stroke="#EBEBEB" fill="none" x="48" y="12" width="670" height="360"
+                                      offset="[object Object]" x1="48" y1="12" x2="718" y2="12"></line>
+                            </g>
+                        </g>
+                        <g class="recharts-layer recharts-line">
+                            <path name="阅读数" stroke="#4289E8" stroke-width="3" fill="none"
+                                  points="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+                                  width="670" height="360" class="recharts-curve recharts-line-curve"
+                                  stroke-dasharray="1123.658447265625px 0px" type="linear"
+                                  d="M48,170.7L71.92857142857143,227.7L95.85714285714286,232.50000000000003L119.78571428571428,200.70000000000002L143.71428571428572,213.60000000000002L167.64285714285714,226.5L191.57142857142856,251.40000000000003L215.5,224.4L239.42857142857142,230.1L263.35714285714283,247.79999999999998L287.2857142857143,249L311.2142857142857,196.79999999999998L335.1428571428571,223.8L359.07142857142856,229.19999999999996L383,248.70000000000002L406.9285714285714,230.1L430.85714285714283,226.8L454.7857142857143,257.7L478.71428571428567,255.00000000000003L502.6428571428571,233.7L526.5714285714286,271.5L550.5,264L574.4285714285714,263.4L598.3571428571428,248.40000000000003L622.2857142857142,200.4L646.2142857142857,241.79999999999998L670.1428571428571,195.3L694.0714285714286,222.30000000000004L718,39.900000000000006"></path>
+                        </g>
+                        <g class="recharts-layer recharts-line">
+                            <path name="评论数" stroke="#6AAD53" stroke-width="3" fill="none"
+                                  points="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+                                  width="670" height="360" class="recharts-curve recharts-line-curve"
+                                  stroke-dasharray="670.0244750976562px 0px" type="linear"
+                                  d="M48,372L71.92857142857143,372L95.85714285714286,372L119.78571428571428,372L143.71428571428572,372L167.64285714285714,372L191.57142857142856,372L215.5,372L239.42857142857142,372L263.35714285714283,372L287.2857142857143,371.7L311.2142857142857,372L335.1428571428571,372L359.07142857142856,372L383,372L406.9285714285714,372L430.85714285714283,372L454.7857142857143,372L478.71428571428567,372L502.6428571428571,372L526.5714285714286,371.7L550.5,372L574.4285714285714,372L598.3571428571428,372L622.2857142857142,371.4L646.2142857142857,372L670.1428571428571,372L694.0714285714286,372L718,371.7"></path>
+                        </g>
+                        <g class="recharts-layer recharts-line">
+                            <path name="赞同数" stroke="#F4C32C" stroke-width="3" fill="none"
+                                  points="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+                                  width="670" height="360" class="recharts-curve recharts-line-curve" type="linear"
+                                  d="M48,371.09999999999997L71.92857142857143,371.09999999999997L95.85714285714286,372L119.78571428571428,371.4L143.71428571428572,371.7L167.64285714285714,371.4L191.57142857142856,372L215.5,371.09999999999997L239.42857142857142,371.7L263.35714285714283,372L287.2857142857143,372L311.2142857142857,371.7L335.1428571428571,371.7L359.07142857142856,371.4L383,371.7L406.9285714285714,371.09999999999997L430.85714285714283,371.7L454.7857142857143,371.7L478.71428571428567,372L502.6428571428571,371.7L526.5714285714286,371.7L550.5,371.7L574.4285714285714,371.4L598.3571428571428,372L622.2857142857142,371.7L646.2142857142857,371.4L670.1428571428571,372L694.0714285714286,371.4L718,371.4"></path>
+                        </g>
+                        <g class="recharts-layer recharts-line">
+                            <path name="喜欢数" stroke="#5CBAD9" stroke-width="3" fill="none"
+                                  points="[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+                                  width="670" height="360" class="recharts-curve recharts-line-curve" type="linear"
+                                  d="M48,372L71.92857142857143,372L95.85714285714286,372L119.78571428571428,371.4L143.71428571428572,371.7L167.64285714285714,371.7L191.57142857142856,372L215.5,371.7L239.42857142857142,371.7L263.35714285714283,372L287.2857142857143,371.7L311.2142857142857,372L335.1428571428571,371.7L359.07142857142856,372L383,372L406.9285714285714,372L430.85714285714283,371.7L454.7857142857143,372L478.71428571428567,372L502.6428571428571,372L526.5714285714286,372L550.5,371.4L574.4285714285714,372L598.3571428571428,372L622.2857142857142,372L646.2142857142857,371.7L670.1428571428571,372L694.0714285714286,371.7L718,371.7"></path>
+                        </g>
+                    </svg>
+                    <div class="recharts-legend-wrapper"
+                         style="position: absolute; width: 730px; height: auto; left: -12px; bottom: 0px;">
+                        <ul class="AnalyticsChart-legend">
+                            <li class="AnalyticsChart-legendItem">
+                                <div class="AnalyticsChart-legendItemIconContainer">
+                                    <svg class="Zi Zi--CheckCircle" color="#4289E8" fill="currentColor"
+                                         viewBox="0 0 24 24" width="18" height="18">
+                                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-2.762-5.37c.243.246.452.37.78.37.33 0 .576-.203.827-.443.25-.24 7.052-7.054 7.052-7.054a.988.988 0 0 0-.311-1.354.973.973 0 0 0-1.345.315l-6.222 6.077-2.31-2.418a.971.971 0 0 0-1.368-.19.988.988 0 0 0-.188 1.377s2.841 3.074 3.085 3.32z"
+                                              fill-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                阅读数
+                            </li>
+                            <li class="AnalyticsChart-legendItem">
+                                <div class="AnalyticsChart-legendItemIconContainer">
+                                    <svg class="Zi Zi--CheckCircle" color="#6AAD53" fill="currentColor"
+                                         viewBox="0 0 24 24" width="18" height="18">
+                                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-2.762-5.37c.243.246.452.37.78.37.33 0 .576-.203.827-.443.25-.24 7.052-7.054 7.052-7.054a.988.988 0 0 0-.311-1.354.973.973 0 0 0-1.345.315l-6.222 6.077-2.31-2.418a.971.971 0 0 0-1.368-.19.988.988 0 0 0-.188 1.377s2.841 3.074 3.085 3.32z"
+                                              fill-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                评论数
+                            </li>
+                            <li class="AnalyticsChart-legendItem">
+                                <div class="AnalyticsChart-legendItemIconContainer">
+                                    <svg class="Zi Zi--CheckCircle" color="#F4C32C" fill="currentColor"
+                                         viewBox="0 0 24 24" width="18" height="18">
+                                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-2.762-5.37c.243.246.452.37.78.37.33 0 .576-.203.827-.443.25-.24 7.052-7.054 7.052-7.054a.988.988 0 0 0-.311-1.354.973.973 0 0 0-1.345.315l-6.222 6.077-2.31-2.418a.971.971 0 0 0-1.368-.19.988.988 0 0 0-.188 1.377s2.841 3.074 3.085 3.32z"
+                                              fill-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                赞同数
+                            </li>
+                            <li class="AnalyticsChart-legendItem">
+                                <div class="AnalyticsChart-legendItemIconContainer">
+                                    <svg class="Zi Zi--CheckCircle" color="#5CBAD9" fill="currentColor"
+                                         viewBox="0 0 24 24" width="18" height="18">
+                                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-2.762-5.37c.243.246.452.37.78.37.33 0 .576-.203.827-.443.25-.24 7.052-7.054 7.052-7.054a.988.988 0 0 0-.311-1.354.973.973 0 0 0-1.345.315l-6.222 6.077-2.31-2.418a.971.971 0 0 0-1.368-.19.988.988 0 0 0-.188 1.377s2.841 3.074 3.085 3.32z"
+                                              fill-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                喜欢数
+                            </li>
+                            <li class="AnalyticsChart-legendItem">
+                                <div class="AnalyticsChart-legendItemIconContainer">
+                                    <div class="AnalyticsChart-legendItemInactiveIcon"></div>
+                                </div>
+                                收藏数
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="recharts-tooltip-wrapper recharts-tooltip-wrapper-left recharts-tooltip-wrapper-bottom"
+                         style="pointer-events: none; visibility: hidden; position: absolute; top: 0px; transform: translate(424.071px, 204px);">
+                        <div class="AnalyticsChart-tooltip">
+                            <div class="AnalyticsChart-tooltipHeader">2020-04-08</div>
+                            <ul class="AnalyticsChart-tooltipLineList"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

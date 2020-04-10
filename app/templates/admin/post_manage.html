@@ -1,32 +1,9 @@
 {% extends "admin/ad_base.html" %}
-{% block title %}post{% endblock %}
+{% block title %}文章{% endblock %}
 {% block styles %}
     {{ super() }}
     <style>
-        form {
-            max-width: 120px;
-        }
 
-        span.post_status {
-        {#font-size: 12px;#}{#color: #fff;#}{#background-color: #f09199;#}{#border: none;#}{#padding: 3px 5px;#}{#-moz-border-radius: 5px;#}{#-webkit-border-radius: 5px;#}{#border-radius: 5px;#}
-
-        }
-
-        h2 {
-            color: #222;
-        }
-
-        a.post_title {
-            color: #222;
-        }
-
-        .post_status
-        {
-            color: white;
-            background-color: #222;
-            border-radius: 16px;
-            padding: 0px 5px 0px 5px;
-        }
 
         .catalog_color {
             position: relative;
@@ -42,25 +19,7 @@
             font-size: 12px;
         }
 
-        .post_item_tag {
-            font-size: 12px;
-            color: #555;
-            /* border: 1px solid #f09199 !important; */
-            padding: 2px;
-            margin-right: 6px;
-            white-space: nowrap;
-            border-radius: 5px;
-            background-color: #eee;
-        }
 
-        .post_item_post {
-            border-bottom: 1px solid #eaecef;
-        }
-
-        .delete_post_danger {
-            font-size: 16px;
-            color: red;
-        }
 
         .post_item_time {
 
@@ -75,70 +34,212 @@
             float: right;
         }
 
+        {#追加文章样式#}
+        .post_panel {
+            padding: 24px 40px;
+        }
+
+        .post_item_post {
+            display: inline-flex;
+        }
+
+        .post_item_left {
+            margin-right: 20px;
+        }
+
+        .post_item_right {
+        {#display: inline-flex;#}
+        }
+
+        i.post_item_img {
+            background-image: url("../static/images/post_item_img.jpeg");
+
+        }
+
+        i.post_item_img {
+            display: block;
+            width: 160px;
+            height: 90px;
+            -webkit-background-size: cover;
+            background-size: cover;
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            background-color: #F6F8F9;
+        }
+
+        .post_item_title {
+{#省略长文字#}
+            overflow: hidden;
+            font-color: #353535;
+            font-weight: 400;
+            font-size: 16px;
+        }
+.post_item_title span{
+    color: #353535;}
+
+        {#原创#}
+
+        .post_item_title_status {
+            display: inline-block;
+            vertical-align: middle;
+            padding: 2px 0.5em;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 1.3;
+            background-color: #F1F1F1;
+            color: #9A9A9A;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+            margin-right: 8px;
+            margin-top: -0.2em;
+        }
+
+
+        .post_item_data {
+        {#float: left;#} margin-right: 30px;
+        }
+
+
+        .post_item_data_icons {
+            float: left;
+            margin-right: 30px;
+        }
+
+        .post_item_data_icons {
+            width: 20px;
+            height: 20px;
+        }
+
+        {#read#}
+
+        .post_item_data_icons.icons_read:before {
+            background: url("../static/images/icons_read.svg") no-repeat;
+
+
+        }
+
+        {#like#}
+        .post_item_data_icons.icons_like:before {
+            background: url("../static/images/icons_like.png") no-repeat;
+
+
+        }
+
+        {#commnet#}
+        .post_item_data_icons.icons_comment:before {
+            background: url("../static/images/icons_cm0.svg") no-repeat;
+
+
+        }
+
+
+        {#reward #}
+        .post_item_data_icons.icons_reward:before {
+            background: url("../static/images/icons_reward.svg") no-repeat;
+
+
+        }
+
+        {#share #}
+
+        .post_item_data_icons.icons_share:before {
+            background: url("../static/images/icons_share.svg") no-repeat;
+
+
+        }
+
+
+        .post_item_data_icons:before {
+            width: 16px;
+            height: 16px;
+            content: " ";
+            display: inline-block;
+            vertical-align: middle;
+            background-position: 0 0;
+            background-repeat: no-repeat;
+        }
+
+
+        .post_item_data_inner {
+            font-size: 14px;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
 
 
     </style>
 {% endblock %}
 
 {% block page_content %}
-    <div>
+    <div class="post_panel">
+        <div class="select_plug">
+            <div class="iIuPto">
+                <div class="kOLcJ">
+                    <select class="select_options">
+                        <option value="draft">草稿</option>
+                        <option value="show">已发布</option>
+                    </select>
+                </div>
+                <div class="cpoGLv">
+                    <div class="recharts-responsive-container" style="width: 100%; height: 100%;">
+                        <div style="position: absolute; width: 0px; height: 0px; visibility: hidden; display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% if posts %}
 
             {% for post in posts %}
+
+
                 <div class="post_item_post">
-                    <div class="post_item_title_status">
-                        <a class="post_title" href="#">{{ post.post_title }}</a>
-                        <span class="post_status">{{ post.post_status }}</span>
+                    <div class="post_item_left">
+                        <i class="post_item_img"></i>
                     </div>
-                    <div class="post_item_tags">
-                        <div class="post_item_tag_list">
-                            <a class="post_item_tag">
-                                # blog
-                            </a>
-                            <a class="post_item_tag">
-                                #about me
-                            </a>
-                            <a class="post_item_tag">
-                                # swiftUI
-                            </a>
+                    <div class="post_item_right">
+                        <a href="#" class="post_item_title">
+                            <b class="post_item_title_status">{{ post.post_status }}</b>
+                            <b class="post_item_title_status">{{ post.catalog_name }}</b>
+                            <span>{{ post.post_title }}</span>
+                        </a>
+                        <div class="post_item_data_list">
+                            <time class="post_item_time">{{ post.post_timestamp }}</time>
+
+                            <ul class="post_item_data">
+                                <li class="post_item_data_icons icons_read">
+                                    <span class="post_item_data_inner">6</span>
+                                </li>
+                                <li class="post_item_data_icons icons_like">
+                                    <span class="post_item_data_inner">5</span>
+                                </li>
+                                <li class="post_item_data_icons icons_cm">
+                                    <span class="post_item_data_inner">5</span>
+                                </li>
+                                <li class="post_item_data_icons icons_reward">
+                                    <span class="post_item_data_inner">3</span>
+                                </li>
+                                <li class="post_item_data_icons icons_share">
+                                    <span class="post_item_data_inner">2</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="post_item_catalog">
-                        <span class="catalog_color"></span>
-                        <span class="catalog_name">{{ post.catalog_name }}</span>
-                    </div>
-                    <div>
-                        <time class="post_item_time">{{ post.post_timestamp }}</time>
-                        <div class="post_item_action">
-                            <a id="edit_post" class="btn"
-                               href="{{ url_for('admin.edit_post',post_id=post.post_id) }}">编辑</a>
-                            <from method="post" action="{{ url_for('admin.del_post', post_id=post.post_id) }}">
-                                <input class="delete_post_danger" type="submit" value="Delete"
-                                       onclick="return confirm('Are you sure?');">
-                            </from>
-                            <a id="publish_post" class="btn"
-                               href="{{ url_for('admin.renew_post',post_id=post.post_id) }}">发布</a>
-                        </div>
+                    <div class="post_item_action">
+                        <a id="edit_post" class="btn"
+                           href="{{ url_for('admin.edit_post',post_id=post.post_id) }}">编辑</a>
+                        <from method="post" action="{{ url_for('admin.del_post', post_id=post.post_id) }}">
+                            <input class="delete_post_danger" type="submit" value="Delete"
+                                   onclick="return confirm('Are you sure?');">
+                        </from>
+                        <a id="publish_post" class="btn"
+                           href="{{ url_for('admin.renew_post',post_id=post.post_id) }}">发布</a>
                     </div>
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
             {% endfor %}
-
 
             <table class="table_footer">
                 <div class="pagination">
-                    <a href="#">«</a>
                     <a href="#">‹</a>
                     <a href="#" class="selected">1</a>
                     <a href="#">2</a>
@@ -146,10 +247,14 @@
                     <a href="#">4</a>
                     <a href="#">5</a>
                     <a href="#">›</a>
-                    <a href="#">»</a>
                 </div>
             </table>
         {% else %}
             No posts
         {% endif %}
+
+
+</div>
+
+
 {% endblock %}

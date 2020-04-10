@@ -39,9 +39,9 @@
                           d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path>
                 </svg>
             </div>
-            <a href="{{ url_for('home') }}" class="logo iconpic">🐱猫茶会</a>
+            <a href="{{ url_for('home') }}" class="logo iconpic">猫茶会</a>
             <div class="title">
-                {% block title %}dashboard{% endblock %}
+                {% block title %}模板{% endblock %}
             </div>
             <div class="links">
                 <div class="search-box">
@@ -77,30 +77,89 @@
                     </div>
                     <div class="nav_links">
 
-                        <div class="white_li">
-                            <a href="{{ url_for('admin.dashboard') }}" class="nav-link">桌面</a>
+                        <div class="home">
+                            <a href="{{ url_for('admin.dashboard') }}" class="nav_link">
+                                <span class="nav_link_name icon_home">概览</span>
+                            </a>
                         </div>
-                        <div class="white_li show_posts">
-                            <a href="{{ url_for('admin.manage_post' ) }}"
-                               class=" " href="#">日志<span>1353</span></a>
+                        <div class="manage">
+                            <a class="nav_link">
+                                <span class="nav_link_name icon_manage">管理</span>
+                            </a>
+                            <div>
+                                <div class="show_posts">
+                                    <a href="{{ url_for('admin.manage_post' ) }}" class="nav_link_item">
+                                        <span>文章</span>
+                                    </a>
+                                </div>
+                                <div class="show_catalogs">
+                                    <a class="nav_link_item selected " href="{{ url_for('admin.manage_catalog' ) }}">
+                                        <span>文集</span>
+                                    </a>
+                                </div>
+
+                                <div class="show_comments">
+                                    <a href="{{ url_for('admin.manage_comment' ) }}" class="nav_link_item selected">
+                                        <span>评论</span>
+                                    </a>
+                                </div>
+                                <div class="show_readers">
+                                    <a class="nav_link_item" href="#">
+                                        <span>读者</span>
+                                    </a>
+                                </div>
+                                <div class="show_medias">
+                                    <a class="nav_link_item" href="#">
+                                        <span>媒体</span>
+                                    </a>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="analysis">
+                            <a class="nav_link">
+                                <span class="nav_link_name icon_analysis">统计</span>
+                            </a>
+                            <div>
+                                <div class="data_readers">
+                                    <a class="nav_link_item" href="#">
+                                        <span>文章</span>
+                                    </a>
+                                </div>
+                                <div class="data_comments">
+                                    <a class="nav_link_item" href="#">
+                                        <span>评论</span>
+                                    </a>
+                                </div>
+                                <div class="data_reader">
+                                    <a class="nav_link_item" href="#">
+                                        <span>读者</span>
+                                    </a>
+                                </div>
+                                <div class="data_reward">
+                                    <a class="nav_link_item" href="#">
+                                        <span>打赏</span>
+                                    </a>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                        <div class="theme">
+                            <a href="#" class="nav_link">
+                                <span class="nav_link_name icon_theme">主题</span>
+                            </a>
+                        </div>
+                        <div class="setting">
+                            <a href="#" class="nav_link">
+                                <span class="nav_link_name icon_setting">设置</span>
+                            </a>
                         </div>
 
-                        <div class="white_li  show_comments">
-                            <a href="{{ url_for('admin.manage_comment' ) }}"
-                               class=" selected " href="#">评论<span>1353</span></a>
-                        </div>
 
-                        <div class="white_li all_posts">
-                            <a class=" selected " href="#">读者<span>1353</span></a>
-                        </div>
-                        {#早期按注册时间，按照评论数排列比较好#}
-                        <div class="white_li all_posts">
-                            <a href="{{ url_for('admin.manage_catalog' ) }}" class="selected "
-                               href="#">分类<span>1353</span></a>
-                        </div>
-{#                        <div class="white_li show_posts">#}
-{#                            <a href="#">标签<span>1353</span></a>#}
-{#                        </div>#}
                     </div>
                     <footer class="footer">
 

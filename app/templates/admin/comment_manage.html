@@ -1,8 +1,47 @@
 {% extends "admin/ad_base.html" %}
-{% block title %}comment{% endblock %}
+{% block title %}
+    <ul class="nav_item">
+        <li class="item_li cur"><span>@我的评论<em></em></span></li>
+        <li class="item_li"><span>我的回复<em></em></span></li>
+    </ul>
+{% endblock %}
 {% block styles %}
     {{ super() }}
     <style>
+    .cm_panel{
+        background-color: #fff;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,0.05);
+        margin: 12px;
+        padding: 12px;
+    }
+        {#追加导航内样式#}
+        .item_li.cur {
+            color: #F09199;
+        }
+
+        .item_li {
+            display: inline-block;
+            margin: 0 .75rem;
+        }
+
+        .item_li span {
+            position: relative;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        .item_li.cur span em {
+            display: block;
+            position: absolute;
+            bottom: -.5rem;
+            left: 50%;
+            width: .875rem;
+            margin-left: -.4375rem;
+            border-top: 2px solid #F09199;
+        }
 
 
         @media (max-width: 720px) {
@@ -49,6 +88,7 @@
 
         .cm_right {
             float: right;
+            padding-bottom: 12px;
         }
 
         .cm_content {
@@ -56,6 +96,10 @@
         }
 
         .cm_body {
+            font-size: 16px;
+        }
+
+        .cm_title {
             font-size: 14px;
         }
 
@@ -75,12 +119,12 @@
             padding: 2px 0px 2px 0px;
         }
 
+
     </style>
 {% endblock %}
 
 {% block page_content %}
-
-
+<div class="cm_panel">
 
     {% if comments %}
         {% for comment in comments %}
@@ -93,10 +137,13 @@
                     </div>
                     <div class="cm_right">
                         <div class="cm_1">
-                            <a href="#">{{ comment.username }}</a>评论
-                            <a href="#" id="{{ comment.post_id }}">{{ comment.post_title }}</a>
+                            <a href="#">{{ comment.username }}</a>评论:
+                            <q class="cm_body">{{ comment.comment_body }}</q>
                         </div>
-                        <div class="cm_2"><q class="cm_body">{{ comment.comment_body }}</q></div>
+                        <div class="cm_2">
+                            <a href="#" class="cm_title" id="{{ comment.post_id }}">{{ comment.post_title }}</a>
+
+                        </div>
                         <div class="cm_3">
                             <span class="cm_date cm_left">{{ comment.comment_timestamp }}</span>
                             <span class="cm_right">回复</span>
@@ -111,4 +158,42 @@
         No comments
     {% endif %}
     <a href="#">more comments</a>
+
+
+    <div>
+        <div id="cm_id">
+            <div class="cm_content">
+                <div class="cm_left">
+                    <div class="cm_avatar">
+                        <img src="/static/images/myself.jpg ">
+                    </div>
+                </div>
+                <div class="cm_right">
+                    <div class="cm_1">
+                        <div class="cm_author">
+                            <a class="cm_reply_to" href="#">onlyindex</a>回复<a href="u/12345">@2020index财猫双全</a>:
+                            长期看是这样
+                        </div>
+                    </div>
+                    <div class="cm_2">
+                        <a href="#" class="cm_title ">疫情结束才会有航空股和邮轮的快速上涨，现在就暴涨，不正常，有妖气。</a>
+                    </div>
+
+                    <div class="cm_3">
+                        <span class="cm_date cm_left">4-9 15:42</span>
+                        <span class="cm_right">回复</span>
+                        <span class="cm_right">删除</span>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <a href="#">more replays</a>
+
+    </div>
+</div>
+
+
 {% endblock %}

@@ -23,10 +23,9 @@ body:before {
     right: 0;
     bottom: 0;
     left: 0;
-    /*background: url("../static/images/bg1.jpg") center 0 no-repeat;*/
-    /*background-size: cover;*/
-    background-color: #fff;
-    /*opacity: .3;*/
+    background: url("../static/images/bg1.jpg") center 0 no-repeat;
+    background-size: cover;
+    opacity: .15;
 }
 
 * {
@@ -303,6 +302,7 @@ a {
     text-decoration: none;
 }
 
+
 a:link, a:active, a:visited {
     color: #F09199
     /*锚链接颜色 #42ABB3;*/
@@ -398,16 +398,17 @@ underline_input::-webkit-input-placeholder {
 /*}*/
 
 
-.select-area{
-  position: relative;
-  overflow: hidden;
+.select-area {
+    position: relative;
+    overflow: hidden;
 }
-.select-area select{
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-  width: 100%;
+
+.select-area select {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
 }
 
 
@@ -467,12 +468,11 @@ underline_input::-webkit-input-placeholder {
     line-height: 30px;
     border-radius: 8px;
     /*box-shadow: 3px 3px 0 #F3F3F3;*/
-    /*background: #fff;*/
 }
 
 /*切换成移动端样式*/
 
-@media screen and (max-width: 1080px) {
+@media screen and (max-width: 1280px) {
     #content {
         margin-top: 8em;
         margin-left: 0em;
@@ -481,10 +481,9 @@ underline_input::-webkit-input-placeholder {
 
     .sidebar {
         width: 100%;
-        background-color: #F6f6f6;
         transform: translateX(0);
         transition: transform .2s ease;
-        display: none;
+        /*display: none;*/
         /*暂时隐藏方便开发*/
     }
 
@@ -511,26 +510,6 @@ underline_input::-webkit-input-placeholder {
 
     }
 
-    .grey_li {
-        background-color: #F6f6f6;
-        padding-left: 23px;
-    }
-
-    .grey_li a {
-        color: #555;
-        text-decoration: none;
-        width: 100%;
-        text-align: center;
-        margin-top: 0.75rem;
-        font-size: 12px;
-
-    }
-
-    .white_li {
-        border-bottom: 1px solid #eaecef;
-        background-color: #fff;
-    }
-
 
 }
 
@@ -547,6 +526,10 @@ underline_input::-webkit-input-placeholder {
     overflow-y: auto;
     justify-content: center;
     border-right: 1px solid #eaecef;
+    background-color: #fff;
+    opacity: 0.8;
+
+    width: 320px;
 }
 
 /*侧边栏登录注册*/
@@ -576,7 +559,7 @@ underline_input::-webkit-input-placeholder {
     padding: 0 4px;
     background: #222;
     background: rgba(0, 0, 0, .5);
-    color: #FFF;
+    color: #fff;
 }
 
 /*导航栏头像*/
@@ -600,14 +583,9 @@ underline_input::-webkit-input-placeholder {
 }
 
 /*pc端侧边栏导航*/
-@media screen and (min-width: 1080px) {
-
-    .grey_li {
-        display: none;
-    }
+@media screen and (min-width: 720px) {
 
     .sidebar {
-        background-color: #fff;
         width: 320px;
     }
 
@@ -620,50 +598,62 @@ underline_input::-webkit-input-placeholder {
     overflow: auto;
     top: 6rem;
     position: relative;
+    line-height: 36px;
 }
 
-.white_li {
-    padding-bottom: 5px;
-    padding-left: 23px;
-    padding-top: 5px;
-}
+.nav_links a:link,.nav_links a:active,.nav_links a:visited {
 
-
-.white_li a {
-    color: #555;
-    text-decoration: none;
-    width: 100%;
-    text-align: center;
-    margin-top: 0.75rem;
-
-
+    /*color: #F09199 #42ABB3;*/
+    color: #999;
 }
 
 
-.white_li a span {
+
+
+
+.nav_link {
+    font-size: 18px;
+    padding-left: 36px;
+}
+
+.nav_link_name {
+    color: #999;
+    padding-left: 34px;
+    position: relative;
+}
+
+.nav_link_name:before {
+    content: " ";
+    width: 23px;
+    height: 23px;
+    background-size: 23px;
     display: inline-block;
-    padding: 2px 5px;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1;
-    color: #555555;
-    background-color: #ddd;
-    border-radius: 20px;
-    float: right;
-    margin-right: 23px;
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -12px;
 }
-
-.nav_links a.active {
-    /*background-color: #F09191;*/
-    background-color: #F6f6f6;
-    /*f5f5f5   f4f8f9*/
-    color: white;
+.nav_link .icon_home:before{
+        background: url("../static/images/icons_home.svg") no-repeat;
 }
-
-.nav_links a:hover:not(.active) {
-    background-color: #f09199;
-    /*background-color: #F09191;*/
-    color: white;
+.nav_link .icon_manage:before{
+        background: url("../static/images/icons_manage.svg") no-repeat;
+}
+.nav_link .icon_analysis:before{
+        background: url("../static/images/icon_analysis.svg") no-repeat;
+}
+.nav_link .icon_theme:before{
+        background: url("../static/images/icons_theme.svg") no-repeat;
+}
+.nav_link .icon_setting:before{
+        background: url("../static/images/icons_setting.svg") no-repeat;
+}
+.nav_link_item span {
+    font-size: 14px;
+    color: #999;
+    padding-left: 70px;
+    position: relative;
 }
 
 footer {
@@ -721,6 +711,59 @@ footer {
 
 
 
+/*追加下拉菜单样式*/
+.select_plug {
+        {#display: flex;#} margin-top: 32px;
+            opacity: 1;
+            transition: opacity 0.2s ease 0.5s;
+            float: right;
+
+        }
+
+        .iIuPto {
+            position: relative;
+            z-index: 1;
+            flex: 1 1 0%;
+        }
+
+        .kOLcJ {
+            display: flex;
+            -webkit-box-pack: justify;
+            justify-content: space-between;
+            -webkit-box-align: center;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .select_options:hover {
+            background-color: rgb(238, 238, 238);
+        }
+
+        .select_options {
+            -webkit-appearance: none;
+            font-size: 12px;
+            line-height: 16px;
+            color: rgb(153, 153, 153);
+            vertical-align: middle;
+            cursor: pointer;
+            padding: 8px 30px 8px 8px;
+            border-radius: 4px;
+            background: url("../static/images/icons_select.svg") right 8px center / 20px no-repeat rgb(255, 255, 255);
+            outline: none;
+            border-width: initial;
+            border-style: none;
+            border-color: initial;
+            border-image: initial;
+            transition: background-color 0.12s ease-out 0s;
+        }
+
+        option {
+            font-weight: normal;
+            display: block;
+            white-space: pre;
+            min-height: 1.2em;
+            padding: 0px 2px 1px;
+        }
 
 
 
