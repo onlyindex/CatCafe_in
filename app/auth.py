@@ -1,9 +1,10 @@
 import functools
 
 from flask import Blueprint, g
-from flask import render_template, redirect, url_for, flash, request, session
+from flask import render_template, redirect, url_for, flash, request, session, make_response
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import get_db
+from app.utiles import admin_redirect_back, redirect_back
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -13,19 +14,24 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 用户登录登出'''
 
 
-# 判断登录状态
-def admin_login_required(view):
+# 判断当前用户是否登录
+def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        print("admin_login_required exc")
-        # 判断用户是否登陆
+        print("login_required exc")
+        # 为空用户未登录跳转登录页面
         if g.user is None:
             return redirect(url_for('auth.signin'))
+        # 用户是管理员已登录留在当前页面
         elif g.user['user_id'] == 1:
-            return redirect(url_for('admin.dashboard'))
+            response = make_response(admin_redirect_back())
+            return response
+        # 用户是读者留在当前页面
         else:
-            return render_template(url_for('user.my_profile'))
+            response = make_response(redirect_back())
+            return response
 
+# 加载用户会话中用户信息存到
 @auth_bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
@@ -37,8 +43,10 @@ def load_logged_in_user():
         cursor.execute("select user_id, username, email from user where user_id = '%s' " % user_id)
         g.user = cursor.fetchone()
 
+# 判断当前用户是谁？
 
 # 用户注册
+@login_required
 @auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
@@ -74,7 +82,7 @@ def signup():
 
 
 # 用户登录
-@admin_login_required
+@login_required
 @auth_bp.route('/signin', methods=['GET', 'POST'])
 def signin():
     if request.method == 'POST':
@@ -100,6 +108,7 @@ def signin():
 
 
 # 用户登出
+@login_required
 @auth_bp.route('/signout')
 def signout():
     session.clear()

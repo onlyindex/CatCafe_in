@@ -1,22 +1,14 @@
 {% extends "admin/ad_base.html" %}
 {% block title %}
     <ul class="nav_item">
-        <li class="item_li cur"><span>@我的评论<em></em></span></li>
-        <li class="item_li"><span>我的回复<em></em></span></li>
+        <li class="item_li cur"><span>评论<em></em></span></li>
+        <li class="item_li"><span>@我的评论<em></em></span></li>
     </ul>
 {% endblock %}
 {% block styles %}
     {{ super() }}
     <style>
-    .cm_panel{
-        background-color: #fff;
-    border-radius: 6px;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-    box-shadow: 0 1px 5px 0 rgba(0,0,0,0.05);
-        margin: 12px;
-        padding: 12px;
-    }
+
         {#追加导航内样式#}
         .item_li.cur {
             color: #F09199;
@@ -50,150 +42,202 @@
         }
 
 
-        .pagination {
-            text-align: center;
-            padding: 20px 0;
+        {#评论列表#}
+        .cm_item_reply_to a:link, .cm_item_reply_to a:active, .cm_item_reply_to a:visited {
+            color: #f09199;
         }
 
-        .pagination a {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background-color: transparent;
-            color: #222;
-        {#border: 1px solid white;#} display: inline-block;
-            vertical-align: middle;
-            text-decoration: none;
-            font-weight: 200;
-            margin: 4px;
-            transition: all 0.2s linear;
+        .cm_avatar {
+        {#display: block;#}{#height: 50px;#}{#left: 0;#}{#overflow: hidden;#}{#position: relative;#}{#width: 50px;#} position: relative;
+            top: 0.5rem;
         }
 
-        .pagination a:hover, .pagination a.selected {
-            color: #fff;
-            background-color: #f09191;
-            border-color: #f09191;
-        }
-
-        .cm_avatar img {
-            width: 45px;
-            height: 45px;
-            margin: 0 5px;
-            border-radius: 50%;
-        }
-
-        .cm_left {
-            float: left;
-        }
-
-        .cm_right {
-            float: right;
-            padding-bottom: 12px;
-        }
-
-        .cm_content {
-            display: inline-flex;
-        }
-
-        .cm_body {
-            font-size: 16px;
-        }
-
-        .cm_title {
+        .cm_item_date {
+            color: #9A9A9A;
             font-size: 14px;
         }
 
-        .cm_date {
-            color: #999;
+        .cm_item_title {
+            font-size: 15px;
+            color: #F09199;
+            -webkit-line-clamp: 7;
+
         }
 
-        .cm_3 {
-            font-size: 12px;
+        .cm_item_reader {
+            font-weight: bold;
         }
 
-        span.cm_right {
-            padding-left: 12px;
+        .cm_item_reply_to {
+            font-weight: 500;
         }
 
-        .cm_1, .cm_2, .cm_3 {
+        .cm_left {
+            overflow: hidden;
+            position: absolute;
+        {#width: 50px;#}
+        }
+
+        .cm_right {
+            display: block;
+            margin-left: 60px;
+
+            min-height: 35px;
+        }
+
+        .cm_1, .cm_2, .cm_3, cm_4 {
             padding: 2px 0px 2px 0px;
         }
 
+        .cm_4 {
+            width: 120%;
+        {#border-bottom: 1px solid #e0e0e0;#}{#border-bottom: 1px dotted #e0e0e0;#}
 
+        }
+
+        div.quote q:before {
+            content: open-quote;
+            display: inline;
+            height: 0;
+            line-height: 0;
+            left: -0.2rem;
+            position: relative;
+            top: 15px;
+            font-size: 30px;
+            color: #9A9A9A;
+
+        }
+
+        div.quote q:after {
+            content: close-quote;
+            display: inline;
+            height: 0;
+            line-height: 0;
+            left: 0.2rem;
+            position: relative;
+            top: 20px;
+            font-size: 30px;
+            color: #9a9a9a;
+        }
+
+
+        .cm_item_title, .cm_item_body {
+            word-wrap: break-word;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+
+        }
+
+        .cm_item_body {
+            padding-left: 0.25rem;
+            -webkit-line-clamp: 7;
+
+        }
+
+
+        .cm_line {
+            padding-top: 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+            width: 708px;
+            margin-bottom: 0.75rem;
+            font-weight: bold;
+        }
+
+        {#移动样式#}
+        @media screen and (max-width: 720px) {
+
+            .cm_line {
+                width: 104%;
+            }
+        }
     </style>
 {% endblock %}
 
 {% block page_content %}
-<div class="cm_panel">
-
-    {% if comments %}
-        {% for comment in comments %}
-            <div id="comment_id">
-                <div class="cm_content">
-                    <div class="cm_left">
-                        <a href="http://bgm.tv/user/121569" class="cm_avatar">
-                            <img src="{{ url_for('static',filename='static/images/myself.jpg') }}">
-                        </a>
+    <div class="cm_plug plug">
+        <h3 class="plug_title">评论</h3>
+        {% if group_by_key %}
+            <div class="cm_group">
+                {% for key,group in group_by_key.items() %}
+                    <div class="cm_line">
+                        {{ key }}
                     </div>
-                    <div class="cm_right">
-                        <div class="cm_1">
-                            <a href="#">{{ comment.username }}</a>评论:
-                            <q class="cm_body">{{ comment.comment_body }}</q>
-                        </div>
-                        <div class="cm_2">
-                            <a href="#" class="cm_title" id="{{ comment.post_id }}">{{ comment.post_title }}</a>
-
-                        </div>
-                        <div class="cm_3">
-                            <span class="cm_date cm_left">{{ comment.comment_timestamp }}</span>
-                            <span class="cm_right">回复</span>
-                            <span class="cm_right">删除</span>
-                        </div>
+                    <div class="cm_list">
+                        {% for comment in group %}
+                            <div class="cm_item" comment_id="{{ comment.comment_id }}">
+                                <div class="cm_item_content">
+                                    <span class="cm_left">
+                                        <a class="cm_avatar">
+                                            <img class="avatar_img" src="/static/images/myself.jpg ">
+                                        </a>
+                                    </span>
+                                    <span class="cm_right">
+                                        <div class="cm_1">
+                                            <a class="cm_item_reader" href="#">{{ comment.username }}</a>
+                                            <span class="cm_item_date">{{ comment.comment_timestamp }}</span>
+                                        </div>
+                                        <div class="cm_item_reply_to turn_no_off">
+                                            <a class="cm_2 " href="u/12345">@财猫双全index</a>
+                                        </div>
+                                        <div class="cm_3 quote">
+                                            <q class="cm_item_body">{{ comment.comment_body }}
+                                            </q>
+                                            <br>
+                                            <span href="{{ url_for('post.post',post_id=comment.post_id) }}"
+                                                  class="cm_item_title flex"
+                                                  post_id="{{ comment.post_id }}">
+                                                <svg t="1586802478233" class="icon" viewBox="0 0 1024 1024"
+                                                     version="1.1"
+                                                     xmlns="http://www.w3.org/2000/svg" p-id="51188" width="20"
+                                                     height="20"><path
+                                                        d="M774.32 357.66c-4.04-3.92-9.84-5.29-22.3-5.29h-75.94l30.77-209.81c1.88-10.24 2.28-17.18-1.48-22.13-4.15-5.58-11.2-6.66-21.96-6.66h-37.89c-9.78 0-15.87 0.8-19.97 4.95-2.56 2.73-4.33 6.32-6.72 19.17l-30.32 214.47H469.16l29.81-210.77c2.05-11.09 2.28-17.98-2.67-23.04-4.1-4.04-10.24-4.78-20.76-4.78h-36.86c-10.64 0-17.64 1.08-22.02 6.77-1.99 2.61-3.52 6.6-5.63 18.43l-29.41 213.39H282c-11.55 0-17.3 1.42-21.28 5.29-4.55 4.49-5.46 11.55-5.46 21.45v27.65c0 10.75 1.08 17.81 6.66 21.96 3.81 2.79 8.88 3.75 20.08 3.75h88.23L360.28 503c-3.24 23.78-6.71 47.96-10.3 72.59h-94.6c-12.46 0-18.32 1.36-22.47 5.46-3.87 3.98-5.35 10.01-5.35 22.3v25.6c0 12.29 1.48 18.32 5.52 22.47 3.98 3.93 9.84 5.29 22.3 5.29h84.14L309.7 865.68c-1.93 11.21-1.99 19.17 3.24 24.35 4.1 3.92 10.18 5.29 24.35 5.29h27.65c13.48 0 19.74-1.19 24.12-4.61 4.21-3.47 6.54-9.22 8.7-21.62l29.3-212.36h120.38l-28.9 208.1c-1.88 12.29-1.93 19.91 3.3 25.2 4.04 3.92 10.18 5.29 24.35 5.29h29.69c12.46 0 18.32-1.36 22.47-5.46 2.96-3.01 5.06-7.51 7.23-21.79l29.3-211.34h85.33c14.5 0 20.48-1.31 24.35-5.29 4.1-4.04 5.52-9.95 5.52-23.5v-24.57c0-12.63-1.48-18.49-5.35-22.3-4.04-4.15-10.01-5.46-24.52-5.46h-74.07c2.96-23.44 6.37-46.48 10.07-69.18 3.98-24.01 7.45-48.64 10.64-73.95h85.16c12.52 0 18.32-1.36 22.47-5.46 3.92-3.98 5.29-10.07 5.29-23.32v-23.55c0.01-12.31-1.42-18.34-5.45-22.49zM558.88 575.6H439.24c3.01-23.49 6.2-46.59 9.61-69.35 3.64-23.95 7.05-48.52 10.18-73.78h120.09L558.88 575.6z"
+                                                        fill="#f09191" p-id="51189"></path></svg>
+                                                {{ comment.post_title }}
+                                            </span>
+                                        </div>
+                                        <div class="cm_4">
+                                            <a class="flex btn">
+                                                <svg t="1586669842114" class="icon" viewBox="0 0 1024 1024"
+                                                     version="1.1"
+                                                     xmlns="http://www.w3.org/2000/svg" p-id="80568" width="20"
+                                                     height="20">
+                                                    <path d="M733.855 791.945c0 26.574-21.63 48.203-48.202 48.203H338.347c-26.573 0-48.202-21.63-48.202-48.203V280.257h443.71v511.688zM386.55 193.74c0-5.562 4.326-9.888 9.888-9.888H628.18c5.562 0 9.888 4.326 9.888 9.888v29.045H386.55V193.74z m491.913 29.045H695.54V193.74c0-37.08-30.28-67.36-67.36-67.36H396.438c-37.08 0-67.36 30.28-67.36 67.36v29.045h-183.54c-16.068 0-29.046 12.978-29.046 29.045s12.978 29.045 29.045 29.045h86.518v511.07c0 58.709 47.584 106.293 106.292 106.293h347.306c58.708 0 106.292-47.584 106.292-106.293V280.257h86.518c16.067 0 29.045-12.977 29.045-29.045s-12.978-28.427-29.045-28.427zM512 753.013c16.068 0 29.045-12.978 29.045-29.046v-308.99c0-16.068-12.977-29.045-29.045-29.045s-29.045 12.977-29.045 29.045v308.99c0 16.068 12.977 29.046 29.045 29.046m-135.338 0c16.068 0 29.045-12.978 29.045-29.046v-308.99c0-16.068-12.977-29.045-29.045-29.045s-29.045 12.977-29.045 29.045v308.99c0.618 16.068 13.596 29.046 29.045 29.046m270.676 0c16.067 0 29.045-12.978 29.045-29.046v-308.99c0-16.068-12.978-29.045-29.045-29.045s-29.045 12.977-29.045 29.045v308.99c0 16.068 12.977 29.046 29.045 29.046"
+                                                          p-id="80569" fill="#9a9a9a"></path>
+                                                </svg>
+                                            </a>
+                                            <a class="flex btn"
+                                               href="{{ url_for('admin.reply_commnet',comment_id=comment.comment_id ) }}">
+                                                <svg t="1586890200464" class="icon" viewBox="0 0 1024 1024"
+                                                     version="1.1"
+                                                     xmlns="http://www.w3.org/2000/svg" p-id="86012" width="20"
+                                                     height="20"><path
+                                                        d="M958.4 808.5S926.1 393 408.5 396.6V191L63.4 500.8l345 309.8V606.5c0.1 0 327.1-53.9 550 202"
+                                                        fill="#9a9a9a" p-id="86013"></path></svg>
+                                                <span>回复</span>
+                                            </a>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-
-    {% else %}
-        No comments
-    {% endif %}
-    <a href="#">more comments</a>
-
-
-    <div>
-        <div id="cm_id">
-            <div class="cm_content">
-                <div class="cm_left">
-                    <div class="cm_avatar">
-                        <img src="/static/images/myself.jpg ">
-                    </div>
+            <table class="table_footer">
+                <div class="pagination">
+                    <a href="#">‹</a>
+                    <a href="#" class="selected">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">›</a>
                 </div>
-                <div class="cm_right">
-                    <div class="cm_1">
-                        <div class="cm_author">
-                            <a class="cm_reply_to" href="#">onlyindex</a>回复<a href="u/12345">@2020index财猫双全</a>:
-                            长期看是这样
-                        </div>
-                    </div>
-                    <div class="cm_2">
-                        <a href="#" class="cm_title ">疫情结束才会有航空股和邮轮的快速上涨，现在就暴涨，不正常，有妖气。</a>
-                    </div>
-
-                    <div class="cm_3">
-                        <span class="cm_date cm_left">4-9 15:42</span>
-                        <span class="cm_right">回复</span>
-                        <span class="cm_right">删除</span>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <a href="#">more replays</a>
-
+            </table>
+        {% else %}
+            No comments
+        {% endif %}
     </div>
-</div>
-
-
 {% endblock %}

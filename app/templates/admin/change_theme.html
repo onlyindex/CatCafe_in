@@ -1,0 +1,20 @@
+
+
+
+
+
+
+
+
+
+
+{#迭代主题配置变量渲染出主题选项#}
+{% if theme_name,display_name in config.THEMES.items() %}
+{#主题url指向change_theme端点 URL变量theme_name=传入主题名称。
+选择Pink,theme cookie值就被设置为pink_phone.css
+#}
+<a href="{{ url_for('admin.change',theme_name=theme_name,next=request.full_path) }}">
+    {{ display_name }}
+</a>
+
+{% endfor %}

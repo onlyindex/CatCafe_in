@@ -4,27 +4,8 @@
     {{ super() }}
     <style>
 
-
-        .catalog_color {
-            position: relative;
-            top: 0px;
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: #aaa;
-        }
-
-        .catalog_name {
-            font-size: 12px;
-        }
-
-
-
         .post_item_time {
-
-            float: right;
-            font-size: 12px;
+            font-size: 14px;
             color: #a0a0a0;
         }
 
@@ -35,8 +16,9 @@
         }
 
         {#追加文章样式#}
-        .post_panel {
-            padding: 24px 40px;
+
+        .post_list {
+            display: inline-block;
         }
 
         .post_item_post {
@@ -51,12 +33,9 @@
         {#display: inline-flex;#}
         }
 
+
         i.post_item_img {
             background-image: url("../static/images/post_item_img.jpeg");
-
-        }
-
-        i.post_item_img {
             display: block;
             width: 160px;
             height: 90px;
@@ -68,14 +47,19 @@
         }
 
         .post_item_title {
-{#省略长文字#}
-            overflow: hidden;
             font-color: #353535;
             font-weight: 400;
             font-size: 16px;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical
         }
-.post_item_title span{
-    color: #353535;}
+
+        .post_item_title span {
+            color: #353535;
+        }
 
         {#原创#}
 
@@ -95,89 +79,27 @@
         }
 
 
-        .post_item_data {
-        {#float: left;#} margin-right: 30px;
-        }
+    {#追加添加按钮的样式#}
 
 
-        .post_item_data_icons {
-            float: left;
-            margin-right: 30px;
-        }
-
-        .post_item_data_icons {
-            width: 20px;
-            height: 20px;
-        }
-
-        {#read#}
-
-        .post_item_data_icons.icons_read:before {
-            background: url("../static/images/icons_read.svg") no-repeat;
 
 
-        }
-
-        {#like#}
-        .post_item_data_icons.icons_like:before {
-            background: url("../static/images/icons_like.png") no-repeat;
-
-
-        }
-
-        {#commnet#}
-        .post_item_data_icons.icons_comment:before {
-            background: url("../static/images/icons_cm0.svg") no-repeat;
-
-
-        }
-
-
-        {#reward #}
-        .post_item_data_icons.icons_reward:before {
-            background: url("../static/images/icons_reward.svg") no-repeat;
-
-
-        }
-
-        {#share #}
-
-        .post_item_data_icons.icons_share:before {
-            background: url("../static/images/icons_share.svg") no-repeat;
-
-
-        }
-
-
-        .post_item_data_icons:before {
-            width: 16px;
-            height: 16px;
-            content: " ";
-            display: inline-block;
-            vertical-align: middle;
-            background-position: 0 0;
-            background-repeat: no-repeat;
-        }
-
-
-        .post_item_data_inner {
-            font-size: 14px;
-            margin-left: 4px;
-            vertical-align: middle;
-        }
 
 
     </style>
 {% endblock %}
 
 {% block page_content %}
-    <div class="post_panel">
+    <div class="post_plug plug">
+        <h3 class="plug_title">文章</h3>
         <div class="select_plug">
             <div class="iIuPto">
                 <div class="kOLcJ">
                     <select class="select_options">
-                        <option value="draft">草稿</option>
+                        <option value="draft">全部</option>
                         <option value="show">已发布</option>
+                        <option value="show">草稿</option>
+
                     </select>
                 </div>
                 <div class="cpoGLv">
@@ -187,74 +109,103 @@
                 </div>
             </div>
         </div>
-        {% if posts %}
+        <div class="post_list">
+            {% if posts %}
 
-            {% for post in posts %}
+                {% for post in posts %}
 
 
-                <div class="post_item_post">
-                    <div class="post_item_left">
-                        <i class="post_item_img"></i>
-                    </div>
-                    <div class="post_item_right">
-                        <a href="#" class="post_item_title">
-                            <b class="post_item_title_status">{{ post.post_status }}</b>
-                            <b class="post_item_title_status">{{ post.catalog_name }}</b>
-                            <span>{{ post.post_title }}</span>
-                        </a>
-                        <div class="post_item_data_list">
-                            <time class="post_item_time">{{ post.post_timestamp }}</time>
+                    <div class="post_item_post">
+                        <div class="post_item_left">
+                            <i class="post_item_img"></i>
+                        </div>
+                        <div class="post_item_right">
+                            <a href="#" class="post_item_title">
+                                <b class="post_item_title_status">{{ post.post_status }}</b>
+                                <span>{{ post.post_title }}</span>
+                            </a>
+                            <div>
+                                <div class="post_item_data_list">
+                                    <b class="post_item_time flex">
+                                        <svg t="1586666972806" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                             xmlns="http://www.w3.org/2000/svg" p-id="74251" width="20" height="20">
+                                            <path d="M160.63434 235.489496c7.314628 7.314628 14.597314 14.597314 14.597315 21.911942s-7.314628 14.597314-14.597315 29.194629c-14.597314 7.314628-14.597314 29.194629 0 43.791942 14.597314 14.597314 43.791943 14.597314 58.421199 0 14.597314-21.911942 29.194629-43.791943 36.509257-65.703885 7.314628-43.791943-14.597314-65.703885-36.509257-87.615827-14.597314-7.314628-21.911942-21.911942-29.194628-36.509256-7.314628-36.509257 14.597314-51.106571 36.509256-73.018514a35.295475 35.295475 0 0 0 0-51.10657C211.772853-5.477986 182.578224-5.477986 167.948968 16.433957c-29.194629 29.194629-65.703885 65.703885-58.421198 131.40777 7.314628 43.791943 36.509257 65.703885 51.10657 87.615827z m211.70897 0c7.314628 7.314628 14.597314 14.597314 14.597314 21.911942s-7.314628 14.597314-14.597314 29.194629c-14.597314 7.314628-14.597314 29.194629 0 43.791942 14.597314 14.597314 43.791943 14.597314 58.421199 0 14.597314-21.911942 29.194629-43.791943 36.509256-65.703885 7.314628-43.791943-14.597314-65.703885-36.509256-87.615827-7.314628-7.314628-21.911942-21.911942-21.911943-36.509256-7.314628-43.791943 14.597314-51.106571 29.194629-73.018514a35.295475 35.295475 0 0 0 0-51.10657c-14.597314-21.911942-43.791943-21.911942-58.421199 0-29.194629 29.194629-65.703885 65.703885-51.106571 131.40777 7.314628 43.791943 29.194629 65.703885 43.791943 87.615827z m219.023597 0c7.314628 7.314628 14.597314 14.597314 14.597315 21.911942s-7.314628 14.597314-14.597315 29.194629c-14.597314 7.314628-14.597314 29.194629 0 43.791942 14.597314 14.597314 43.791943 14.597314 58.421199 0 14.597314-21.911942 29.194629-43.791943 36.509257-65.703885 7.314628-43.791943-21.911942-65.703885-36.509257-87.615827-14.597314-7.314628-29.194629-21.911942-29.194628-36.509256-7.314628-43.791943 21.911942-51.106571 36.509256-73.018514a35.295475 35.295475 0 0 0 0-51.10657c-14.597314-21.911942-43.791943-21.911942-58.421199 0-29.194629 29.194629-73.018513 65.703885-58.421198 131.40777 7.314628 43.791943 36.509257 65.703885 51.10657 87.615827z m416.167195 313.954053c-21.911942-65.703885-102.213142-102.213142-204.426283-109.52777 0-43.791943-29.194629-73.018513-65.703886-73.018513H65.703885C29.194629 366.897266 0 396.091895 0 439.915779v292.04211C0 892.59223 116.810456 1024 270.130168 1024h270.130169c87.615827 0 167.917027-51.106571 219.023597-124.125084 87.615827-36.509257 160.63434-87.615827 211.740911-146.005084 51.106571-73.018513 65.703885-146.005084 36.509257-204.426283z m-277.444797 182.51434c0 124.125084-87.615827 219.023597-197.111655 219.023598H270.130168c-109.52777 0-197.111655-94.898514-197.111655-219.023598v-292.04211h657.070792v292.04211z m175.231655-29.194628c-29.194629 36.509257-65.703885 65.703885-109.527769 94.898514 7.314628-21.911942 7.314628-43.791943 7.314628-65.703886V512.934292c73.018513 0 124.125084 29.194629 138.722398 65.703885 21.911942 43.791943-14.597314 94.898514-36.509257 124.125084z"
+                                                  p-id="74252" fill="#9a9a9a"></path>
+                                        </svg>
+                                        <span>{{ post.catalog_name }}</span></b>
+                                    <time class="post_item_time flex">️
+                                        <svg class="Zi Zi--Wheat" fill="currentColor" viewBox="0 0 24 24" width="18"
+                                             height="18">
+                                            <path d="M14.185 8.965c-.393 0-1.74-1.36-1.74-3.04 0-1.679 1.347-3.04 1.74-3.04s1.74 1.361 1.74 3.04c0 1.68-1.347 3.04-1.74 3.04zm-3.492 3.473c-.393 0-1.74-1.361-1.74-3.04 0-1.68 1.347-3.04 1.74-3.04s1.74 1.36 1.74 3.04c0 1.679-1.346 3.04-1.74 3.04zm3.145 3.909c.428 0 .444.408.152.702-2.097 2.096-5.892.08-8.549 2.739-.78.779-2.082 2.085-2.082 2.085a.435.435 0 0 1-.616 0l-.615-.616a.435.435 0 0 1 0-.615s1.31-1.298 2.09-2.076c2.66-2.655.642-6.445 2.742-8.54.293-.292.702-.275.702.153 0 2.188 1.518 3.374 1.262 4.78a.107.107 0 0 0 .127.128c1.408-.256 2.596 1.26 4.787 1.26zm-2.268-3.038c0-.393 1.363-1.737 3.045-1.737 1.681 0 3.045 1.344 3.045 1.737s-1.364 1.737-3.045 1.737c-1.682 0-3.045-1.344-3.045-1.737zm3.478-3.473c0-.392 1.363-1.736 3.045-1.736 1.681 0 3.045 1.344 3.045 1.736 0 .393-1.364 1.737-3.045 1.737-1.682 0-3.045-1.344-3.045-1.737zm2.341-3.19c-.288-.29-.275-2.288.955-3.529 1.23-1.24 3.214-1.252 3.502-.962.288.29.276 2.289-.955 3.53-1.23 1.24-3.214 1.251-3.502.961z"></path>
+                                        </svg>
+                                        <span> {{ post.post_timestamp }}</span></time>
+                                    <a class="edit_post btn flex"
+                                       href="{{ url_for('admin.edit_post',post_id=post.post_id) }}">
+                                        <svg t="1586667692061" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                             xmlns="http://www.w3.org/2000/svg" p-id="77502" width="20" height="20">
+                                            <path d="M829.866667 206.933333l-108.8-83.2c-46.933333-36.266667-115.2-25.6-151.466667 21.333334L251.733333 563.2c-2.133333 2.133333-2.133333 2.133333-2.133333 4.266667-4.266667 4.266667-8.533333 10.666667-8.533333 17.066666L194.133333 874.666667c-2.133333 10.666667 2.133333 23.466667 10.666667 29.866666 6.4 4.266667 12.8 6.4 19.2 6.4 4.266667 0 8.533333 0 12.8-2.133333l277.333333-115.2c4.266667-2.133333 8.533333-6.4 10.666667-8.533333 2.133333-2.133333 4.266667-4.266667 6.4-8.533334l317.866667-420.266666c38.4-46.933333 27.733333-115.2-19.2-149.333334zM264.533333 829.866667l29.866667-183.466667 145.066667 110.933333-174.933334 72.533334z m230.4-108.8l-181.333333-136.533334 251.733333-330.666666-2.133333-2.133334h4.266667l-2.133334 2.133334 181.333334 136.533333-251.733334 330.666667z m305.066667-403.2l-25.6 34.133333-179.2-136.533333V213.333333l25.6-34.133333c14.933333-19.2 42.666667-23.466667 61.866667-8.533333l108.8 83.2c21.333333 17.066667 23.466667 44.8 8.533333 64z"
+                                                  fill="#9a9a9a" p-id="77503"></path>
+                                        </svg>
+                                        <span>编辑</span>
+                                    </a>
+                                    <a class="post_craft btn flex">
+                                        <svg t="1586667183526" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                             xmlns="http://www.w3.org/2000/svg" p-id="75381" width="20" height="20">
+                                            <path d="M201.898667 304.469333a17.066667 17.066667 0 0 1 7.611733 7.645867l108.919467 217.838933a17.066667 17.066667 0 0 1-15.2576 24.712534l-61.610667 0.034133a281.7024 281.7024 0 0 0 455.7824 166.2976l43.1104 74.717867A365.329067 365.329067 0 0 1 518.485333 870.4c-185.275733 0-338.466133-137.3184-363.383466-315.733333H85.333333a17.066667 17.066667 0 0 1-15.2576-24.712534l108.885334-217.838933a17.066667 17.066667 0 0 1 22.9376-7.611733zM518.485333 136.533333c185.275733 0 338.500267 137.3184 363.383467 315.733334h69.802667a17.066667 17.066667 0 0 1 15.2576 24.712533l-108.885334 217.838933a17.066667 17.066667 0 0 1-30.549333 0l-108.919467-217.838933a17.066667 17.066667 0 0 1 15.2576-24.712533h61.610667a281.7024 281.7024 0 0 0-452.130133-169.301334L300.373333 208.452267A365.294933 365.294933 0 0 1 518.485333 136.533333z"
+                                                  p-id="75382" fill="#9a9a9a"></path>
+                                        </svg>
+                                        <span>转化</span></a>
 
-                            <ul class="post_item_data">
-                                <li class="post_item_data_icons icons_read">
-                                    <span class="post_item_data_inner">6</span>
-                                </li>
-                                <li class="post_item_data_icons icons_like">
-                                    <span class="post_item_data_inner">5</span>
-                                </li>
-                                <li class="post_item_data_icons icons_cm">
-                                    <span class="post_item_data_inner">5</span>
-                                </li>
-                                <li class="post_item_data_icons icons_reward">
-                                    <span class="post_item_data_inner">3</span>
-                                </li>
-                                <li class="post_item_data_icons icons_share">
-                                    <span class="post_item_data_inner">2</span>
-                                </li>
-                            </ul>
+                                    {#                                    <a class="craft_post btn" method="post"#}
+                                    {#                                       href="{{ url_for('admin.del_post', post_id=post.post_id) }}">草稿#}
+                                    {#
+{#                                    </a>#}
+                                    {#                                    <a class="publish_post btn"#}
+                                    {#                                       href="{{ url_for('admin.renew_post',post_id=post.post_id) }}">发布#}
+                                    {#                                    </a>#}
+
+                                </div>
+
+
+                            </div>
+
                         </div>
                     </div>
-                    <div class="post_item_action">
-                        <a id="edit_post" class="btn"
-                           href="{{ url_for('admin.edit_post',post_id=post.post_id) }}">编辑</a>
-                        <from method="post" action="{{ url_for('admin.del_post', post_id=post.post_id) }}">
-                            <input class="delete_post_danger" type="submit" value="Delete"
-                                   onclick="return confirm('Are you sure?');">
-                        </from>
-                        <a id="publish_post" class="btn"
-                           href="{{ url_for('admin.renew_post',post_id=post.post_id) }}">发布</a>
+
+                {% endfor %}
+
+                <table class="table_footer">
+                    <div class="pagination">
+                        <a href="#">‹</a>
+                        <a href="#" class="selected">1</a>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                        <a href="#">5</a>
+                        <a href="#">›</a>
                     </div>
-                </div>
+                </table>
+            {% else %}
+                No posts
+            {% endif %}
 
-            {% endfor %}
-
-            <table class="table_footer">
-                <div class="pagination">
-                    <a href="#">‹</a>
-                    <a href="#" class="selected">1</a>
-                    <a href="#">2</a>
-                    <a href="#">3</a>
-                    <a href="#">4</a>
-                    <a href="#">5</a>
-                    <a href="#">›</a>
-                </div>
-            </table>
-        {% else %}
-            No posts
-        {% endif %}
+        </div>
+    </div>
 
 
-</div>
+
+
+
+<div class="snackbar"><p class="snackbar-text">Added Art</p></div>
+
+
+
+
+{#    追加添加按钮的动效#}
+
+
+ </script>
+
 
 
 {% endblock %}

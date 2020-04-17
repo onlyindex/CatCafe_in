@@ -1,12 +1,12 @@
 from flask import Blueprint, render_template,request
 from db import get_db
-from app.auth import admin_login_required
+from app.auth import login_required
 
 msg_bp = Blueprint('post', __name__, url_prefix='/msg')
 
 
 # [message页面] get方法获得所有日志相应用户的所有评论
-@admin_login_required
+@login_required
 @msg_bp.route('/message', methods=['GET'])
 def message():
     if request.method == 'GET':

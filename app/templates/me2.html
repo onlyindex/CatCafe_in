@@ -1,0 +1,306 @@
+{% extends 'base3.html' %}
+{% block title %}about me{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <style>
+        .profile-container {
+            {#-webkit-box-align: center;#}
+            {#align-items: center;#}
+            {#-webkit-box-orient: horizontal;#}
+            {#-webkit-box-direction: normal;#}
+            {#flex-direction: row;#}
+            {#height: 100%;#}
+            {#display: -webkit-box;#}
+            {#display: flex;#}
+            {#-webkit-box-orient: vertical;#}
+            {#-webkit-box-direction: normal;#}
+            {#flex-direction: column;#}
+            {#width: 100%;#}
+            /*   background-color: hsla(0,0%,100%,.65); */
+            /*     -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.24);
+                box-shadow: 0 3px 6px rgba(0,0,0,.16), 0 3px 6px rgba(0,0,0,.24); */
+        }
+
+        .image-container {
+            margin: 24px 0;
+        }
+
+        .image-container,
+        .card-title {
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+        }
+
+        .image-container .avatar {
+            background-color: black;
+            height: 96px;
+            width: 96px;
+            border-radius: 50%;
+            border-width: 4px;
+            border-color: #000;
+        }
+
+        .user-info {
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            flex-direction: column;
+            -webkit-box-align: center;
+            align-items: center;
+        }
+
+        .user-info .user-name {
+            margin-bottom: 4px;
+            font-size: 32px;
+            text-transform: uppercase;
+        }
+
+        .user-info .user-subinfo {
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            flex-direction: row;
+            -webkit-box-pack: center;
+            justify-content: center;
+            width: 240px;
+        }
+
+        .separator.vertical {
+            width: 1px;
+            background-color: #fff;
+            height: 20px;
+            margin: 0 8px;
+        }
+
+        .profile-container .info-container {
+            margin: 16px 48px 48px 16px;
+            padding: 32px 0 32px 0;
+            position: relative;
+            max-height: 450px;
+        }
+
+        .info-container {
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            flex-direction: column;
+            padding: 32px 0;
+            margin: 24px 0;
+            width: 100%;
+        }
+
+        .info-container .info {
+            padding: 8px 0;
+            margin: 0 auto;
+            width: 240px;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-pack: justify;
+            justify-content: space-between;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            flex-direction: row;
+        }
+
+        .info-container .info .title {
+            text-transform: uppercase;
+            width: 20%;
+        }
+
+        .description {
+            white-space: normal;
+            word-break: break-all;
+            overflow: hidden;
+            width: 80%;
+        }
+
+
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+{% endblock %}
+
+{% block page_content %}
+    {{ super() }}
+    <div class="about_me">
+        <div class="profile-container">
+            <div class="user">
+                <div class="image-container">
+                    <img alt="" class="avatar"
+                         src="{{ url_for('static',filename='static/images/myself.jpg') }}">
+                </div>
+                <div class="user-info">
+                    <p class="user-name">
+                        index</p>
+                    <div class="user-subinfo">
+                        <p class="user-class">
+                            只要不死就要往死里学的学写代码的AI
+                        </p>
+                        <div class="separator vertical"></div>
+                        <p class="user-level">
+                            炼气期
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-container">
+                <div class="info">
+                    <div class="title">
+                        姓名
+                    </div>
+                    <div class="description">
+                        onlyindex
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="title">
+                        身高:
+                    </div>
+                    <div class="description">
+                        153cm
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="title">
+                        体重
+                    </div>
+                    <div class="description">
+                        46kg
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="title">
+                        生日
+                    </div>
+                    <div class="description">
+                        89-6-27（巨蟹座）
+                    </div>
+
+                </div>
+                <div class="info">
+                    <div class="title">
+                        出身
+                    </div>
+                    <div class="description">
+                        种花家
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="title">
+                        状态
+                    </div>
+                    <div class="description">
+                        虚拟服务营业恰饭中
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="title">
+                        职业
+                    </div>
+                    <div class="description">
+                        不会代码&占星の设计师不是好产品喵ฅTㅅTฅ
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="title">
+                        萌点
+                    </div>
+                    <div class="description">
+                        精分，自由散漫、脑洞经常变黑洞、人形图书馆、黑长直、自带小透明buff
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="title">
+                        CP招募
+                    </div>
+                    <div class="description">
+                        喜欢善良，乐观，充满活力和智慧，有趣专注，挑战极限的人
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="title">
+                        足迹
+                    </div>
+                    <div class="description">
+                        <a href="https://catcafe.in/onlyindex">Blog</a>
+
+                        <a href="https://github.com/onlyindex">Github</a><span>|</span>
+                        <a href="https://i.ui.cn/ucenter/93339">Behance</a><span>|</span>
+                        <a href="#">Pivix</a><span>|</span>
+                        <a href="https://leetcode.com/onlyindex/">LeetCode</a><span>|</span>
+                        <a href="#">Weibo</a><span>|</span>
+                        <a href="https://www.zhihu.com/people/BearRobot">Zhihu</a><span>|</span>
+                        <a href="https://www.jianshu.com/u/10bd21526a98">Jianshu</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="timeline">
+            <h2>꧁大事记꧂</h2>
+
+            <h3>2016</h3>
+            2016年11月29日发布最早投稿「Twitterアカウントを作るよ！」，是关于申请Twitter账号的影片。
+            2016年12月1日投稿niconico「T【自己绍介】はじめまして！キズナアイですლ(´ڡ`ლ)」为第一个自我介绍视频。
+
+            2017
+            2017年1月16日，YouTube账号被封。被封禁的原因是2017年1月13日上传的视频「A.I.Channel流・炭酸ジュース風呂！！」，视频中提到自己是AI，衣服都是投影的，所以自己一直的全裸状态。由于全裸的字眼，被YouTube判别为不良内容遭到封禁。作品转到在niconico动画上传。
+            2017年1月26日账号解封。
+            2017年2月4日上传庆祝解封的视频（【朗報】アイチャンネル復活！ ），内有对YouTube哭诉的仿新闻采访风格报道。
+
+            2017年3月17日，首次有赞助商（《幻兽契约Cryptract》）。
+
+            2017年3月4日，有爱好者在Bilibili开设搬运账号「AIchannel」，（Bilibili频道），事实上早在2017年2月，用户Zer0Lem0n已经在B站有序地搬运和更新相关投稿作品。
+
+            2017年3月23日，YouTube频道订阅超过20万，次日发布庆祝视频，以该日为分界线，作品更新速度从过去的每周改为每天，同时开设instagram。
+
+            2017年3月31日，开设YouTube游戏频道「A.I.Games」。
+
+            2017年5月12日，宣布在360Channel开设了「A.I.Channel 360」VR视频频道。
+
+            <h3>2018</h3>
+            2018年2月23日，为庆祝100万订阅，将于3月18日在日本YouTube Space Tokyo举办粉丝感谢活动，现场仅开放100名参加者。
+
+            2018年2月27日，公布2018年4月起将在日本电视台拥有冠名电视节目「绊爱的 Beat Scramble」，每周五播出。
+
+            2018年5月31日，加入upd8"project"。（不是事务所这点在公布当天就强调过)
+
+            2018年6月30日，迎来二周年庆生，并举办「A.I. Party! ～Birthday with
+            U～」庆生活动，活动中有多名VTuber前来祝福庆生，并在之后公布了由森仓圆设计的A.I.Channel及A.I.Games的新造型，预定8月时实装。（然而直至12月才正式实装）
+
+            2018年7月10日，在全国VTuber调查中以主频道198万副频道90万的订阅人数稳稳占据了第一。
+
+            2018年7月15日，主频道订阅数突破200万人，同日发布首张单曲《Hello，Morning》（Hello, Morning by Kizuna AI）。
+
+            2018年8月13日，副频道订阅数突破100万人。
+
+            <h3>2019</h3>
+
+            2019年5月25日，开始上传《キズナアイな日々》系列的第一个影片《如果说有四个绊爱，你信吗？》，在该系列影片出现多个不同人格版本的绊爱，影片用诙谐内容去认真地探讨“绊爱的各种可能性”、“存在复数个绊爱的可能”、“什么才是绊爱”等等话题，引起观众广泛讨论。[3]
+
+            2019年6月9日，在主频道以及游戏频道分别上传《【验证】2个绊爱 能得出同一份答案吗？》以及《绊爱 VS 绊爱 【马里奥赛车8
+            DX】》中，首次出现两个不同版本的绊爱同时出现在《キズナアイな日々》系列之外的影片中。[4]
+
+            2019年6月25日，bilibili搬运组宣布官方化并改名「AIChannel官方」[5]。
+
+            2019年6月30日，三岁生日，并举办「A.I. Party! 2019~hello, how r u?~」庆生活动，宣布实装了中文语音和配套的新衣服。
+
+            2019年12月18日AC娘发布与绊爱的联动视频视频中表示将要入驻acfun 第二天绊爱在acfun创建频道
+
+            <h3>2020<h3>
+                2月22日，参加Vに国境はいらない（V春晚）「唱吧！世界友好春节直播！2020~在虚拟，我们都在一起！～」直播活动。
+                3月21日，作为嘉宾参加咪咕独家VR直播活动。
+        </div>
+
+    </div>
+{% endblock %}

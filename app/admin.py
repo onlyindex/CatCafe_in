@@ -1,11 +1,13 @@
-from flask import Blueprint, request, session, render_template, redirect, url_for, flash, make_response
+from flask import Blueprint, request, session, render_template, redirect, url_for, flash, make_response, abort
 from db import get_db
-from app.auth import admin_login_required
-import re
+from app.auth import login_required
 import json
 import random
 import urllib
 import datetime
+from itertools import groupby
+from operator import itemgetter
+from app.utiles import admin_redirect_back
 
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -17,24 +19,27 @@ admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 
 # 后台首页
-@admin_login_required
+@login_required
 @admin_bp.route('/', methods=['GET'])
 def dashboard():
+    # 查询3天内草稿
+    # 查询3天内文章数据统计
     return render_template('admin/dashboard.html')
 
 
 # 日志管理
 # mysql->sqlite timstamp
-@admin_login_required
+@login_required
 @admin_bp.route('/post/manage', methods=['GET'])
 def manage_post():
     # 查询所有文章、进行分页处理?、传入模板
     db = get_db()
     cursor = db.cursor()
-    cursor.execute('select p.post_id,p.post_title,date(p.post_timestamp) as post_timestamp,p.post_status,c.catalog_name '
-                   'from post as p,catalog as c '
-                   'where p.catalog_id = c.catalog_id '
-                   'order by p.post_timestamp desc ')
+    cursor.execute(
+        'select p.post_id,p.post_title,date(p.post_timestamp) as post_timestamp,p.post_status,c.catalog_name '
+        'from post as p,catalog as c '
+        'where p.catalog_id = c.catalog_id '
+        'order by p.post_timestamp desc ')
     posts = cursor.fetchall()
     return render_template('admin/post_manage.html', posts=posts)
 
@@ -43,7 +48,7 @@ def manage_post():
 
 
 # 发布日志
-@admin_login_required
+@login_required
 @admin_bp.route('/post/new', methods=['GET', 'POST'])
 def new_post():
     db = get_db()
@@ -119,7 +124,7 @@ def new_post():
 
 # 编辑 vs 新建  修改使用日志对象 update->insert
 # 编辑日志
-@admin_login_required
+@login_required
 @admin_bp.route('/<int:post_id>/edit', methods=['GET', 'POST'])
 def edit_post(post_id):
     # post = get_post_basic(post_id)
@@ -144,7 +149,7 @@ def edit_post(post_id):
 
 
 # 删除日志
-@admin_login_required
+@login_required
 @admin_bp.route('<int:post_id>/delete', methods=['GET', 'POST'])
 def del_post(post_id):
     db = get_db()
@@ -159,7 +164,7 @@ def del_post(post_id):
 
 
 # 恢复日志
-@admin_login_required
+@login_required
 @admin_bp.route('<int:post_id>/renew', methods=['GET', 'POST'])
 def renew_post(post_id):
     db = get_db()
@@ -176,26 +181,45 @@ def renew_post(post_id):
 
 
 # 评论管理、批准评论、关闭评论
-@admin_login_required
+@login_required
 @admin_bp.route('/comment/manage', methods=['GET'])
 def manage_comment():
-    # 列出所有用户评论  用户 评论内容 日志 评论时间
     # 分页处理?
     db = get_db()
     cursor = db.cursor()
-    # 三表查询 评论表 用户表 日志表
-    cursor.execute('select u.username,c.comment_timestamp,c.comment_body,p.post_title,p.post_id '
-                   'from comment as c , user as u,post as p '
-                   'where c.reader_id=u.user_id and c.post_id=p.post_id ')
-    comments = cursor.fetchall()
-    return render_template('admin/comment_manage.html', comments=comments)
+    cursor.execute(
+        "select p.post_id, p.post_title, u.username,c.comment_id,c.comment_body,date(c.comment_timestamp) as comment_timestamp, strftime('%Y-%m-%d',c.comment_timestamp) as group_name "
+        "from post as p,user as u,comment as c "
+        "where c.post_id=p.post_id and c.reader_id=u.user_id "
+        "order by comment_timestamp desc "
+    )
+    rows = cursor.fetchall()
+    # 返回分组的多行数据
+    # 新建key group 的空字典 利用key=groupname然后分组cm_list=group
+    # 再遍历cm把cm存到cm_list
+    group_by_key = {}
+    for key, cm_list in groupby(rows, key=itemgetter('group_name')):
+        group = []
+        for comment in cm_list:
+            group.append(comment)
+        group_by_key[key] = group
+    if rows is None:
+        error = "喵喵喵啥评论也没有(￣o￣) . z Z"
+        flash(error, 'warning')
+        return redirect(url_for('admin.manage_comment'))
+    return render_template('admin/comment_manage.html', group_by_key=group_by_key)
 
+# 回复评论
+@login_required
+@admin_bp.route('/comment/manage', methods=['GET'])
+def reply_commnet():
+    return ''
 
 # 后台回复评论  跟发布新评论好像？
 
 
 # 分类管理
-@admin_login_required
+@login_required
 @admin_bp.route('/catalog/manage', methods=['GET'])
 def manage_catalog():
     # 列出所有分类
@@ -208,7 +232,7 @@ def manage_catalog():
 
 
 # 增加分类
-@admin_login_required
+@login_required
 @admin_bp.route('/catalog/new', methods=['GET', 'POST'])
 def new_catalog():
     if request.method == 'POST':
@@ -242,7 +266,21 @@ def gen_rnd_filename():
     return '%s%s' % (filename_prefix, str(random.randrange(1000, 10000)))
 
 
-@admin_login_required
+# 读者管理
+@login_required
+@admin_bp.route('/user/manage', methods=['GET', 'POST'])
+def manage_user():
+    if request.method == 'GET':
+        db = get_db()
+        cursor = db.cursor()
+        cursor.execute(
+            'select u.user_id,u.username '
+            'from user as u ')
+    users = cursor.fetchall()
+    return render_template('admin/user_manage.html', users=users)
+
+
+@login_required
 @admin_bp.route('/ckupload/', methods=['POST', 'OPTIONS'])
 def ckupload():
     """CKEditor file upload"""
@@ -280,3 +318,23 @@ def ckupload():
     response = make_response(res)
     response.headers["Content-Type"] = "text/html"
     return response
+
+
+
+# 主题切换
+# 或者在url规则里使用any转换器 url规则中无法使用current_app 可以写死可选值 太不灵活
+# @admin_bp.route('change_theme/<any(Pink,Blue):theme_name>')
+# 直接从setting模块导入['THEMES']构建正确的选项字符串
+# @admin_bp.route('change_theme/<any(%s):theme_name>' % str（['THEMES'].keys())[1:-1]) 太麻烦
+@login_required
+@admin_bp.route('change_theme/<theme_name>')
+def change_theme(theme_name):
+    # 手动添加if语句判断url变量中的主题名称在支持范围 出错返回404
+    if theme_name not in current_app.config['THEMES'].keys():
+        abort(404)
+        # 重定向原来页面除非找不到返回后台首页 form 辅助函数utils.py
+    response = make_response(admin_redirect_back())
+    # 将主题名称保存在名为theme的cookie中 cookie过期时间30天
+    response.set_cookie('theme', 'theme_name', max_age=30*24*60*60)
+    # 加载主题选项值储存在客户端cookie中
+    return render_template('change_theme')

@@ -7,14 +7,17 @@ from db import get_db
 
 from datetime import timedelta
 
-
+# Sword Art Online
 def create_app():
     print('create app(config=None)run')
     # 定义 static 默认目录和路径,加载实例配置
     app = Flask(__name__, static_folder='', static_url_path='', instance_relative_config=True)
     app.config.from_mapping(
+        # 配置文件太少了_(:з」∠)_so未分门别类放置
         SECRET_KEY='hard to guess',
         DATABASE=os.path.join(app.instance_path, 'cat.db'),
+        # 主题配置文件
+        # THEMES={'Pink':'pink_phone','Blue':'blue_phone'}
         SEND_FILE_MAX_AGE_DEFAULT=timedelta(seconds=1),
         # 设置会话过期时间
         PERMANENT_SESSION_LIFETIME=timedelta(minutes=30)
@@ -53,9 +56,9 @@ def create_app():
     # the minimal flask application
     @app.route('/', methods=['GET'])
     def home():
-        return render_template('base1.html')
+        return render_template('base3.html')
 
     @app.route('/me', methods=['GET'])
     def me():
-        return render_template('me1.html')
+        return render_template('me2.html')
     return app

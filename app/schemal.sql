@@ -7,11 +7,21 @@ create table user
     user_id  integer primary key autoincrement,
     username varchar(20) unique  not null,
     email    varchar(254) unique not null,
-    password varchar(128)        not null
+    password varchar(128)        not null,
+
+    user_signup_timestamp default current_timestamp,
+    cm_replay_total  integer default 0
+
+-- 忘了给写入注册时间
+-- 互动次数
+--用户头像
+--用户社交账户
+
 --   about_me text,
 
 --   role_id not null,
 --   foreign key (role_id) references role(role_id)
+
 
 );
 
@@ -87,11 +97,15 @@ create table comment
     comment_id        integer primary key autoincrement,
     comment_body      text    not null,
     comment_timestamp timestamp default current_timestamp,
-
+    comment_status varchar(20) default 'show',
+    replied_id    integer default null ,
     reader_id         integer not null,
     post_id           integer not null,
     foreign key (reader_id) references user (user_id),
     foreign key (post_id) references post (post_id)
 );
 
+--增加回复
+alter table comment
+	add replied_id integer default null;
 

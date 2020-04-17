@@ -2,13 +2,38 @@
 {% block title %}catalog manage{% endblock %}
 {% block styles %}
     {{ super() }}
+    <style>
+        .img_upload_plugin button {
+            display: inline-block;
+            border: 2px dashed #D9DADC;
+            padding: 10px 15px;
+            color: #353535;
+            text-decoration: none;
+            width: 780px;
+            height: 300px;
+            text-align: center;
+            /*设置元素绝对定位*/
+            position: absolute;
+
+            /*css3   transform 实现*/
+            font-size: 40px;
+            padding-top: 120px;
+            margin-top: 20px;
+            background-color: #fff;
+
+
+        }
+
+
+    </style>
 {% endblock %}
 {% block page_content %}
     <div id="CatalogPanel">
         <div id="CatalogForm">
             <form method="post" action="{{ url_for('admin.new_catalog') }}">
                 <input class="underline_input" name="catalog_name" id="catalog_name" placeholder="分类名" required><br>
-                <input class="underline_input" type="catalog_img" name="catalog_img" placeholder="分类配图"><br>
+                <label class="img_upload_plugin" type="catalog_img" name="catalog_img"><button>＋</button></label>
+                <br>
                 <button class="button" type="submit">Add</button>
             </form>
         </div>

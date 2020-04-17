@@ -2,8 +2,10 @@ html {
     word-break: break-word;
     /*font: 16px BlinkMacSystemFont, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", sans-serif;*/
     /*Helvetica*/
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-family: 'SF Pro SC', 'SF Pro Display', 'PingFang SC', 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif, "Hiragino Sans GB";
+    /*font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;*/
     color: #222;
+    font-size: 16px;
 }
 
 body {
@@ -52,7 +54,7 @@ ul, li {
     background-color: #fff;
     border-bottom: 1px solid #eaecef;
     box-sizing: border-box;
-    padding: .7rem 1.5rem;
+    padding: .75rem;
     line-height: 2.2rem;
 }
 
@@ -97,7 +99,8 @@ ul, li {
     background-size: 1rem;
 }
 
-@media (max-width: 1080px) {
+/*移动端样式*/
+@media (max-width: 720px) {
     .search-box input {
         cursor: pointer;
         width: 0;
@@ -149,13 +152,11 @@ a.logo.iconpic {
 .menu {
     width: 1.25rem;
     height: 1.25rem;
-    padding: .6rem;
     position: absolute;
     line-height: 2.75rem;
     text-align: center;
     display: none;
-    top: .6rem;
-    left: 1rem;
+    top: 1.2rem;
 }
 
 
@@ -169,15 +170,17 @@ a.logo.iconpic {
     padding-left: 320px;
     position: relative;
     top: 3.6rem;
+    color: #353535;
 }
 
 .page_content {
     margin: 0 auto;
-    max-width: 780px;
+    max-width: 720px;
+    padding: 24px 40px;
 }
 
 /*移动端100%*/
-@media (max-width: 1080px) {
+@media (max-width: 720px) {
     .menu {
         display: block;
     }
@@ -195,7 +198,7 @@ a.logo.iconpic {
     }
 
     .page_content {
-        padding: 2rem;
+        padding: 0.75rem;
         margin: 0 auto;
     }
 }
@@ -304,17 +307,18 @@ a {
 
 
 a:link, a:active, a:visited {
-    color: #F09199
-    /*锚链接颜色 #42ABB3;*/
+    color: #353535;
 }
 
+/*输入框下划线设置*/
 .underline_input {
     width: 100%;
     border-bottom: 1px solid #f09199;
     border-top: 0px;
     border-left: 0px;
     border-right: 0px;
-    #border: none
+    #border: none;
+    font-size: 16px;
     /*    # !*FILTER: alpha(opacity=0)*! #*/
     /*    # box-sizing: border-box*/
     /*    # border-radius: 0*/
@@ -331,7 +335,7 @@ a:link, a:active, a:visited {
 underline_input::-webkit-input-placeholder {
     /* placeholder颜色  */
     font-size: 16px;
-    color: #CCCCCC;
+    color: #fff;
     /* placeholder字体大小  */
     /* WebKit browsers */
     line-height: 10;
@@ -425,6 +429,8 @@ underline_input::-webkit-input-placeholder {
     cursor: pointer;
     width: 100%;
     line-height: 2.5rem;
+    position: relative;
+    margin-top: 300px;
 }
 
 /*flash 多种样式*/
@@ -472,21 +478,32 @@ underline_input::-webkit-input-placeholder {
 
 /*切换成移动端样式*/
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: 720px) {
     #content {
         margin-top: 8em;
         margin-left: 0em;
         max-width: 720px;
     }
 
+    /*在移动端默认隐藏抽屉*/
     .sidebar {
         width: 100%;
-        transform: translateX(0);
-        transition: transform .2s ease;
-        /*display: none;*/
-        /*暂时隐藏方便开发*/
+         transition: transform .2s ease;
+        transform: translateX(-320px);
+        opacity: 0;
+                display: none;
+
+
     }
 
+
+    .show {
+        /*显示*/
+        transform: translateX(0);
+        opacity: 1;
+        transition: transform .2s ease;
+        display: block;
+    }
 
     .sidebar_inner {
         width: 100%;
@@ -528,7 +545,6 @@ underline_input::-webkit-input-placeholder {
     border-right: 1px solid #eaecef;
     background-color: #fff;
     opacity: 0.8;
-
     width: 320px;
 }
 
@@ -544,9 +560,13 @@ underline_input::-webkit-input-placeholder {
 
 /*登录注册按钮*/
 .btn {
-    padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+    /*padding: 0.25rem 0.25rem 0.25rem 0.5rem;*/
     display: inline-block;
     color: #f09199;
+    font-size: 14px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
 }
 
 
@@ -601,23 +621,14 @@ underline_input::-webkit-input-placeholder {
     line-height: 36px;
 }
 
-.nav_links a:link,.nav_links a:active,.nav_links a:visited {
-
-    /*color: #F09199 #42ABB3;*/
-    color: #999;
-}
-
-
-
-
 
 .nav_link {
     font-size: 18px;
     padding-left: 36px;
 }
 
+
 .nav_link_name {
-    color: #999;
     padding-left: 34px;
     position: relative;
 }
@@ -634,31 +645,40 @@ underline_input::-webkit-input-placeholder {
     left: 0;
     margin-top: -12px;
 }
-.nav_link .icon_home:before{
-        background: url("../static/images/icons_home.svg") no-repeat;
+
+.nav_link .icon_home:before {
+    background: url("../static/images/icons_home.svg") no-repeat;
 }
-.nav_link .icon_manage:before{
-        background: url("../static/images/icons_manage.svg") no-repeat;
+
+.nav_link .icon_manage:before {
+    background: url("../static/images/icons_manage.svg") no-repeat;
 }
-.nav_link .icon_analysis:before{
-        background: url("../static/images/icon_analysis.svg") no-repeat;
+
+.nav_link .icon_analysis:before {
+    background: url("../static/images/icon_analysis.svg") no-repeat;
 }
-.nav_link .icon_theme:before{
-        background: url("../static/images/icons_theme.svg") no-repeat;
+
+.nav_link .icon_theme:before {
+    background: url("../static/images/icons_theme.svg") no-repeat;
 }
-.nav_link .icon_setting:before{
-        background: url("../static/images/icons_setting.svg") no-repeat;
+
+.nav_link .icon_setting:before {
+    background: url("../static/images/icons_setting.svg") no-repeat;
 }
-.nav_link_item span {
+
+.nav_link_item {
+    color: #353535;
     font-size: 14px;
-    color: #999;
     padding-left: 70px;
     position: relative;
 }
 
+.nav_link_item_cur {
+    color: #f09199;
+}
+
 footer {
     position: relative;
-    color: #555;
     font-size: 14px;
     text-align: center;
     top: 9.6rem;
@@ -670,7 +690,7 @@ footer {
 /*    padding: 8px;*/
 /*    float: left;*/
 /*}*/
-
+/*全站分页样式*/
 .pagination {
     text-align: center;
     padding: 20px 0;
@@ -679,23 +699,20 @@ footer {
 .pagination a {
     width: 25px;
     height: 25px;
-    border-radius: 50%;
+    /*border-radius: 50%;*/
     background-color: transparent;
-    color: #222;
+    color: #555;
     border: 1px solid white;
     display: inline-block;
     vertical-align: middle;
     text-decoration: none;
-    font-weight: 200;
     margin: 4px;
     transition: all 0.2s linear;
 }
 
 .pagination a:hover, .pagination a.selected {
-    color: #fff;
-    background-color: #f09191;
-    border-color: #f09191;
-    /*background: #f5f5f5;*/
+    color: #F09199;
+    border-bottom: 2px solid #F09199;
 }
 
 
@@ -709,63 +726,100 @@ footer {
 }
 
 
-
-
 /*追加下拉菜单样式*/
 .select_plug {
-        {#display: flex;#} margin-top: 32px;
-            opacity: 1;
-            transition: opacity 0.2s ease 0.5s;
-            float: right;
+    margin-top: 32px;
+    opacity: 1;
+    transition: opacity 0.2s ease 0.5s;
+    float: right;
 
-        }
+}
 
-        .iIuPto {
-            position: relative;
-            z-index: 1;
-            flex: 1 1 0%;
-        }
+.iIuPto {
+    position: relative;
+    z-index: 1;
+    flex: 1 1 0%;
+}
 
-        .kOLcJ {
-            display: flex;
-            -webkit-box-pack: justify;
-            justify-content: space-between;
-            -webkit-box-align: center;
-            align-items: center;
-            margin-bottom: 8px;
-        }
+.kOLcJ {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-bottom: 8px;
+}
 
-        .select_options:hover {
-            background-color: rgb(238, 238, 238);
-        }
+.select_options:hover {
+    background-color: rgb(238, 238, 238);
+}
 
-        .select_options {
-            -webkit-appearance: none;
-            font-size: 12px;
-            line-height: 16px;
-            color: rgb(153, 153, 153);
-            vertical-align: middle;
-            cursor: pointer;
-            padding: 8px 30px 8px 8px;
-            border-radius: 4px;
-            background: url("../static/images/icons_select.svg") right 8px center / 20px no-repeat rgb(255, 255, 255);
-            outline: none;
-            border-width: initial;
-            border-style: none;
-            border-color: initial;
-            border-image: initial;
-            transition: background-color 0.12s ease-out 0s;
-        }
+.select_options {
+    -webkit-appearance: none;
+    font-size: 12px;
+    line-height: 16px;
+    color: rgb(153, 153, 153);
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 8px 30px 8px 8px;
+    border-radius: 4px;
+    background: url("../static/images/icons_select.svg") right 8px center / 20px no-repeat rgb(255, 255, 255);
+    outline: none;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    transition: background-color 0.12s ease-out 0s;
+}
 
-        option {
-            font-weight: normal;
-            display: block;
-            white-space: pre;
-            min-height: 1.2em;
-            padding: 0px 2px 1px;
-        }
-
-
+option {
+    font-weight: normal;
+    display: block;
+    white-space: pre;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+}
 
 
+/*追加插件样式*/
+.plug {
+    margin-bottom: 16px;
+}
 
+.plug_title {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+    padding: 16px 0;
+}
+
+/*图标配文字全站统一样式*/
+.flex {
+    vertical-align: middle;
+    display: inline-flex;
+    font-size: 14px;
+    color: #9a9a9a;
+    padding-left:0.25rem;
+    padding-right: 0.25rem;
+
+}
+
+.flex span {
+    margin-left: .25rem;
+    color: #9a9a9a;
+    margin-right: .25rem;
+
+}
+
+/*全站后台头像配置*/
+
+.avatar_img {
+
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
+    background-position: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #e0e0e0;
+}

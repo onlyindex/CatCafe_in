@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, request, url_for, flash, g, session
 from db import get_db
 from werkzeug.exceptions import abort
-from app.auth import admin_login_required
+from app.auth import login_required
 from itertools import groupby
 from operator import itemgetter
 
@@ -39,7 +39,8 @@ def posts():
             error = "喵喵喵啥日志也没有(￣o￣) . z Z"
             flash(error, 'warning')
             return redirect(url_for('post.posts'))
-    return render_template('post/post.html', group_by_key=group_by_key)
+
+
 
 
 # 分类
@@ -163,7 +164,7 @@ def post_comment_index(post_id):
 
 # post请求  提交日志 评论评论
 # g.user['user_id']
-@admin_login_required
+@login_required
 @post_bp.route('/<int:post_id>', methods=['POST'])
 def post_comment_add(post_id):
     if request.method == 'POST':
@@ -181,3 +182,7 @@ def post_comment_add(post_id):
     return render_template('post/_post.html')
 
 # 前台回复评论 管理员回复
+
+
+
+
