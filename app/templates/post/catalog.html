@@ -58,8 +58,10 @@
 {% endblock %}
 
 {% block page_content %}
+    <div class="">
+            <h2>文集</h2>
+
     {% if catalogs %}
-        <h2>文集</h2>
         <ul id="catalog_list">
             {% for catalog in catalogs %}
                 <li class="catalog_info">
@@ -81,4 +83,5 @@
     {% else %}
         No Catalog
     {% endif %}
+    </div>
 {% endblock %}

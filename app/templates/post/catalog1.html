@@ -58,14 +58,11 @@
         .mgz_list {
             position: relative;
 
-             {#margin-top:120px;#}
+        {#margin-top:120px;#}
         }
 
         .magazine {
-            {#display: inline-block;#}
-            {#float: left;#}
-            {#width: 320px;#}
-            margin-right: 10px;
+        {#display: inline-block;#}{#float: left;#}{#width: 320px;#} margin-right: 10px;
         }
 
         .magazine a {
@@ -79,8 +76,9 @@
         .mgz_img {
             width: 320px;
             height: 480px;
-            box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
-            -moz-box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);
+            {#box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);#}
+            {#-moz-box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);#}
+            background-color: #F09199;
         }
 
         /* 添加时间样式 */
@@ -192,66 +190,31 @@
 {% endblock %}
 
 {% block page_content %}
+<div class="mgz">
+    <h2>꧁期刊꧂</h2>
     {% if catalogs %}
-        <h2>文集</h2>
-        <ul id="catalog_list">
-            {% for catalog in catalogs %}
-                <li class="catalog_info">
-                    <img class="catalog_img"
+        <div class="mgz_list">
+        {% for catalog in catalogs %}
+
+            <div class="magazine">
+                <div class="info box">
+                    <a class="date">
+                        <span class="day">06</span><span class="month">Nov</span>
+                    </a>
+                </div>
+                <a href="{{ url_for('post.catalogs',catalog_name=catalog.catalog_name) }}">
+                    <img class="mgz_img"
                          src="{{ url_for('static',filename='static/images/catalog_img.jpg') }}">
-                    <span class="catalog_total">{{ catalog.catalog_total }}</span>
-
-                    <br>
-                    <span class="post_item_catalog">
-{#                        <span class="catalog_color"></span>#}
-                        <span class="catalog_name">
-                            <a href="{{ url_for('post.catalogs',catalog_name=catalog.catalog_name) }}">{{ catalog.catalog_name }}</a><br>
-                        </span>
-                    </span>
-
+                    <p>{{ catalog.catalog_name }}·{{ catalog.catalog_total }}</p>
+                </a>
                 </li>
-            {% endfor %}
-        </ul>
+                </ul>
+            </div>
+        {% endfor %}
     {% else %}
         No Catalog
     {% endif %}
-    <h2>꧁期刊꧂</h2>
-    <div class="mgz_list">
-        <div class="magazine">
-            <div class="info box">
-                <a class="date" href="https://lofterphoto3.lofter.com/post/10e991_2d3bc5">
-                    <span class="day">06</span><span class="month">Nov</span>
-                </a>
-            </div>
-            <a href="/magazines/5776/">
-                <img class="mgz_img"
-                     src="http://rs.sfacg.com/web/novel/images/NovelCover/Big/2019/12/dbcc4afa-7d2e-457e-af42-9b12a483d7ca.jpg">
-                <div class="button">
-                    <p>种花家养兔手册
-                    <p>
-                    <p class="author">@index1号机</p>
-                </div>
-            </a>
-            </li>
-            </ul>
-        </div>
-        <div class="magazine">
-            <div class="info box">
-                <a class="date" href="https://lofterphoto3.lofter.com/post/10e991_2d3bc5">
-                    <span class="day">06</span><span class="month">Nov</span>
-                </a>
-            </div>
-            <a href="/magazines/5776/">
-                <img class="mgz_img"
-                     src="http://rs.sfacg.com/web/novel/images/NovelCover/Big/2019/12/dbcc4afa-7d2e-457e-af42-9b12a483d7ca.jpg">
-                <div class="button">
-                    <p>种花家养兔手册
-                    <p>
-                    <p class="author">@index1号机</p>
-                </div>
-            </a>
-            </li>
-            </ul>
-        </div>
-    </div>
+       </div>
+</div>
+
 {% endblock %}
