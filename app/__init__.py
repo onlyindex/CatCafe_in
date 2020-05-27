@@ -17,7 +17,7 @@ def create_app():
         SECRET_KEY='hard to guess',
         DATABASE=os.path.join(app.instance_path, 'cat.db'),
         # 主题配置文件
-        # THEMES={'Pink':'pink_phone','Blue':'blue_phone'}
+        THEMES={'Pink':'pink_phone','Blue':'blue_phone'},
         SEND_FILE_MAX_AGE_DEFAULT=timedelta(seconds=1),
         # 设置会话过期时间
         PERMANENT_SESSION_LIFETIME=timedelta(minutes=30)
@@ -58,7 +58,13 @@ def create_app():
     def home():
         return render_template('base3.html')
 
+    @app.route('/dalao', methods=['GET'])
+    def dalao():
+        return render_template('dalao.html')
+
     @app.route('/me', methods=['GET'])
     def me():
         return render_template('me2.html')
+
+
     return app

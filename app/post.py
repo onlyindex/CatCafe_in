@@ -39,8 +39,7 @@ def posts():
             error = "喵喵喵啥日志也没有(￣o￣) . z Z"
             flash(error, 'warning')
             return redirect(url_for('post.posts'))
-
-
+    return render_template('post/post2.html', group_by_key=group_by_key)
 
 
 # 分类
@@ -53,7 +52,7 @@ def catalogs():
         # 获得日志分类和分类统计
         cursor.execute('select c.catalog_name,c.catalog_img ,c.catalog_total from catalog as c')
         catalogs = cursor.fetchall()
-    return render_template('post/catalog1.html', catalogs=catalogs)
+    return render_template('post/catalog2.html', catalogs=catalogs)
 
 
 # 分类日志列表
@@ -91,27 +90,25 @@ def catalog(catalog_name):
     return render_template('post/_catalog.html', group_by_key=group_by_key)
 
 
-#tags
-@post_bp.route('/tag/', methods=['GET'])
-def tags():
-    if request.method == 'GET':
-        error = None
-        db = get_db()
-        cursor = db.cursor()
-        # 查询所有标签
-        cursor.execute('select t.tag_id,t.tag_name,t.tag_total from tag as t')
-        tags = cursor.fetchall()
-    return render_template('post/tag.html', tags=tags)
-
-#tag
-
-@post_bp.route('/tag_name', methods=['GET'])
-def tag():
-    if request.method == 'GET':
-        return render_template('post/_tag.html')
-
-
-
+# #tags
+# @post_bp.route('/tag/', methods=['GET'])
+# def tags():
+#     if request.method == 'GET':
+#         error = None
+#         db = get_db()
+#         cursor = db.cursor()
+#         # 查询所有标签
+#         cursor.execute('select t.tag_id,t.tag_name,t.tag_total from tag as t')
+#         tags = cursor.fetchall()
+#     return render_template('post/tag.html', tags=tags)
+#
+# #tag
+#
+# @post_bp.route('/tag_name', methods=['GET'])
+# def tag():
+#     if request.method == 'GET':
+#         return render_template('post/_tag.html')
+#
 
 
 
@@ -137,7 +134,7 @@ def post(post_id):
             abort(404, 'Post post[0] 不存在'.format(id))
             return post
         else:
-            return render_template('post/_post.html', post=post)
+            return render_template('post/_post2.html', post=post)
 
         # check_author=True
         # if check_author and post['user_id'] != g.user['user_id']:

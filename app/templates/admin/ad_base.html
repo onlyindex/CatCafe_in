@@ -114,6 +114,11 @@
                                 </div>
                                 <div class="show_catalogs">
                                     <a class="nav_link_item" href="{{ url_for('admin.manage_catalog' ) }}">
+                                        <span>分类管理</span>
+                                    </a>
+                                </div>
+                                 <div class="show_collections">
+                                    <a class="nav_link_item" href="{{ url_for('admin.manage_collection' ) }}">
                                         <span>文集管理</span>
                                     </a>
                                 </div>
@@ -129,7 +134,7 @@
                                     </a>
                                 </div>
                                 <div class="show_medias">
-                                    <a class="nav_link_item" href="#">
+                                    <a class="nav_link_item" href="{{ url_for('admin.manage_file' ) }}">
                                         <span>媒体管理</span>
                                     </a>
                                 </div>
@@ -175,7 +180,8 @@
                             <div>
                                 <div clas="site_setting">
                                     <a class="nav_link_item"
-                                       href="{{ url_for('admin.change_theme' ) }}">
+
+                                       href="{{ url_for('admin.theme') }}">
                                         <span>主题选择</span>
                                     </a>
                                 </div>

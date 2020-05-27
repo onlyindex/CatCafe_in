@@ -1,4 +1,7 @@
-
+{% extends 'admin/ad_base.html' %}
+{% block title %}New Post{% endblock %}
+{% block page_content %}
+    {{ super() }}
 
 
 
@@ -9,12 +12,13 @@
 
 
 {#迭代主题配置变量渲染出主题选项#}
-{% if theme_name,display_name in config.THEMES.items() %}
+{% for theme_name,display_name in config.THEMES.items() %}
 {#主题url指向change_theme端点 URL变量theme_name=传入主题名称。
 选择Pink,theme cookie值就被设置为pink_phone.css
 #}
-<a href="{{ url_for('admin.change',theme_name=theme_name,next=request.full_path) }}">
+<a href="{{ url_for('admin.change_theme',theme_name = theme_name)}}">
     {{ display_name }}
 </a>
 
 {% endfor %}
+{% endblock %}

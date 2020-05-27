@@ -12,8 +12,8 @@ create table user
     user_signup_timestamp default current_timestamp,
     cm_replay_total  integer default 0
 
--- 忘了给写入注册时间
--- 互动次数
+-- 注册时间略
+-- 互动次数 总评论  总打赏comment_toal  integer reward_toal integer
 --用户头像
 --用户社交账户
 
@@ -46,11 +46,9 @@ create table post
     post_timestamp default current_timestamp,
     post_status varchar(20) not null default 'draft',
     author_id  integer     not null,
-    catalog_id integer not null,
+    collection_name varchar(30) unique not null,
     foreign key (author_id) references user (user_id),
-    foreign key (catalog_id) references catalog (catalog_id)
-
-
+    foreign key (collection_name) references collection (collection_name)
 );
 drop table post;
 
@@ -59,11 +57,21 @@ create table catalog
 (
     catalog_id   integer primary key autoincrement,
     catalog_name varchar(30) unique not null,
-    catalog_img  varchar(120) default '',
-    catalog_total integer default 0
+    catalog_post_total integer default 0
 );
 
 drop table catalog;
+--文集表
+--1collection =n post
+create table collection
+(
+    collection_id   integer primary key autoincrement,
+    collection_name varchar(30) unique not null,
+    collection_img  varchar(120) default '',
+    catalog_name varchar(30) unique not null,
+    collection_post_total integer default 0,
+    foreign key (catalog_name) references catalog (catalog_name)
+);
 --标签表
 create table tag
 (
@@ -109,3 +117,10 @@ create table comment
 alter table comment
 	add replied_id integer default null;
 
+--多媒体图片
+create table photo
+(
+    photo_id        integer primary key autoincrement,
+    photo_name      varchar(30) unique not null,
+    photo_type   varchar(20) not null default 'default'
+);

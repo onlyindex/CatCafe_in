@@ -1,0 +1,468 @@
+{% extends "base3.html" %}
+{% block title %}文集{% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+        .catalog_img {
+            height: 200px;
+            width: 150px;
+        }
+
+        span.catalog_total {
+            color: #eee;
+            top: -180px;
+            left: -40px;
+            position: relative;
+            background-color: #22222233;
+            padding: 1px;
+            width: 20px;
+            margin: 12px;
+            display: inline-block;
+            text-align: center;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        li {
+            list-style-type: none;
+        }
+
+
+        li.catalog_info {
+            float: left;
+            margin-left: 10px;
+            padding: 20px;
+        }
+
+        .post_item_catalog {
+            margin-right: 16px !important;
+            margin-left: 0 !important;
+        }
+
+        .catalog_color {
+            position: relative;
+            top: 1px;
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #bbbbbb;
+        }
+
+        .catalog_name {
+            font-size: 14px;
+        }
+
+        {#追加杂志样式#}
+        /* 雜誌樣式 */
+        .mgz_list {
+            position: relative;
+
+        {#margin-top:120px;#}
+        }
+
+        .magazine {
+        {#display: inline-block;#}{#float: left;#}{#width: 320px;#} margin-right: 10px;
+        }
+
+        .magazine a {
+            width: 320px;
+            height: 480px;
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .mgz_img {
+            width: 320px;
+            height: 480px;
+        {#box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);#}{#-moz-box-shadow: 1px 1px 5px 5px rgba(14, 120, 255, 0.35);#} background-color: #F09199;
+        }
+
+        /* 添加时间样式 */
+
+        .info {
+            position: relative;
+            top: 40px;
+            left: 280px;
+            z-index: 20;
+        }
+
+        .info .date {
+            color: #fff;
+            border-color: #e6c226;
+            width: 60px;
+            height: 60px;
+            border: 1px solid #e6c226;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            border-radius: 50%;
+            background-color: #e6c226;
+        }
+
+        .info a {
+            display: block;
+            text-align: center;
+        }
+
+        .info .day {
+            font-size: 20px;
+            padding: 7px 0 0;
+        }
+
+        .info span {
+            display: block;
+            text-align: center;
+        }
+
+        /* 设置刊期名 */
+
+        .button {
+            max-width: 80%;
+            position: relative;
+            top: -50%;
+            left: 5%;
+            color: white;
+            background: transparent;
+            border-width: 2px;
+            border-style: solid;
+            border-color: white;
+            position: relative;
+            display: inline-block;
+            padding: 0.5em 1em;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+            font-family: comfortaa;
+            font-weight: bold;
+            text-transform: none;
+            font-family: sans-serif;
+            font-size: 34px;
+            overflow: visible;
+        }
+
+        .button:before {
+            border-color: white;
+            top: -6px;
+            left: -6px;
+            border-width: 2px 0 0 2px;
+            z-index: 5;
+            content: "";
+            display: block;
+            position: absolute;
+            border-color: white;
+            box-sizing: border-box;
+            border-style: solid;
+            width: 1em;
+            height: 1em;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .button:after {
+            bottom: -6px;
+            right: -6px;
+            border-width: 0 2px 2px 0;
+            border-color: white;
+            content: "";
+            display: block;
+            position: absolute;
+            border-color: white;
+            box-sizing: border-box;
+            border-style: solid;
+            width: 1em;
+            height: 1em;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        p.author {
+            font-size: 12px;
+        }
+
+        .button p {
+            padding: -12px;
+        }
+
+        {#追加#}
+
+        header {
+            padding: 15px 0 10px 0;
+            position: relative;
+        }
+
+        header h1 {
+            {#color: #3E3E3E;#}
+            color: #666;
+            font-size: 12px;
+            font-size-adjust: none;
+            /* font-stretch: normal; */
+            {#/* font-style: normal; */#}
+            {#font-variant: normal;#}
+            {#font-weight: bold;#}
+            /* display: inline; */
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .wikiStats {
+            margin: 0 0 15px 0;
+        }
+
+        .wikiStats div {
+            {#margin: 0 5px 0 0;#}
+            margin-bottom: 5px;
+            padding: 5px;
+        {#background: #F9F9F9;#}
+            background: rgba(255, 255, 255, 0.5);
+            line-height: 120%;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            -webkit-box-shadow: 0 0 5px #DDD;
+            -moz-box-shadow: 0 0 5px #DDD;
+            box-shadow: inset 0 0 2px #CCC;
+            display: inline-flex;
+            flex-direction: column;
+        }
+
+        .wikiStats span {
+            display: block;
+            color: #888;
+            font-size: 11px;
+        }
+
+        .wikiStats span.num {
+            padding: 2px 0;
+            font-size: 15px;
+            font-weight: bold;
+            color: #F09199;
+        }
+
+        h2.title {
+            margin-bottom: 5px;
+            font-weight: normal;
+            text-align: left;
+            font-size: 18px;
+            line-height: 140%;
+            color: #555;
+        }
+
+        ul.headerTab {
+            {#display: inline;#}
+            font-size: 12px;
+            font-weight: normal;
+            {#margin: 0 0 0 5px;#}
+            {#padding: 0 0 0 10px;#}
+            {#border-left: 1px solid #AAA;#}
+        }
+
+        ul.headerTab li {
+            display: inline;
+        }
+
+        ul.headerTab li a.focus {
+            {#background: #369CF8;#}
+            background:#f09199;
+            color: #FFF;
+        }
+
+        ul.headerTab li a {
+            {#background: #DFE2EE;#}
+            {#color: #2F5797;#}
+            {#background: rgba(255, 255, 255, 0.5);#}
+            background: #f9e7e8;
+            color: #F09199;
+            padding: 2px 8px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+
+        ul.sideTpcList {
+            overflow-y: scroll;
+            {#height: 265px;#}
+            line-height: 180%;
+        }
+    a.l, a.l:link, a.l:visited, a.l:active {
+    {#color: #0084B4;#}
+        color: #666;
+    border: 0;
+    text-decoration: none;
+}
+    a:link, a:active, a:visited {
+    text-decoration: none;
+    color: #666;
+}
+
+    small.grey {
+    font-size: 10px;
+    color: #999;
+}
+    .line_odd {
+    {#background-color: #FFF;#}
+    {#border-bottom: 1px dotted #e0e0e0;#}
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 4px 5px;
+    white-space: normal;
+}
+    .line_even {
+    {#background-color: #F9F9F9;#}
+    {#border-bottom: 1px dotted #e0e0e0;#}
+    font-size: 14px;
+    padding: 4px 5px;
+    white-space: normal;
+}
+
+
+    .sch {
+    float: right;
+}
+    .sch input {
+    background: url(#) no-repeat;
+}
+    .sch input {
+    color: #a0a0a0;
+    padding: 5px 5px 5px 30px;
+    margin-bottom: 15px;
+    border: 1px solid #f1f1f1;
+    background-position: 10px 6px;
+    background-color: #f7f7f7;
+    line-height: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+    -o-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -o-border-radius: 25px;
+}
+    </style>
+{% endblock %}
+{% block header %}
+     <header>
+            <h1>
+                <a href="/">home</a>&nbsp;»&nbsp;<a href="/#intro">猫咪生活图书馆</a>
+            </h1>
+{#            <div class="sch">#}
+{#<form action="/search" method="get">#}
+{#<input value="搜索" type="text" name="q" onfocus="if(this.value=='搜索'){this.value='';}" onblur="if(this.value==''){this.value='搜索';}" class="txt">#}
+{#</form>#}
+{#</div>#}
+        </header>
+
+                        {% endblock %}
+{% block page_content %}
+    <div class="mgz">
+        {#    <h2>꧁期刊꧂</h2>#}
+
+        <div>
+            <div class="wikiStats">
+                <div><span>all wiki</span><span class="num">297,440</span></div>
+                <div><span>代码</span><span class="num">16,208</span></div>
+                <div><span>占星</span><span class="num">179,286</span></div>
+                <div><span>数据</span><span class="num">57,640</span></div>
+                <div><span>画画</span><span class="num">32,746</span></div>
+                <div><span>美食</span><span class="num">1,798,844</span></div>
+                <div><span>lolita</span><span class="num">1,798,844</span></div>
+                <div><span>家居</span><span class="num">1,798,844</span></div>
+                <div><span>科技</span><span class="num">1,798,844</span></div>
+                <div><span>人工智能</span><span class="num">1,798,844</span></div>
+            </div>
+            <section>
+                <h2 class="title">👩&zwj;💻代码
+                                                        <ul id="latestEntryTab" class="headerTab">
+                        <li><a href="javascript:void(0)" id="tab_wiki-all" class="switchTab focus">我的swift不可能这么萌</a>
+                        </li>
+                        <li><a href="javascript:void(0)" id="tab_wiki-lock" class="switchTab">flask三重奏</a></li>
+                        <li><a href="javascript:void(0)" id="tab_wiki-merge" class="switchTab">flask一重奏</a></li>
+                        <li><a href="javascript:void(0)" id="tab_wiki-crt" class="switchTab">how to get a 莫得感情的AI智障</a>
+                        </li>
+                        <li><a href="javascript:void(0)" id="tab_wiki-subject-crt" class="switchTab">娱乐大数据</a></li>
+                    </ul>
+
+                </h2>
+
+                <div>
+                    <ul id="latest_all" class="sideTpcList" style="/* display: block; */">
+                        <li class="line_odd"><a href="/subject/306479" target="_blank" class="l">»搭建开发环境</a>
+                            <small class="grey">5-11</small>
+                        </li>
+                        <li class="line_even"><a href="/subject/306478" target="_blank" class="l">»装一个flask</a>
+                            <small class="grey">5-11</small>
+                        </li>
+                        <li class="line_odd"><a href="/subject/306477" target="_blank" class="l">»从天象未来10年风口产业</a>
+                            <small class="grey">5-11</small>
+                        </li>
+                        <li class="line_even"><a href="/subject/306476" target="_blank" class="l">»看看你的运气有多好</a>
+                            <small class="grey">5-11</small>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h2 class="title">✨占星
+                                                        <ul id="latestEntryTab" class="headerTab">
+                        <li><a href="javascript:void(0)" id="tab_all" class="switchTab focus">水星</a></li>
+                        <li><a href="javascript:void(0)" id="tab_1" class="switchTab">木星</a></li>
+                        <li><a href="javascript:void(0)" id="tab_2" class="switchTab">金星</a></li>
+                        <li><a href="javascript:void(0)" id="tab_3" class="switchTab">天王星</a></li>
+                        <li><a href="javascript:void(0)" id="tab_4" class="switchTab">海王星</a></li>
+                        <li><a href="javascript:void(0)" id="tab_6" class="switchTab">冥王星</a></li>
+                    </ul>
+
+                </h2>
+
+                <div>
+                    <ul id="latest_all" class="sideTpcList" style="/* display: block; */">
+                        <li class="line_odd"><a href="/subject/306479" target="_blank" class="l">什么星盘配置的孩子最聪明</a>
+                            <small class="grey">5-11</small>
+                        </li>
+                        <li class="line_even"><a href="/subject/306478" target="_blank" class="l">日月配置和父母对你的影响</a>
+                            <small class="grey">5-11</small>
+                        </li>
+                        <li class="line_odd"><a href="/subject/306477" target="_blank" class="l">从天象未来10年风口产业</a>
+                            <small class="grey">5-11</small>
+                        </li>
+                        <li class="line_even"><a href="/subject/306476" target="_blank" class="l">看看你的运气有多好</a>
+                            <small class="grey">5-11</small>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+
+        </div>
+        {% if catalogs %}
+            <div class="mgz_list">
+            {% for catalog in catalogs %}
+
+                <div class="magazine">
+                    <div class="info box">
+                        <a class="date">
+                            <span class="day">06</span><span class="month">Nov</span>
+                        </a>
+                    </div>
+                    <a href="{{ url_for('post.catalogs',catalog_name=catalog.catalog_name) }}">
+                        <img class="mgz_img"
+                             src="{{ url_for('static',filename='static/images/catalog_img.jpg') }}">
+                        <p>{{ catalog.catalog_name }}·{{ catalog.catalog_total }}</p>
+                    </a>
+                    </li>
+                    </ul>
+                </div>
+            {% endfor %}
+        {% else %}
+            No Catalog
+        {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

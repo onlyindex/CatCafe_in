@@ -5,7 +5,8 @@
     <style>
 
         .item {
-            height: 95px;
+            {#height: 95px;#}
+            height: 68px;
             {#padding: 20px 10px;#}
             box-sizing: border-box;
         }
@@ -13,14 +14,14 @@
         .item .avatar {
             position: relative;
             display: inline-block;
-            width: 116px;
-            height: 55px;
-            box-sizing: border-box;
-            padding: 2px 16px 3px 0;
-            border-right: 1px solid #eee;
-            background-repeat: no-repeat;
-            background-position: 0;
-            background-size: 33px 41px;
+            {#width: 116px;#}
+            {#height: 55px;#}
+            {#box-sizing: border-box;#}
+            {#padding: 2px 16px 3px 0;#}
+            {#border-right: 1px solid #eee;#}
+            {#background-repeat: no-repeat;#}
+            {#background-position: 0;#}
+            {#background-size: 33px 41px;#}
         }
 
         .item .avatar .grade {
@@ -33,11 +34,10 @@
         .item .info .name {
             font-weight: 600;
         }
-
-        .item .info .signup_time {
-            font-size: 10px;
-            color: #9A9A9A;
-        }
+        {##}
+        {#.item .info .signup_time {#}
+        {#    font-size: 10px;#}
+        {#    color: #9A9A9A;#}
         .avatar img{
             display: block;
             float: right;
@@ -65,23 +65,23 @@
             {% for user in users %}
                 <div class="item">
                     <div class="avatar">
-                        <span class="grade">1</span>
+{#                        <span class="grade">1</span>#}
                         <img class="avatar_img"
                              style="background-image:url(//tvax3.sinaimg.cn/crop.0.0.512.512.1024/e0351cfely8gces5ftwnfj20e80e8dgi.jpg?KID=imgbed,tva&amp;Expires=1586871725&amp;ssig=OIXSC%2FhfP9);">
 
                     </div>
                     <div class="info">
                         <p class="name">{{ user.username }}
-                            <svg t="1586863177538" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                                 xmlns="http://www.w3.org/2000/svg" p-id="64886" width="20" height="20">
-                                <path d="M512 64C264 64 64 264 64 512s200 448 448 448 448-200 448-448S760 64 512 64z m208 555.2"
-                                      fill="#f09191" p-id="64887" data-spm-anchor-id="a313x.7781069.0.i27"
-                                      class="selected"></path>
-                                <path d="M720 302.4c-88-88-230.4-88-318.4 0-80 81.6-86.4 211.2-14.4 300.8l-32 32-80-80c-9.6-8-24-8-32 0-8 9.6-8 24 0 32l80 80-46.4 46.4c-8 9.6-8 24 0 32 9.6 8 24 8 32 0l44.8-49.6 80 80c9.6 8 24 9.6 32 0s8-24 0-32l-80-80 32-32c89.6 73.6 219.2 67.2 300.8-14.4 89.6-84.8 89.6-225.6 1.6-315.2z m-30.4 286.4c-72 68.8-185.6 68.8-254.4 0-68.8-72-68.8-185.6 0-254.4 70.4-68.8 184-68.8 254.4 0 68.8 72 68.8 185.6 0 254.4z"
-                                      fill="#FFFFFF" p-id="64888"></path>
-                            </svg>
+{#                            <svg t="1586863177538" class="icon" viewBox="0 0 1024 1024" version="1.1"#}
+{#                                 xmlns="http://www.w3.org/2000/svg" p-id="64886" width="20" height="20">#}
+{#                                <path d="M512 64C264 64 64 264 64 512s200 448 448 448 448-200 448-448S760 64 512 64z m208 555.2"#}
+{#                                      fill="#f09191" p-id="64887" data-spm-anchor-id="a313x.7781069.0.i27"#}
+{#                                      class="selected"></path>#}
+{#                                <path d="M720 302.4c-88-88-230.4-88-318.4 0-80 81.6-86.4 211.2-14.4 300.8l-32 32-80-80c-9.6-8-24-8-32 0-8 9.6-8 24 0 32l80 80-46.4 46.4c-8 9.6-8 24 0 32 9.6 8 24 8 32 0l44.8-49.6 80 80c9.6 8 24 9.6 32 0s8-24 0-32l-80-80 32-32c89.6 73.6 219.2 67.2 300.8-14.4 89.6-84.8 89.6-225.6 1.6-315.2z m-30.4 286.4c-72 68.8-185.6 68.8-254.4 0-68.8-72-68.8-185.6 0-254.4 70.4-68.8 184-68.8 254.4 0 68.8 72 68.8 185.6 0 254.4z"#}
+{#                                      fill="#FFFFFF" p-id="64888"></path>#}
+{#                            </svg>#}
                         </p>
-                        <p class="signup_time">2015-3-22注册</p>
+{#                        <p class="signup_time">2015-3-22注册</p>#}
 
                         <span class="data flex">
                             <svg t="1586653767269" class="icon" viewBox="0 0 1024 1024" version="1.1"

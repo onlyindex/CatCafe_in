@@ -1,0 +1,426 @@
+{% extends "base3.html" %}
+{% block title %}{{ post.post_title }}{% endblock %}
+{% block styles %}
+    {{ super() }}
+    <style>
+
+        .mgz_time {
+            width: 84px;
+            float: left;
+        }
+
+        .day {
+            border-color: #f09199;
+        }
+
+        .day a {
+            width: 70px;
+            height: 70px;
+            display: block;
+            border-style: solid;
+            border-width: 5px;
+            font-size: 40px;
+            text-align: center;
+            line-height: 70px;
+            border-radius: 40px;
+            */ -moz-border-radius: 40px;
+            -webkit-border-radius: 40px;
+            -o-border-radius: 40px;
+        }
+
+        .month a {
+            display: block;
+            margin: 6px 0 0;
+            color: #f09191;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .mgz_content {
+            margin-left: 110px;
+            padding-bottom: 48px;
+        }
+
+        .mgz_img {
+            margin: 0 0 15px;
+            width: 460px;
+            height: 650px;
+            max-width: 100%;
+            background-color: #f1f1f1;
+        }
+
+        .content mgz_img, .content object, .content embed {
+            /* display: block; */
+            max-width: 100%;
+            /*     _width: 99%; */
+        }
+
+        .mgz_text {
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .mgz_text ul, .mgz_text ol, .mgz_text p, .mgz_text blockquote {
+            margin: 0 0 15px;
+        }
+
+        .link {
+            margin: 20px 0 0;
+            clear: both;
+            overflow: hidden;
+            zoom: 1;
+        }
+
+        .link a {
+            font-size: 12px;
+            display: block;
+            float: left;
+            height: 17px;
+            margin-right: 25px;
+        }
+
+
+        .footer, .footer a {
+            height: 45px;
+            text-align: center;
+            color: #f09199;
+        }
+
+        .title, .page_title {
+            text-align: center;
+            {#font-size: 2em;#}
+            line-height: 1.5em;
+            padding-bottom: 10px;
+            margin: 20px 0;
+        }
+
+
+        .post-nav a {
+            color: #555;
+            font-size: 14px;
+        }
+
+
+        .updated {
+            float: right;
+            font-size: 12px;
+            color: #555;
+        }
+
+        /* 追加文档目录样式 */
+        .toc {
+            margin: 0 0.5em;
+            padding: 0.5em 1em;
+            /*     border: 1px solid silver; */
+            background-color: #f1f1f1;
+            float: right;
+            display: block;
+            font-size: 90%;
+        }
+
+
+        .toc ul {
+            margin: 0;
+        }
+
+        ul, ol {
+            margin: 1.5em 0;
+            padding-left: 1.5em;
+            line-height: 1.5em;
+        }
+
+        {#a:visited {#}
+        {#    color: #f09199;#}
+        {##}
+        {#a {#}
+        {#    color: #f09199;#}
+        {#    text-decoration: none;#}
+        /* 大标题，中，小 */
+        h2 {
+            font-size: 1.6em;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            overflow: hidden;
+        }
+
+        h3 {
+            font-size: 1.4em;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+
+    </style>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+{% block page_content %}
+    <article>
+    <div class="mgz_list box">
+        <div class="post-nav">
+            <a href="/post/">猫咪生活图书馆</a>&nbsp;»&nbsp;
+            <a href="/post/catalog_name">代码</a>&nbsp;»&nbsp;
+            <a href="/post/catalog_name/tag">我的swift不可能那么萌</a>&nbsp;»&nbsp;
+
+            <span class="updated">Updated&nbsp;
+{{ post[3] }}    </span></div>
+
+        <div class="page_title">{{ post.post_title }}</div>
+
+        <div class="toc">
+            <li><a href="#">{{ post.post_title }}</a>
+                <ul>
+                    <li><a href="#">大标题</a>
+                        <ul>
+                            <li><a href="#">中标题</a></li>
+                            <ul>
+                                <li><a href="#">小标题</a></li>
+                                <li><a href="#">小标题</a></li>
+
+                            </ul>
+                            <li><a href="#">中标题</a></li>
+                            <li><a href="#">中标题</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">大标题</a></li>
+                    <li><a href="#">大标题</a></li>
+                </ul>
+            </li>
+            </ul>
+        </div>
+
+        <h1 class="">大标题</h1>
+        <p>
+            稀树草原（サバンナ，savanna）是一种混合了森林生态系统与草原生态系统特点的生物群系。其特点是树木之间远离，树冠无法完全遮盖地面。而充足的阳光透过稀疏的树冠，支撑着主要由草构成的整片草本层。
+        </p>
+        <h2 class="">中标题</h2>
+        <p>
+            动画中的稀树草原能看到猴面包树，是比较干旱的热带稀树草原气候。
+        </p>
+        <h3 class="">小标题</h3>
+        <p>
+            是不是年龄越大会越来越觉得成功特别像小马过河，别人说的好像都没用了，自己就去做，小马淹死了就死了反正也不知道。没淹死侥幸成功了，那就发表成功见解给其他想要的成功的人，即使知道没啥用喝点汤缓解缓解成功的焦虑还是可以的。
+            最蛋疼的是你猛然向前游着悠着突然发现这哪是河?这分明是大海啊。→_→
+            整个人都不好了。</p>
+
+    <p>本文链接：<a href="http://www.eyrefree.org/2015/05/31/2015-05-31-WordPress-Notes/">http://www.eyrefree.org/2015/05/31/2015-05-31-WordPress-Notes/</a>
+            </p>
+            <p>如文中无特殊说明，本站均使用以下协议保护：<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/cn/" target="_blank"
+                                       rel="noopener">署名-非商业性使用-禁止演绎</a></p>
+
+    </div>
+
+
+
+
+
+
+
+        <div class="page-nav">
+            <p class="inner">
+                <span class="prev">←
+                    <a href="/book/proguide/" class="prev router-link-active">前言</a>
+                </span>
+                <span class="next">
+                    <a href="/book/proguide/vol2/w11.html" class="">#步骤</a>
+                    →
+                </span>
+            </p>
+        </div>
+
+        <div class="post_comments">
+            <div>
+                <form method="post" action="{{ url_for('post.post_comment_add',post_id=post['post_id']) }}">
+                    {% if g.user %}
+                        <div class="cm_commit">
+                        <div class="cm_user">
+                            <a class="user_face" target="_blank" href="">
+                                {#  {{ g.user['username'] }}#}
+                                <img src="https://tvax4.sinaimg.cn/crop.0.0.960.960.50/88a66b96ly8g7ymas65crj20qo0qomz5.jpg?KID=imgbed,tva&amp;Expires=1576043955&amp;ssig=QYUz13c%2FoV"
+                                     user_id="user_id">
+                            </a>
+                        </div>
+                        <div class="cm_commit_body">
+                            <div class="cm_input">
+                                <textarea rows="2" name="body" id="body" placeholder="灌水唠嗑" required></textarea>
+                            </div>
+                            <div class="cm_submit">
+                                <button class="submit_btn" action="" href="#">評論</button>
+                                <div class="smile_btn">
+                                    <a href="#" title="表情" alt="表情">
+                                        ฅTㅅTฅ
+                                    </a>
+                                    <div>
+                                        <div class="_box face-panel">
+                                            <div class="face-list-wrap">
+                                                <ul class="face-list">
+                                                    <li class="item">(。・∀・)ノ゛</li>
+                                                    <li class="item">(TωT)</li>
+                                                    <li class="item">(･ω-｡)</li>
+                                                    <li class="item">ヾ(≧∇≦*)</li>
+                                                    <li class="item">ヾ(ﾟ∀ﾟ○)ﾂ</li>
+                                                    <li class="item">ヽ(*´Д｀*)ﾉ</li>
+                                                    <li class="item">(；ω；｀)</li>
+                                                    <li class="item">(/ω＼*)</li>
+                                                    <li class="item">(●＾U＾●)</li>
+                                                    <li class="item">(｡ゝω･)bﾞ</li>
+                                                    <li class="item">(;´ρ`)</li>
+                                                    <li class="item">（´・ω・｀）</li>
+                                                    <li class="item">∑(ﾟωﾟﾉ)ノ</li>
+                                                    <li class="item">(-д-；)</li>
+                                                    <li class="item">（＾ε＾）</li>
+                                                    <li class="item">(`_ゝ´)</li>
+                                                    <li class="item">（＞△＜）</li>
+                                                    <li class="item">m(_ _)m</li>
+                                                    <li class="item">┌(^q^ ┐)┐</li>
+                                                    <li class="item">_(:з」∠)_</li>
+                                                </ul>
+                                            </div>
+                                            {#                                            <div class="tab-controls">#}
+                                            {#                                            <span class="tab-ctr">#}
+                                            {#                                                <img width="30" height="30"#}
+                                            {#                                                     src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/bcy/emoji/huhu/cover_3x.png"></span>#}
+                                            {#                                                <span class="tab-ctr active">#}
+                                            {#                                                    <img width="65" height="40" src="https://sf1-ttcdn-tos.pstatp.com/obj/ttfe/bcy/emoji/faceicon.png">#}
+                                            {#                                                </span>#}
+                                            {#                                            </div>#}
+                                            {#                                        </div>#}
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        {#未登录的提示#}
+                        <div class="cm_panel">
+                            <p class="txt">使用
+                                <a href="#" target="_blank">weibo</a>、
+                                <a href="#">github</a>、
+                                <a href="#">qq</a>、<a href="{{ url_for('auth.signin') }}">喵账户</a>登录评论
+                            </p>
+                            <p class="close"><a href="#" class="">X</a></p>
+                        </div>
+                    {% endif %}
+
+                    </div>
+                </form>
+            </div>
+            <div>
+                <span class="comment_count">{{ count }}</span>评论
+                <div class="comment_list">
+                    {% if comments %}
+
+                        {% for comment in comments %}
+                            <div class="comment" id="{{ comment.comment_id }}">
+                                <div class="comment_main ">
+                                    <div class="comment_left">
+                                        <div class="comment_avatar">
+                                            <img src="{{ url_for('static',filename='static/images/myself.jpg') }}">
+                                        </div>
+                                    </div>
+                                    <div class="comment_right">
+                                        <div class="comment_meta">
+                                            <a class="comment_author" href="#" target="_blank"
+                                               rel="nofollow">{{ comment.username }}</a>
+                                            <span class="comment_date">{{ comment.comment_timestamp }}</span>
+                                        </div>
+                                        <div class="comment_content">
+                                            <p>{{ comment.comment_body }}</p>
+
+                                        </div>
+                                        <div class="comment_reply">
+                                            <a href="#commentContainer" class="reply-btn" data-reply-to="1"
+                                               data-reply-id="7d715c8f71903207faaf7831e096ecf5">回复</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        No comments
+                    {% endif %}
+            </div>
+
+            <div class="comment_list">
+                <div class="comment" id="comment-1">
+                    <div class="comment_main ">
+                        <div class="comment_left">
+                            <div class="comment_avatar">
+                                <img src="{{ url_for('static',filename='static/images/myself.jpg') }}">
+                            </div>
+                        </div>
+                        <div class="comment_right">
+                            <div class="comment_meta">
+                                <a class="comment_author" href="#" target="_blank" rel="nofollow">user1</a>
+                                <span class="comment_date">2020-01-04 12:33</span>
+                            </div>
+                            <div class="comment_content">
+                                <p>一直觉得你写代码简直可惜了</p>
+
+                            </div>
+                            <div class="comment_reply">
+                                <a href="#commentContainer" class="reply-btn" data-reply-to="1"
+                                   data-reply-id="7d715c8f71903207faaf7831e096ecf5">回复</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment" id="comment-1-1">
+                        <div class="comment_main">
+                            <div class="comment_left">
+                                <div class="comment_avatar">
+                                    <img src="{{ url_for('static',filename='static/images/myself.jpg') }}">
+                                </div>
+                            </div>
+                            <div class="comment_right">
+                                <div class="comment_meta">
+                                    <a class="comment_author" href="#" target="_blank" rel="nofollow">onlyindex</a>
+                                    <span class="comment_reply_to">@user1</span>
+                                    <span class="comment_date">2020-01-11 10:49</span>
+                                </div>
+                                <div class="comment_content">
+                                    <p>不写代码会饿死的</p>
+                                </div>
+                                <div class="comment_reply">
+                                    <a href="#commentContainer" class="reply-btn" data-reply-to="1-1"
+                                       data-reply-id="8f8195c9c36d6c98e8bcade3e3ac69fe">回复</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        </div>
+
+
+    </article>
+
+        <div class="footer">
+        <span title="Copyright" style="cursor:pointer;">©</span>&nbsp;<a href="#">catcafe.in</a>&nbsp;|&nbsp;Powered by
+        <a href="//www.lofter.com">onlyindex</a></div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

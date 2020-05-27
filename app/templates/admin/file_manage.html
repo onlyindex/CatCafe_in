@@ -1,0 +1,54 @@
+{% extends "admin/ad_base.html" %}
+{% block title %}
+     <ul class="nav_item">
+        <li class="item_li cur"><span>图片<em></em></span></li>
+        <li class="item_li"><span>视频<em></em></span></li>
+         <li class="item_li"><span>语音<em></em></span></li>
+    </ul>
+{% endblock %}
+{% block styles %}
+    {{ super() }}
+<style>
+   {#追加导航内样式#}
+        .item_li.cur {
+            color: #F09199;
+        }
+
+        .item_li {
+            display: inline-block;
+            margin: 0 .75rem;
+        }
+
+        .item_li span {
+            position: relative;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        .item_li.cur span em {
+            display: block;
+            position: absolute;
+            bottom: -.5rem;
+            left: 50%;
+            width: .875rem;
+            margin-left: -.4375rem;
+            border-top: 2px solid #F09199;
+        }
+
+
+        @media (max-width: 720px) {
+
+
+        }
+
+
+
+</style>
+{% endblock %}
+{% block page_content %}
+
+{% endblock %}
+ {% block scripts %}
+<script></script>
+{% endblock %}
+

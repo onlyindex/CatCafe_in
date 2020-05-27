@@ -10,21 +10,31 @@
 # HTTP_REFERER记录用户所在原站点url 还是用来追踪用户都从哪里进来的你网站
 # 可搭配使用
 
-
+from flask import request, redirect, url_for
+from urllib.parse import urlparse, urljoin
 
 
 # 因为在当前页有骚操作不一定能
 # 如果获取上一个页面成功就重定向到上一个页面
 # 运气不好上一个页面找不到了
 def admin_redirect_back(default="dashboard", **kwargs):
-    target=request.args.get('next')
+    target = request.args.get('next')
     if is_safe_url(target):
         return redirect(target)
     return redirect(url_for(default, **kwargs))
 
 
 def redirect_back(default="home", **kwargs):
-    target=request.args.get('next')
-    if is_safe_url(target):
-        return redirect(target)
+    for target in request.args.get('next'),request.referrer:
+        if not target:
+            continue
+        if is_safe_url(target):
+            return redirect(target)
     return redirect(url_for(default, **kwargs))
+
+
+# 验证URL安全性is_safe_url()
+def is_safe_url(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and ref_url.netloc == test_url.netloc

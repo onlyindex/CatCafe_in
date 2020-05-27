@@ -24,9 +24,9 @@ body:before {
     right: 0;
     bottom: 0;
     left: 0;
-    background: url("../static/images/bg2.jpg") center 0 no-repeat;
+    background: url("../static/images/bg3.jpeg") center 0 no-repeat;
     background-size: cover;
-    opacity: .5;
+    /*opacity: .5;*/
     /*height: 100vh;*/
     width: 100%;
 }
@@ -141,8 +141,6 @@ body:before {
     position: fixed;
     /*left: 30%;*/
     /*top: 50%;*/
-    top: 0.75rem;
-    left: 0.75rem;
     width: 10rem;
     height: 48px;
     border-radius: 48px;
@@ -229,17 +227,20 @@ code {
     border-bottom: 1px solid rgba(66, 66, 66, 0.5);
 } */
 .dark-mode {
-    background-color: #F09199;
+    /*background-color: #F09199;*/
+    background-color: rgba(240, 145, 153, 0.9);
     border-bottom: 1px solid #d8707517;
 }
 
-/*.code .code-header .circle {*/
-/*    display: inline-block;*/
-/*    width: 15px;*/
-/*    height: 15px;*/
-/*    border-radius: 50%;*/
-/*    !* border: 2px solid #b9b9b9; *!*/
-/*}*/
+.code .code-header .circle {
+    display: inline-block;
+    /*width: 15px;*/
+    /*height: 15px;*/
+    /*border-radius: 50%;*/
+    padding-left: 12px;
+    padding-right: 20px
+    /* border: 2px solid #b9b9b9; */
+}
 
 /*.close {*/
 /*    background-color: #fa615c;*/
@@ -296,7 +297,7 @@ code {
     }
 
     .user_bar {
-        left: 30%;
+        top: 50%;
     }
 }
 
@@ -310,6 +311,7 @@ code {
 
     .topbar {
         width: 100%;
+        display: none;
     }
     .navbar {
 
@@ -318,109 +320,132 @@ code {
 
     .user_bar {
         left: 0.75rem;
+            top: 0.75rem;
+        position: relative;
+        border: none;
+        box-shadow: none;
+background-color: rgba(255, 255, 255, 0.1);
     }
 
+.code .code-header .circle{
+    display: none;
 }
 
-/* 追加顶部导航搜索 */
-/** {*/
-/*    box-sizing: border-box;*/
-/*}*/
+.code-container {
+     margin-top: 1.25rem;
+     padding: 0rem;
+}
+.code {
+     width: 100%;
+     position: relative;
+}
+.code-body{
+    -webkit-border-radius: 10px;
+}
+.dark-mode{display: none;}
+/*.navbar,.box{display: none;}*/
+}
 
-/*.searchform {*/
-/*    display: block;*/
-/*    margin: 0;*/
-/*    overflow: hidden;*/
-/*    width: 50%;*/
-/*}*/
+ /*追加顶部导航搜索 */
+* {
+    box-sizing: border-box;
+}
 
-/*label,*/
-/*input {*/
-/*    vertical-align: baseline;*/
-/*    color: #fff;*/
-/*}*/
+.searchform {
+    display: block;
+    margin: 0;
+    overflow: hidden;
+    width: 50%;
+}
 
-/*input::-webkit-input-placeholder {*/
-/*    color: #fff;*/
-/*    font-size: 14px;*/
-/*}*/
+label,
+input {
+    vertical-align: baseline;
+    color: #fff;
+}
 
-/*!* Mozilla Firefox 4 to 18 *!*/
-/*input:-moz-placeholder {*/
-/*    color: #fff;*/
-/*    opacity: 1;*/
-/*    font-size: 14px;*/
-/*}*/
+input::-webkit-input-placeholder {
+    color: #fff;
+    font-size: 14px;
+}
 
-/*!* Mozilla Firefox 19+ *!*/
-/*input::-moz-placeholder {*/
-/*    color: #fff;*/
-/*    opacity: 1;*/
-/*    font-size: 14px;*/
-/*}*/
+/* Mozilla Firefox 4 to 18 */
+input:-moz-placeholder {
+    color: #fff;
+    opacity: 1;
+    font-size: 14px;
+}
 
-/*!* Internet Explorer 10+ *!*/
-/*input:-ms-input-placeholder {*/
-/*    color: #fff;*/
-/*    font-size: 14px;*/
-/*}*/
+/* Mozilla Firefox 19+ */
+input::-moz-placeholder {
+    color: #fff;
+    opacity: 1;
+    font-size: 14px;
+}
 
-/*label {*/
-/*    margin: 0.125em 0.125em 0 0;*/
-/*    float: right;*/
-/*}*/
+/* Internet Explorer 10+ */
+input:-ms-input-placeholder {
+    color: #fff;
+    font-size: 14px;
+}
 
-/*input[type="search"] {*/
-/*    border: 2px solid #fff;*/
-/*    border-width: 0 0 2px;*/
-/*    background-color: transparent;*/
-/*    font: 22px "Open Sans", sans-serif;*/
-/*    padding: 0.125em 0.225em;*/
-/*    float: left;*/
-/*}*/
+label {
+    margin: 0.125em 0.125em 0 0;
+    float: right;
+}
 
-/*input[type="search"]:focus {*/
-/*    color: #fff;*/
-/*    border-color: #fff;*/
-/*    outline: none;*/
-/*}*/
+input[type="search"] {
+    border: 2px solid #fff;
+    border-width: 0 0 2px;
+    background-color: transparent;
+    font: 22px "Open Sans", sans-serif;
+    padding: 0.125em 0.225em;
+    float: left;
+    width: 89%;
+}
 
-/*!* 顶部导航icon设置 *!*/
-/*.topbar_icon {*/
-/*    padding: 0.4rem;*/
-/*    margin: 0.1rem;*/
-/*    vertical-align: middle;*/
-/*    background-color: #fff;*/
-/*    border-radius: 50%;*/
-/*    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.15), 1px 1px 8px rgba(0, 0, 0, 0.15);*/
-/*}*/
+input[type="search"]:focus {
+    color: #fff;
+    border-color: #fff;
+    outline: none;
+}
 
-/*.topbar_icon.voice {*/
-/*    float: left;*/
-/*}*/
+/* 顶部导航icon设置 */
+.topbar_icon {
+    padding: 0.4rem;
+    margin: 0.1rem;
+    vertical-align: middle;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.15), 1px 1px 8px rgba(0, 0, 0, 0.15);
+}
 
-/*.topbar_icon.more {*/
-/*    float: right;*/
-/*}*/
+.topbar_icon.voice {
+    float: left;
+}
 
-/*.topbar_icon svg {*/
-/*    display: inline-block;*/
-/*    pointer-events: none;*/
-/*    position: relative;*/
-/*    vertical-align: middle;*/
-/*    width: 1.5rem;*/
-/*    height: 1.5rem;*/
-/*    fill: rgba(0, 0, 0, 0.3);*/
+.topbar_icon.more {
+    float: right;
+}
 
-/*}*/
+.topbar_icon svg {
+    display: inline-block;
+    pointer-events: none;
+    position: relative;
+    vertical-align: middle;
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: rgba(0, 0, 0, 0.3);
+
+}
 
 /* 追加底部导航 */
 
 .line {
     width: 320px;
     height: 10px;
-    border: solid 2px #f09199;
-    border-color: #f09199 rgba(255, 255, 255, 0.1) rgba(255, 255, 255, 0.1) transparent;
+    border: solid 2px #fff;
+border-color: #fff rgba(255, 255, 255, 0.1) rgba(255, 255, 255, 0) transparent;
     border-radius: 99.9%/100px 100px 0 0;
     margin: 0 auto;
 }
@@ -432,7 +457,7 @@ code {
     height: 0;
     border-right: 8px solid transparent;
     border-left: 8px solid transparent;
-    border-top: 8px solid #f09199;
+    border-top: 8px solid #fff;
 
 }
 
@@ -440,7 +465,7 @@ code {
 .nav_item {
     margin: 0 0.5rem 0 0.5rem;
     border-radius: 50%;
-    background-color: #f09199;
+    background-color: #fff;
     /*color: pink;*/
     padding: 0.5rem;
     width: 2.5rem;

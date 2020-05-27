@@ -9,10 +9,10 @@
 
     <textarea class="ckeditor"  name="body" id="body" placeholder="内容" required></textarea><br>
       <input class="input" type="text"  name="tags" placeholder="输入标签空格分隔"><br>
-      <select name="catalog_id" id="catalog_id" >
-              {% if catalogs %}
-                  {% for catalog in catalogs %}
-                            <option value="{{ catalog.catalog_id }} "> {{ catalog.catalog_name }} </option>
+      <select name="collection_id" id="collection_id" >
+              {% if collections %}
+                  {% for collection in collections %}
+                            <option value="{{ collection.collecion_id }} "> {{ collection.collection_name }} </option>
                   {% endfor %}
               {% endif %}
       </select>
