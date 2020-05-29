@@ -10,7 +10,7 @@ from itertools import groupby
 from operator import itemgetter
 from app.utiles import redirect_back
 from werkzeug import secure_filename
-
+import os
 admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 
 
@@ -182,7 +182,7 @@ def renew_post(post_id):
 #     return render_template('admin/tag_manage.html')
 
 
-# 文集管理
+# 专辑管理
 @login_required
 @admin_bp.route('/collection/manage', methods=['GET'])
 def manage_collection():
@@ -195,7 +195,7 @@ def manage_collection():
     return render_template('admin/collection_manage.html', collections=collections)
 
 
-# 增加文集
+# 增加专辑
 @login_required
 @admin_bp.route('/collection/new', methods=['GET', 'POST'])
 def new_collection():
@@ -225,7 +225,7 @@ def new_collection():
     return render_template('admin/collection_new.html')
 
 
-# 添加文集图片
+# 添加专辑图片
 # @login_required
 # @admin_bp.route('/upload/', methods=['GET', 'POST'])
 # def upload():
@@ -244,61 +244,70 @@ def manage_file():
 # 图片上传
 @login_required
 @admin_bp.route('/uploads/images/', methods=['GET', 'POST'])
-def upload_image():
-    if request.method == 'POST' and 'file' in request.files:
-        # 如果请求类型为POST，说明是文件上传请求
-        #获取图片文件对象f
-        f = request.files.get('collection_image')
-        # for f in request.files.getlist('file_image') 图片列表
+def upload_images():
+    if request.method == 'POST' and 'image_files' in request.files:
+        # 遍历图片
+        for image_file in request.files.getlist('image_files'):
         # 获得图片文件的新名字
-        filename = secure_filename(f.filename)
-
-        # 检查图片文件是否存在 确保字段中包含文件数据＝FIleRequired验证器 check_file() check_image()
-        if not check_image(f):
-            return ''， 400
+        filename = secure_filename(image_file.filename)
 
 
-        # 验证图片文件格式＝FileAllowed  allowed_file() allowed_image()
-             
 
-         f.filename.split('.')[1] != 'png':
 
+#检查图片格式
+
+         # f.filename.split('.')[1] != 'png':
+        # return '.' in filename and filename.spilit('.',1) [1].lower() in app.config['ALLOWED_EXTENSIONS']
 
         # 检查后才可以保存到服务器
         # 保存图片
-        f.save(os.path.join(app.config['ALBUMY_UPLOAD_PATH'], filename))
+        image_file.save(os.path.join(app.config['PHOTO_UPLOAD_PATH'], filename))
         db = get_db()
         cursor = db.cursor()
         cursor.execute(
             "insert into photo(photo_name,collection_name) values('%s','%s') " % (
-                collection_name, collection_img))
+                photo_name, collection_img))
         db.commit()
-        return redirect(url_for('admin.manage_collection'))
-
         flash('upload sucess')
         # session中将文件名保存在
         session['filenames'] = [filename]
+        # filename = session.get('filename')
+        imagefiles.append(filename)
+        #return redirect(url_for('show_images'))
+      else:
+          # 图片不存在
+          flash('this image is required')
+          return redirect(url_for('admin.upload_image'))
+
+else:
+flash('Invalid file type ')
+          flash('upload scuess')
+           session['flename']=filename
+            return redirect(url_for('show_images'))
+       return render_template('admin/upload.html',imagefiles=imagefiles)
 
 
-filename = session.get('filename')
-
-return redirect(url_for('show_images'))
-    return render_template('uplpad.html', file=file)
-return render_template('upload.html',filename=filename)
 
 
-# 展示图片文件
-def show_images():
 
-# 检查图片文件是否存在
-def check_images():
-    # if f not in request.files:
-    f = request.files.get('file_image')
-    if f is None:
-        flash('this image is required')
-        return redirect(url_for('admin.upload'))
-    else:
-        return f
+
+# 上传后展示的图片列表
+# def show_images():
+# # 从session中获取文件名
+# filename=session.get('filename')
+# return render_template('upload.html',filename=filename)
+
+
+# 删除图片   单个删除vs全部删除
+# 在不同的地方需要删除图片记录 为图片创建数据库监听函数 当图片记录被删除的时候，自动删除对应文件
+# def delete_images(photo_id):
+# # 从session中获取文件名
+# filename=session.get('filename')
+# 从数据库删除
+# flash（"delete sucess"）
+# 返回余下的图片
+# return render_template('upload.html',image_files=images_files)
+
 
 
 

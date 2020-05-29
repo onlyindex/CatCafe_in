@@ -1,15 +1,15 @@
 {% extends "admin/ad_base.html" %}
 {% block title %}
-     <ul class="nav_item">
+    <ul class="nav_item">
         <li class="item_li cur"><span>图片<em></em></span></li>
         <li class="item_li"><span>视频<em></em></span></li>
-         <li class="item_li"><span>语音<em></em></span></li>
+        <li class="item_li"><span>语音<em></em></span></li>
     </ul>
 {% endblock %}
 {% block styles %}
     {{ super() }}
-<style>
-   {#追加导航内样式#}
+    <style>
+        {#追加导航内样式#}
         .item_li.cur {
             color: #F09199;
         }
@@ -42,13 +42,131 @@
         }
 
 
+        {#图片分类#}
+        .image_type {
+            border: 1px solid transparent;
+            line-height: 30px;
+            padding: 0 15px;
+            color: #9A9A9A;
+            border-radius: 15px;
+            -moz-border-radius: 15px;
+            -webkit-border-radius: 15px;
+            cursor: pointer;
+            display: inline-block;
+            vertical-align: top;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
 
-</style>
+        .image_type_current {
+            color: #F09199;
+            border-color: currentColor;
+        }
+
+        {#分类图片数量统计#}
+        .image_type_count {
+            font-style: normal;
+            margin-left: 4px;
+        }
+
+
+        ul, ol {
+            list-style-type: none;
+        }
+
+        .pic {
+            height: 200px;
+            width: 200px;
+            margin: 0 auto;
+            overflow: hidden;
+
+        }
+
+        .pic_item {
+            cursor: pointer;
+            position: relative;
+            float: left;
+        {#margin: 0 45px 14px 0;#}
+        margin: 0 20px 30px 0;
+        {#padding: 0 40px 40px 0;#}
+            text-align: center;
+        {#width: 160px;#}
+            width: 200px;
+            height: 270px;
+
+        }
+
+        .pic_title {
+            display: block;
+            width: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            word-wrap: normal;
+            font-weight: 400;
+            padding: 10px 10px 0;
+            line-height: 36px;
+        }
+
+    .image_type_list {
+    font-size: 12px;
+}
+
+
+    </style>
 {% endblock %}
 {% block page_content %}
+    <div class="image_manage plug">
+
+            <h3 class="plug_title">
+                <svg t="1590677561521" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                     xmlns="http://www.w3.org/2000/svg" p-id="9105" width="16" height="16">
+                    <path d="M570.8 703.1H453.2c-18.4 0-33.1 3.7-47.8 18.4-11 14.7-18.4 29.4-18.4 47.8v113.9c0 18.4 3.7 33.1 18.4 47.8 14.7 11 29.4 18.4 47.8 18.4h117.6c18.4 0 33.1-3.7 47.8-18.4 11-14.7 18.4-29.4 18.4-47.8V769.3c0-18.4-3.7-33.1-18.4-47.8-14.7-11-29.4-18.4-47.8-18.4zM302.5 89.4c-14.7-11-29.4-18.4-47.8-18.4H137.2c-18.4 0-36.8 3.7-47.8 18.4S71 118.8 71 137.1v117.6c0 18.4 3.7 36.8 18.4 47.8s29.4 18.4 47.8 18.4h117.6c18.4 0 36.8-3.7 47.8-18.4s18.4-29.4 18.4-47.8V137.1c-0.1-18.3-3.8-36.7-18.5-47.7zM254.8 703.1H137.2c-18.4 0-33.1 3.7-47.8 18.4-11 14.7-18.4 29.4-18.4 47.8v117.6c0 18.4 3.7 36.8 18.4 47.8s29.4 18.4 47.8 18.4h117.6c18.4 0 36.8-7.4 47.8-22 11-14.7 18.4-29.4 18.4-47.8v-114c0-18.4-3.7-33.1-18.4-47.8-14.8-11-29.5-18.4-47.8-18.4zM886.9 387H769.3c-18.4 0-36.8 7.4-47.8 18.4-11 14.7-18.4 29.4-18.4 47.8v113.9c0 18.4 3.7 33.1 18.4 47.8 14.7 11 29.4 18.4 47.8 18.4h117.6c18.4 0 33.1-3.7 47.8-18.4 11-14.7 18.4-29.4 18.4-47.8V453.2c0-18.4-3.7-33.1-18.4-47.8-14.8-11-29.5-18.4-47.8-18.4zM570.8 387H453.2c-18.4 0-33.1 3.7-47.8 18.4-11 14.7-18.4 29.4-18.4 47.8v113.9c0 18.4 3.7 33.1 18.4 47.8 14.7 11 29.4 18.4 47.8 18.4h117.6c18.4 0 33.1-3.7 47.8-18.4 11-14.7 18.4-29.4 18.4-47.8V453.2c0-18.4-3.7-33.1-18.4-47.8-14.7-11-29.4-18.4-47.8-18.4zM886.9 703.1H769.3c-18.4 0-33.1 3.7-47.8 18.4-11 14.7-18.4 29.4-18.4 47.8v117.6c0 18.4 3.7 33.1 18.4 47.8 14.7 11 29.4 18.4 47.8 18.4h117.6c18.4 0 36.8-7.4 47.8-22 11-14.7 18.4-29.4 18.4-47.8v-114c0-18.4-3.7-33.1-18.4-47.8-14.8-11-29.5-18.4-47.8-18.4zM934.6 89.4c-14.7-11-29.4-18.4-47.8-18.4H769.3c-18.4 0-36.8 7.3-47.8 18.4-11 14.7-18.4 29.4-18.4 47.8v117.6c0 18.4 3.7 33.1 18.4 47.8 14.7 11 29.4 18.4 47.8 18.4h117.6c18.4 0 36.8-3.7 47.8-18.4s18.4-29.4 18.4-47.8V137.1c-0.1-18.3-3.8-36.7-18.5-47.7zM570.8 71H453.2c-18.4 0-33.1 7.3-47.8 18.4-11 14.7-18.4 29.4-18.4 47.8v117.6c0 18.4 7.4 33.1 18.4 47.8 14.7 11 29.4 18.4 47.8 18.4h117.6c18.4 0 33.1-3.7 47.8-18.4 11-14.7 18.4-29.4 18.4-47.8V137.1c0-18.4-3.7-33.1-18.4-47.8-14.7-11-29.4-18.3-47.8-18.3z"
+                          fill="#a0a0a0" p-id="9106"></path>
+                    <path d="M570.8 387H453.2c-18.4 0-33.1 3.7-47.8 18.4-11 14.7-18.4 29.4-18.4 47.8v113.9c0 18.4 3.7 33.1 18.4 47.8 14.7 11 29.4 18.4 47.8 18.4h117.6c18.4 0 33.1-3.7 47.8-18.4 11-14.7 18.4-29.4 18.4-47.8V453.2c0-18.4-3.7-33.1-18.4-47.8-14.7-11-29.4-18.4-47.8-18.4zM934.6 405.4c-14.7-11-29.4-18.4-47.8-18.4H769.3c-18.4 0-36.8 7.4-47.8 18.4-11 14.7-18.4 29.4-18.4 47.8v113.9c0 18.4 3.7 33.1 18.4 47.8 14.7 11 29.4 18.4 47.8 18.4h117.6c18.4 0 33.1-3.7 47.8-18.4 11-14.7 18.4-29.4 18.4-47.8V453.2c-0.1-18.4-3.8-33.1-18.5-47.8zM302.5 405.1c-14.7-10.9-29.4-18.1-47.8-18.1H137.2c-18.4 0-36.8 3.6-47.8 18.1S71 434.1 71 452.2V568c0 18.1 3.7 36.2 18.4 47s29.4 18.1 47.8 18.1h117.6c18.4 0 36.8-3.6 47.8-18.1s18.4-28.9 18.4-47V452.2c-0.1-18.1-3.8-36.2-18.5-47.1z"
+                          fill="#a0a0a0" p-id="9107"></path>
+                </svg>
+                图片（共<span id="js_count">3</span>条）
+            </h3>
+        <div class="image_type_list">
+            <ul>
+
+                <li title="头像相册" class="image_type image_type_current">头像相册
+                    <span class="image_type_count">(3)</span>
+                </li>
+                <li title="文章配图" class="image_type">文章配图
+                    <span class="image_type_count">(2)</span>
+                </li>
+                <li title="文章配图" class="image_type">专辑配图
+                    <span class="image_type_count">(33)</span>
+                </li>
+
+            </ul>
+        </div>
+        <input file="file" name="image_files" action="{{ url_for("admin.upload_images") }}" multiple>
+        <div class="pic_list">
+            <ul>
+                {% if imagefiles %}
+
+                {% for f in imagefiles %}
+                <li class="pic_item selected">
+                    <div class="pic">
+                            <img width="120" src="{{ url_for("admin.show_images",photo_name=f.photo_name) }}">
+                    </div>
+                    <strong class="pic_title">{{ f.photo_name }}</strong>
+                </li>
+                    {% endfor %}
+                                {% endif %}
+
+            </ul>
+        </div>
+
+
+    </div>
+
 
 {% endblock %}
- {% block scripts %}
-<script></script>
+{% block scripts %}
+    <script></script>
 {% endblock %}
 

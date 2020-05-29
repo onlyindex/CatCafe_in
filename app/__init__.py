@@ -7,6 +7,7 @@ from db import get_db
 
 from datetime import timedelta
 
+
 # Sword Art Online
 def create_app():
     print('create app(config=None)run')
@@ -16,9 +17,14 @@ def create_app():
         # 配置文件太少了_(:з」∠)_so未分门别类放置
         SECRET_KEY='hard to guess',
         DATABASE=os.path.join(app.instance_path, 'cat.db'),
+        # 设置图片文件储存位置
+        PHOTO_UPLOAD_PATHUP=os.path.join(os.path.abspath(os.path.dirname(__file__)), 'uploads'),
+        ALLOWD_EXTENSIONS=['png', 'jpg', 'jpeg', 'gif'],
         # 主题配置文件
-        THEMES={'Pink':'pink_phone','Blue':'blue_phone'},
+        THEMES={'Pink': 'pink_phone', 'Blue': 'blue_phone'},
         SEND_FILE_MAX_AGE_DEFAULT=timedelta(seconds=1),
+        # 最大请求报文长度
+        MAX_CONTENT_LENGHT=3 * 1024 * 1024,
         # 设置会话过期时间
         PERMANENT_SESSION_LIFETIME=timedelta(minutes=30)
     )
@@ -65,6 +71,5 @@ def create_app():
     @app.route('/me', methods=['GET'])
     def me():
         return render_template('me2.html')
-
 
     return app
